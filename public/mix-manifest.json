@@ -1,5 +1,15 @@
 {
     "/js/app.js": "/js/app.js",
+    "/js/codebase.app.js": "/js/codebase.app.js",
+    "/js/pages/tables_datatables.js": "/js/pages/tables_datatables.js",
     "/js/index.js": "/js/index.js",
-    "/css/app.css": "/css/app.css"
+    "/js/manifest.js": "/js/manifest.js",
+    "/css/themes/earth.css": "/css/themes/earth.css",
+    "/css/themes/corporate.css": "/css/themes/corporate.css",
+    "/css/codebase.css": "/css/codebase.css",
+    "/css/app.css": "/css/app.css",
+    "/css/themes/pulse.css": "/css/themes/pulse.css",
+    "/css/themes/flat.css": "/css/themes/flat.css",
+    "/css/themes/elegance.css": "/css/themes/elegance.css",
+    "/js/vendor.js": "/js/vendor.js"
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-// import { Alert, Breadcrumbs, Button, Card, Carousel, CarouselItem, Input, Textarea } from '../../Components';
+import { DataTable, Breadcrumb } from '../../Components';
 
 interface DashboardProps {
 }
@@ -16,7 +16,8 @@ const Dashboard: DashboardComponent = () => {
     }, [Value]);
 
     return <React.Fragment>
-        <h1>hello</h1>
+        <Breadcrumb />
+        <DataTable/>
     </React.Fragment>
 }
 

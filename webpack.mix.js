@@ -12,8 +12,32 @@ const mix = require('laravel-mix');
  */
 
 mix.js('resources/js/app.js', 'public/js')
+    .extract(['react'])
     .postCss('resources/css/app.css', 'public/css', [
         //
     ]);
 
 mix.ts('resources/app/index.tsx', 'public/js').react();
+
+mix
+    /* CSS */
+    .sass('resources/sass/main.scss', 'public/css/codebase.css')
+    .sass('resources/sass/codebase/themes/corporate.scss', 'public/css/themes/')
+    .sass('resources/sass/codebase/themes/earth.scss', 'public/css/themes/')
+    .sass('resources/sass/codebase/themes/elegance.scss', 'public/css/themes/')
+    .sass('resources/sass/codebase/themes/flat.scss', 'public/css/themes/')
+    .sass('resources/sass/codebase/themes/pulse.scss', 'public/css/themes/')
+
+    /* JS */
+    .js('resources/js/codebase/app.js', 'public/js/codebase.app.js')
+
+    /* Page JS */
+    .js('resources/js/pages/tables_datatables.js', 'public/js/pages/tables_datatables.js')
+
+    /* Tools */
+    .disableNotifications()
+
+    /* Options */
+    .options({
+        processCssUrls: false
+    });
