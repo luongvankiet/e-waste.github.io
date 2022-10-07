@@ -1,6 +1,7 @@
 import React from 'react'
 
 interface DataTableProps {
+    
 }
 
 const DataTable: React.FunctionComponent<DataTableProps> = (props) => {

@@ -2076,17 +2076,25 @@ var react_1 = __importDefault(__webpack_require__(/*! react */ "./node_modules/r
 
 var Breadcrumb = function Breadcrumb(props) {
   return react_1["default"].createElement(react_1["default"].Fragment, null, react_1["default"].createElement("div", {
-    className: "bg-body-light border-b"
+    className: "bg-white border-b"
   }, react_1["default"].createElement("div", {
     className: "content py-5 text-center"
   }, react_1["default"].createElement("nav", {
-    className: "breadcrumb bg-body-light mb-0"
-  }, react_1["default"].createElement("a", {
-    className: "breadcrumb-item",
-    href: "be_pages_ecom_dashboard.html"
-  }, "e-Commerce"), react_1["default"].createElement("span", {
-    className: "breadcrumb-item active"
-  }, "Orders")))));
+    className: "breadcrumb bg-white mb-0"
+  }, props.items.map(function (item) {
+    var _a;
+
+    if (!item.active) {
+      return react_1["default"].createElement("a", {
+        className: "breadcrumb-item",
+        href: (_a = item.link) !== null && _a !== void 0 ? _a : '/admin'
+      }, item.name);
+    }
+
+    return react_1["default"].createElement("span", {
+      className: "breadcrumb-item active"
+    }, item.name);
+  })))));
 };
 
 exports["default"] = Breadcrumb;
@@ -2707,6 +2715,45 @@ exports["default"] = DataTable;
 
 /***/ }),
 
+/***/ "./resources/app/Components/PageContentHeader/index.tsx":
+/*!**************************************************************!*\
+  !*** ./resources/app/Components/PageContentHeader/index.tsx ***!
+  \**************************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+
+var react_1 = __importDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
+
+var PageContentHeader = function PageContentHeader(props) {
+  return react_1["default"].createElement(react_1["default"].Fragment, null, react_1["default"].createElement("div", {
+    className: "bg-body-light"
+  }, react_1["default"].createElement("div", {
+    className: "bg-pattern"
+  }, react_1["default"].createElement("div", {
+    className: "content text-center"
+  }, react_1["default"].createElement("div", {
+    className: "pt-20 pb-20"
+  }, react_1["default"].createElement("h1", {
+    className: "font-w700 mb-10"
+  }, props.title))))));
+};
+
+exports["default"] = PageContentHeader;
+
+/***/ }),
+
 /***/ "./resources/app/Components/index.tsx":
 /*!********************************************!*\
   !*** ./resources/app/Components/index.tsx ***!
@@ -2725,7 +2772,7 @@ var __importDefault = this && this.__importDefault || function (mod) {
 Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
-exports.Breadcrumb = exports.DataTable = void 0;
+exports.PageContentHeader = exports.Breadcrumb = exports.DataTable = void 0;
 
 var DataTable_1 = __importDefault(__webpack_require__(/*! ./DataTable */ "./resources/app/Components/DataTable/index.tsx"));
 
@@ -2735,12 +2782,453 @@ var Breadcrumb_1 = __importDefault(__webpack_require__(/*! ./Breadcrumb */ "./re
 
 exports.Breadcrumb = Breadcrumb_1["default"];
 
+var PageContentHeader_1 = __importDefault(__webpack_require__(/*! ./PageContentHeader */ "./resources/app/Components/PageContentHeader/index.tsx"));
+
+exports.PageContentHeader = PageContentHeader_1["default"];
+
 /***/ }),
 
-/***/ "./resources/app/Pages/Dashboard/index.tsx":
-/*!*************************************************!*\
-  !*** ./resources/app/Pages/Dashboard/index.tsx ***!
-  \*************************************************/
+/***/ "./resources/app/Models/Categories.tsx":
+/*!*********************************************!*\
+  !*** ./resources/app/Models/Categories.tsx ***!
+  \*********************************************/
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports.getDetail = exports.getList = exports.data = void 0;
+var data = [{
+  id: 'CID.210',
+  name: 'Switch',
+  products_count: 10
+}, {
+  id: 'CID.211',
+  name: 'Router',
+  products_count: 150
+}, {
+  id: 'CID.212',
+  name: 'Laptop',
+  products_count: 310
+}, {
+  id: 'CID.213',
+  name: 'Mobile Phone',
+  products_count: 30
+}, {
+  id: 'CID.214',
+  name: 'Tablet',
+  products_count: 20
+}];
+exports.data = data;
+
+var getList = function getList() {
+  return data;
+};
+
+exports.getList = getList;
+
+var getDetail = function getDetail(id) {
+  var _a;
+
+  return (_a = data.find(function (item) {
+    return item.id == id;
+  })) !== null && _a !== void 0 ? _a : data[0];
+};
+
+exports.getDetail = getDetail;
+
+/***/ }),
+
+/***/ "./resources/app/Models/Order.tsx":
+/*!****************************************!*\
+  !*** ./resources/app/Models/Order.tsx ***!
+  \****************************************/
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports.countByStatus = exports.getOrderByStatus = exports.getOrder = exports.getList = exports.data = void 0;
+var data = [{
+  id: 'ORD.1851',
+  status: 'Processing',
+  submitted: '2017/10/27',
+  products_count: 5,
+  customer_name: "Jack Estrada",
+  total_price: 572
+}, {
+  id: 'ORD.1850',
+  status: 'Canceled',
+  submitted: '2017/10/26',
+  products_count: 7,
+  customer_name: "Albert Ray",
+  total_price: 692
+}, {
+  id: 'ORD.1849',
+  status: 'Pending',
+  submitted: '2017/10/26',
+  products_count: 9,
+  customer_name: "Lisa Jenkins",
+  total_price: 583
+}, {
+  id: 'ORD.1848',
+  status: 'Completed',
+  submitted: '2017/10/26',
+  products_count: 2,
+  customer_name: "Marie Duncan",
+  total_price: 172
+}, {
+  id: 'ORD.1847',
+  status: 'Pending',
+  submitted: '2017/10/23',
+  products_count: 2,
+  customer_name: 'Jack Greene',
+  total_price: 258
+}, {
+  id: 'ORD.1846',
+  status: 'Canceled',
+  submitted: '2017/10/22',
+  products_count: 6,
+  customer_name: 'Betty Kelley',
+  total_price: 202
+}, {
+  id: 'ORD.1845',
+  status: 'Pending',
+  submitted: '2017/10/21',
+  products_count: 1,
+  customer_name: 'Jesse Fisher',
+  total_price: 717
+}, {
+  id: 'ORD.1844',
+  status: 'Processing',
+  submitted: '2017/10/20',
+  products_count: 2,
+  customer_name: 'Lori Moore',
+  total_price: 603
+}, {
+  id: 'ORD.1843',
+  status: 'Canceled',
+  submitted: '2017/10/19',
+  products_count: 9,
+  customer_name: 'Carol White',
+  total_price: 761
+}, {
+  id: 'ORD.1842',
+  status: 'Canceled',
+  submitted: '2017/10/18',
+  products_count: 1,
+  customer_name: 'Marie Duncan',
+  total_price: 269
+}, {
+  id: 'ORD.1841',
+  status: 'Processing',
+  submitted: '2017/10/17',
+  products_count: 3,
+  customer_name: 'Jack Greene',
+  total_price: 867
+}, {
+  id: 'ORD.1840',
+  status: 'Completed',
+  submitted: '2017/10/16',
+  products_count: 4,
+  customer_name: 'Marie Duncan',
+  total_price: 172
+}, {
+  id: 'ORD.1839',
+  status: 'Processing',
+  submitted: '2017/10/15',
+  products_count: 7,
+  customer_name: 'Lisa Jenkins',
+  total_price: 673
+}, {
+  id: 'ORD.1838',
+  status: 'Pending',
+  submitted: '2017/10/14',
+  products_count: 4,
+  customer_name: 'Jose Parker',
+  total_price: 289
+}, {
+  id: 'ORD.1837',
+  status: 'Completed',
+  submitted: '2017/10/13',
+  products_count: 5,
+  customer_name: 'Barbara Scott',
+  total_price: 191
+}];
+exports.data = data;
+
+var getList = function getList(orders) {
+  return data;
+};
+
+exports.getList = getList;
+
+var getOrder = function getOrder(id) {
+  return data.find(function (order) {
+    return order.id === id;
+  });
+};
+
+exports.getOrder = getOrder;
+
+var getOrderByStatus = function getOrderByStatus(status) {
+  if (!status) {
+    return data;
+  }
+
+  return data.filter(function (order) {
+    return order.status === status;
+  });
+};
+
+exports.getOrderByStatus = getOrderByStatus;
+
+var countByStatus = function countByStatus(status) {
+  if (!status) {
+    return data.length;
+  }
+
+  return data.filter(function (order) {
+    return order.status === status;
+  }).length;
+};
+
+exports.countByStatus = countByStatus;
+
+/***/ }),
+
+/***/ "./resources/app/Models/Products.tsx":
+/*!*******************************************!*\
+  !*** ./resources/app/Models/Products.tsx ***!
+  \*******************************************/
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+exports.getByCategory = exports.getByStatus = exports.countByStatus = exports.getProduct = exports.getList = exports.data = void 0;
+var data = [{
+  id: 'PID.424',
+  status: 'Out of Stock',
+  submitted: '2017/09/27',
+  name: 'Product #24',
+  category_id: 'CID.221',
+  category: 'Switch',
+  price: 37,
+  in_stock: 40,
+  image_url: '/media/products/9.png'
+}, {
+  id: 'PID.423',
+  status: 'Available',
+  submitted: '2017/09/26',
+  name: 'Product #23',
+  category_id: 'CID.221',
+  category: 'Switch',
+  price: 96,
+  in_stock: 40,
+  image_url: '/media/products/2.png'
+}, {
+  id: 'PID.422',
+  status: 'Available',
+  submitted: '2017/09/25',
+  name: 'Product #22',
+  category_id: 'CID.221',
+  category: 'Switch',
+  price: 18,
+  in_stock: 40,
+  image_url: '/media/products/3.png'
+}, {
+  id: 'PID.421',
+  status: 'Available',
+  submitted: '2017/09/24',
+  name: 'Product #21',
+  category_id: 'CID.221',
+  category: 'Router',
+  price: 94,
+  in_stock: 40,
+  image_url: '/media/products/4.png'
+}, {
+  id: 'PID.420',
+  status: 'Out of Stock',
+  submitted: '2017/09/23',
+  name: 'Product #20',
+  category_id: 'CID.221',
+  category: 'Router',
+  price: 73,
+  in_stock: 40,
+  image_url: '/media/products/5.png'
+}, {
+  id: 'PID.419',
+  status: 'Out of Stock',
+  submitted: '2017/09/22',
+  name: 'Product #19',
+  category_id: 'CID.221',
+  category: 'Switch',
+  price: 51,
+  in_stock: 40,
+  image_url: '/media/products/6.png'
+}, {
+  id: 'PID.418',
+  status: 'Available',
+  submitted: '2017/09/21',
+  name: 'Product #18',
+  category_id: 'CID.221',
+  category: 'Laptop',
+  price: 66,
+  in_stock: 40,
+  image_url: '/media/products/7.png'
+}, {
+  id: 'PID.417',
+  status: 'Available',
+  submitted: '2017/09/20',
+  name: 'Product #17',
+  category_id: 'CID.221',
+  category: 'Mobile Phone',
+  price: 75,
+  in_stock: 40,
+  image_url: '/media/products/8.png'
+}, {
+  id: 'PID.416',
+  status: 'Available',
+  submitted: '2017/09/19',
+  name: 'Product #16',
+  category_id: 'CID.221',
+  category: 'Tablet',
+  price: 15,
+  in_stock: 40,
+  image_url: '/media/products/9.png'
+}, {
+  id: 'PID.415',
+  status: 'Available',
+  submitted: '2017/09/18',
+  name: 'Product #15',
+  category_id: 'CID.221',
+  category: 'Switch',
+  price: 17,
+  in_stock: 40,
+  image_url: '/media/products/10.png'
+}, {
+  id: 'PID.414',
+  status: 'Out of Stock',
+  submitted: '2017/09/17',
+  name: 'Product #14',
+  category_id: 'CID.221',
+  category: 'Router',
+  price: 79,
+  in_stock: 40,
+  image_url: '/media/products/11.png'
+}, {
+  id: 'PID.413',
+  status: 'Available',
+  submitted: '2017/09/16',
+  name: 'Product #13',
+  category_id: 'CID.221',
+  category: 'Laptop',
+  price: 64,
+  in_stock: 40,
+  image_url: '/media/products/12.png'
+}, {
+  id: 'PID.412',
+  status: 'Available',
+  submitted: '2017/09/15',
+  name: 'Product #12',
+  category_id: 'CID.221',
+  category: 'Laptop',
+  price: 96,
+  in_stock: 40,
+  image_url: '/media/products/5.png'
+}, {
+  id: 'PID.411',
+  status: 'Available',
+  submitted: '2017/09/14',
+  name: 'Product #11',
+  category_id: 'CID.221',
+  category: 'Mobile Phone',
+  price: 58,
+  in_stock: 40,
+  image_url: '/media/products/6.png'
+}, {
+  id: 'PID.410',
+  status: 'Available',
+  submitted: '2017/09/13',
+  name: 'Product #10',
+  category_id: 'CID.221',
+  category: 'Mobile Phone',
+  price: 50,
+  in_stock: 40,
+  image_url: '/media/products/2.png'
+}];
+exports.data = data;
+
+var getList = function getList() {
+  return data;
+};
+
+exports.getList = getList;
+
+var getProduct = function getProduct(id) {
+  if (!id) {
+    return data[0];
+  }
+
+  return data.find(function (item) {
+    return item.id === id;
+  });
+};
+
+exports.getProduct = getProduct;
+
+var getByCategory = function getByCategory(category) {
+  if (!category) {
+    return data;
+  }
+
+  return data.filter(function (product) {
+    return product.category === category;
+  });
+};
+
+exports.getByCategory = getByCategory;
+
+var getByStatus = function getByStatus(status) {
+  if (!status) {
+    return data;
+  }
+
+  return data.filter(function (product) {
+    return product.status === status;
+  });
+};
+
+exports.getByStatus = getByStatus;
+
+var countByStatus = function countByStatus(status) {
+  if (!status) {
+    return data.length;
+  }
+
+  return data.filter(function (product) {
+    return product.status === status;
+  }).length;
+};
+
+exports.countByStatus = countByStatus;
+
+/***/ }),
+
+/***/ "./resources/app/Pages/Admin/Categories/CategoryDetail.tsx":
+/*!*****************************************************************!*\
+  !*** ./resources/app/Pages/Admin/Categories/CategoryDetail.tsx ***!
+  \*****************************************************************/
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -2807,6 +3295,423 @@ function _arrayWithHoles(arr) {
   if (Array.isArray(arr)) return arr;
 }
 
+var __createBinding = this && this.__createBinding || (Object.create ? function (o, m, k, k2) {
+  if (k2 === undefined) k2 = k;
+  var desc = Object.getOwnPropertyDescriptor(m, k);
+
+  if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+    desc = {
+      enumerable: true,
+      get: function get() {
+        return m[k];
+      }
+    };
+  }
+
+  Object.defineProperty(o, k2, desc);
+} : function (o, m, k, k2) {
+  if (k2 === undefined) k2 = k;
+  o[k2] = m[k];
+});
+
+var __setModuleDefault = this && this.__setModuleDefault || (Object.create ? function (o, v) {
+  Object.defineProperty(o, "default", {
+    enumerable: true,
+    value: v
+  });
+} : function (o, v) {
+  o["default"] = v;
+});
+
+var __importStar = this && this.__importStar || function (mod) {
+  if (mod && mod.__esModule) return mod;
+  var result = {};
+  if (mod != null) for (var k in mod) {
+    if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+  }
+
+  __setModuleDefault(result, mod);
+
+  return result;
+};
+
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+
+var react_1 = __importStar(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
+
+var CategortModel = __importStar(__webpack_require__(/*! ../../../Models/Categories */ "./resources/app/Models/Categories.tsx"));
+
+var ProductModel = __importStar(__webpack_require__(/*! ../../../Models/Products */ "./resources/app/Models/Products.tsx"));
+
+var react_router_dom_1 = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/index.js");
+
+var index_1 = __importDefault(__webpack_require__(/*! ../../../Components/Breadcrumb/index */ "./resources/app/Components/Breadcrumb/index.tsx"));
+
+var index_2 = __importDefault(__webpack_require__(/*! ../../../Components/PageContentHeader/index */ "./resources/app/Components/PageContentHeader/index.tsx"));
+
+var CategoryDetail = function CategoryDetail(props) {
+  var _ref = (0, react_router_dom_1.useParams)(),
+      id = _ref.id;
+
+  var _ref2 = (0, react_1.useState)(),
+      _ref3 = _slicedToArray(_ref2, 2),
+      category = _ref3[0],
+      setCategory = _ref3[1];
+
+  var _ref4 = (0, react_1.useState)(),
+      _ref5 = _slicedToArray(_ref4, 2),
+      products = _ref5[0],
+      setProducts = _ref5[1];
+
+  (0, react_1.useEffect)(function () {
+    setCategory(CategortModel.getDetail(id));
+    setProducts(ProductModel.getList());
+  }, [id]);
+  return react_1["default"].createElement(react_1["default"].Fragment, null, react_1["default"].createElement(index_2["default"], {
+    title: category === null || category === void 0 ? void 0 : category.name
+  }), react_1["default"].createElement(index_1["default"], {
+    items: [{
+      name: 'Dashboard',
+      link: '/admin'
+    }, {
+      name: 'Categories',
+      link: '/categories'
+    }, {
+      name: category === null || category === void 0 ? void 0 : category.id,
+      active: true
+    }]
+  }), react_1["default"].createElement("div", {
+    className: "content"
+  }, react_1["default"].createElement("div", {
+    className: "block block-rounded block-fx-shadow"
+  }, react_1["default"].createElement("div", {
+    className: "block-content"
+  }, react_1["default"].createElement("form", null, react_1["default"].createElement("h2", {
+    className: "content-heading text-black"
+  }, "Detail"), react_1["default"].createElement("div", {
+    className: "row items-push"
+  }, react_1["default"].createElement("div", {
+    className: "col-lg-3"
+  }, react_1["default"].createElement("p", {
+    className: "text-muted"
+  }, "Basic information")), react_1["default"].createElement("div", {
+    className: "col-lg-7 offset-lg-1"
+  }, react_1["default"].createElement("div", {
+    className: "form-group"
+  }, react_1["default"].createElement("label", {
+    htmlFor: "re-listing-name"
+  }, "Name"), react_1["default"].createElement("input", {
+    type: "text",
+    className: "form-control form-control-lg",
+    id: "re-listing-name",
+    name: "re-listing-name",
+    placeholder: "eg Brand New Apartment",
+    onChange: function onChange(e) {
+      return setCategory(Object.assign(Object.assign({}, category), {
+        name: e.target.value
+      }));
+    },
+    value: category === null || category === void 0 ? void 0 : category.name
+  })))), react_1["default"].createElement("h2", {
+    className: "content-heading text-black"
+  }, react_1["default"].createElement("div", {
+    className: "float-right"
+  }, react_1["default"].createElement("button", {
+    type: "button",
+    className: "btn btn-sm btn-secondary"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-plus"
+  }))), "Products (", products === null || products === void 0 ? void 0 : products.length, ")"), react_1["default"].createElement("table", {
+    className: "table table-borderless table-striped"
+  }, react_1["default"].createElement("thead", null, react_1["default"].createElement("tr", null, react_1["default"].createElement("th", {
+    style: {
+      width: '100px'
+    }
+  }, "ID"), react_1["default"].createElement("th", null, "Product"), react_1["default"].createElement("th", {
+    className: "text-center"
+  }, "Stock"), react_1["default"].createElement("th", {
+    className: "text-right",
+    style: {
+      width: '10%'
+    }
+  }, "PRICE"))), react_1["default"].createElement("tbody", null, products === null || products === void 0 ? void 0 : products.map(function (product) {
+    return react_1["default"].createElement("tr", null, react_1["default"].createElement("td", null, react_1["default"].createElement(react_router_dom_1.Link, {
+      className: "font-w600",
+      to: "/admin/products/".concat(product.id)
+    }, product.id)), react_1["default"].createElement("td", null, product.name), react_1["default"].createElement("td", {
+      className: "text-center"
+    }, product.in_stock), react_1["default"].createElement("td", {
+      className: "text-right"
+    }, "$", product.price));
+  }))))))));
+};
+
+exports["default"] = CategoryDetail;
+
+/***/ }),
+
+/***/ "./resources/app/Pages/Admin/Categories/index.tsx":
+/*!********************************************************!*\
+  !*** ./resources/app/Pages/Admin/Categories/index.tsx ***!
+  \********************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+
+function _slicedToArray(arr, i) {
+  return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();
+}
+
+function _nonIterableRest() {
+  throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+
+function _unsupportedIterableToArray(o, minLen) {
+  if (!o) return;
+  if (typeof o === "string") return _arrayLikeToArray(o, minLen);
+  var n = Object.prototype.toString.call(o).slice(8, -1);
+  if (n === "Object" && o.constructor) n = o.constructor.name;
+  if (n === "Map" || n === "Set") return Array.from(o);
+  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
+}
+
+function _arrayLikeToArray(arr, len) {
+  if (len == null || len > arr.length) len = arr.length;
+
+  for (var i = 0, arr2 = new Array(len); i < len; i++) {
+    arr2[i] = arr[i];
+  }
+
+  return arr2;
+}
+
+function _iterableToArrayLimit(arr, i) {
+  var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"];
+
+  if (_i == null) return;
+  var _arr = [];
+  var _n = true;
+  var _d = false;
+
+  var _s, _e;
+
+  try {
+    for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) {
+      _arr.push(_s.value);
+
+      if (i && _arr.length === i) break;
+    }
+  } catch (err) {
+    _d = true;
+    _e = err;
+  } finally {
+    try {
+      if (!_n && _i["return"] != null) _i["return"]();
+    } finally {
+      if (_d) throw _e;
+    }
+  }
+
+  return _arr;
+}
+
+function _arrayWithHoles(arr) {
+  if (Array.isArray(arr)) return arr;
+}
+
+var __createBinding = this && this.__createBinding || (Object.create ? function (o, m, k, k2) {
+  if (k2 === undefined) k2 = k;
+  var desc = Object.getOwnPropertyDescriptor(m, k);
+
+  if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+    desc = {
+      enumerable: true,
+      get: function get() {
+        return m[k];
+      }
+    };
+  }
+
+  Object.defineProperty(o, k2, desc);
+} : function (o, m, k, k2) {
+  if (k2 === undefined) k2 = k;
+  o[k2] = m[k];
+});
+
+var __setModuleDefault = this && this.__setModuleDefault || (Object.create ? function (o, v) {
+  Object.defineProperty(o, "default", {
+    enumerable: true,
+    value: v
+  });
+} : function (o, v) {
+  o["default"] = v;
+});
+
+var __importStar = this && this.__importStar || function (mod) {
+  if (mod && mod.__esModule) return mod;
+  var result = {};
+  if (mod != null) for (var k in mod) {
+    if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+  }
+
+  __setModuleDefault(result, mod);
+
+  return result;
+};
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+
+var react_1 = __importStar(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
+
+var CategoryModel = __importStar(__webpack_require__(/*! ../../../Models/Categories */ "./resources/app/Models/Categories.tsx"));
+
+var react_router_dom_1 = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/index.js");
+
+var Components_1 = __webpack_require__(/*! ../../../Components */ "./resources/app/Components/index.tsx");
+
+var Categories = function Categories(props) {
+  var _ref = (0, react_1.useState)(),
+      _ref2 = _slicedToArray(_ref, 2),
+      categories = _ref2[0],
+      setCategories = _ref2[1];
+
+  (0, react_1.useEffect)(function () {
+    setCategories(CategoryModel.getList());
+  }, []);
+  return react_1["default"].createElement(react_1["default"].Fragment, null, react_1["default"].createElement(Components_1.PageContentHeader, {
+    title: "Categories"
+  }), react_1["default"].createElement(Components_1.Breadcrumb, {
+    items: [{
+      name: 'Dashboard',
+      link: '/admin'
+    }, {
+      name: 'Categories',
+      active: true
+    }]
+  }), react_1["default"].createElement("div", {
+    className: "content"
+  }, react_1["default"].createElement("div", {
+    className: "content-heading"
+  }, "Categories (", categories === null || categories === void 0 ? void 0 : categories.length, ")"), react_1["default"].createElement("div", {
+    className: "block block-rounded"
+  }, react_1["default"].createElement("div", {
+    className: "block-content bg-body-light"
+  }, react_1["default"].createElement("form", {
+    method: "post"
+  }, react_1["default"].createElement("div", {
+    className: "form-group"
+  }, react_1["default"].createElement("div", {
+    className: "input-group"
+  }, react_1["default"].createElement("input", {
+    type: "text",
+    className: "form-control",
+    placeholder: "Search products.."
+  }), react_1["default"].createElement("div", {
+    className: "input-group-append"
+  }, react_1["default"].createElement("button", {
+    type: "submit",
+    className: "btn btn-secondary"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-search"
+  }))))))), react_1["default"].createElement("div", {
+    className: "block-content"
+  }, react_1["default"].createElement("table", {
+    className: "table table-borderless table-striped"
+  }, react_1["default"].createElement("thead", null, react_1["default"].createElement("tr", null, react_1["default"].createElement("th", null, "ID"), react_1["default"].createElement("th", {
+    className: "d-none d-sm-table-cell"
+  }, "Name"), react_1["default"].createElement("th", {
+    className: "d-none d-sm-table-cell"
+  }, "Total Products"))), react_1["default"].createElement("tbody", null, categories === null || categories === void 0 ? void 0 : categories.map(function (category) {
+    var _a;
+
+    return react_1["default"].createElement("tr", null, react_1["default"].createElement("td", null, react_1["default"].createElement(react_router_dom_1.Link, {
+      className: "font-w600",
+      to: "/admin/categories/".concat(category.id)
+    }, category.id)), react_1["default"].createElement("td", {
+      className: "d-none d-sm-table-cell"
+    }, category.name), react_1["default"].createElement("td", {
+      className: "d-none d-sm-table-cell"
+    }, (_a = category.products_count) !== null && _a !== void 0 ? _a : 0));
+  }))), react_1["default"].createElement("nav", {
+    "aria-label": "Products navigation"
+  }, react_1["default"].createElement("ul", {
+    className: "pagination justify-content-end"
+  }, react_1["default"].createElement("li", {
+    className: "page-item"
+  }, react_1["default"].createElement("a", {
+    className: "page-link",
+    href: "javascript:void(0)",
+    "aria-label": "Previous"
+  }, react_1["default"].createElement("span", {
+    "aria-hidden": "true"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-angle-left"
+  })), react_1["default"].createElement("span", {
+    className: "sr-only"
+  }, "Previous"))), react_1["default"].createElement("li", {
+    className: "page-item active"
+  }, react_1["default"].createElement("a", {
+    className: "page-link",
+    href: "javascript:void(0)"
+  }, "1")), react_1["default"].createElement("li", {
+    className: "page-item"
+  }, react_1["default"].createElement("a", {
+    className: "page-link",
+    href: "javascript:void(0)"
+  }, "2")), react_1["default"].createElement("li", {
+    className: "page-item disabled"
+  }, react_1["default"].createElement("a", {
+    className: "page-link",
+    href: "javascript:void(0)"
+  }, "...")), react_1["default"].createElement("li", {
+    className: "page-item"
+  }, react_1["default"].createElement("a", {
+    className: "page-link",
+    href: "javascript:void(0)"
+  }, "39")), react_1["default"].createElement("li", {
+    className: "page-item"
+  }, react_1["default"].createElement("a", {
+    className: "page-link",
+    href: "javascript:void(0)"
+  }, "40")), react_1["default"].createElement("li", {
+    className: "page-item"
+  }, react_1["default"].createElement("a", {
+    className: "page-link",
+    href: "javascript:void(0)",
+    "aria-label": "Next"
+  }, react_1["default"].createElement("span", {
+    "aria-hidden": "true"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-angle-right"
+  })), react_1["default"].createElement("span", {
+    className: "sr-only"
+  }, "Next")))))))));
+};
+
+exports["default"] = Categories;
+
+/***/ }),
+
+/***/ "./resources/app/Pages/Admin/Dashboard/index.tsx":
+/*!*******************************************************!*\
+  !*** ./resources/app/Pages/Admin/Dashboard/index.tsx ***!
+  \*******************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+
 var __importDefault = this && this.__importDefault || function (mod) {
   return mod && mod.__esModule ? mod : {
     "default": mod
@@ -2819,28 +3724,841 @@ Object.defineProperty(exports, "__esModule", ({
 
 var react_1 = __importDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
 
-var Components_1 = __webpack_require__(/*! ../../Components */ "./resources/app/Components/index.tsx");
+var Components_1 = __webpack_require__(/*! ../../../Components */ "./resources/app/Components/index.tsx");
 
 var Dashboard = function Dashboard() {
-  var _react_1$default$useS = react_1["default"].useState(false),
-      _react_1$default$useS2 = _slicedToArray(_react_1$default$useS, 2),
-      Value = _react_1$default$useS2[0],
-      setValue = _react_1$default$useS2[1];
-
-  react_1["default"].useEffect(function () {
-    console.log("abc");
-  }, [Value]);
-  return react_1["default"].createElement(react_1["default"].Fragment, null, react_1["default"].createElement(Components_1.Breadcrumb, null), react_1["default"].createElement(Components_1.DataTable, null));
+  return react_1["default"].createElement(react_1["default"].Fragment, null, react_1["default"].createElement(Components_1.PageContentHeader, {
+    title: "Dashboard"
+  }), react_1["default"].createElement(Components_1.Breadcrumb, {
+    items: [{
+      name: 'Dashboard',
+      link: '/admin'
+    }, {
+      name: 'Orders',
+      active: true
+    }]
+  }), react_1["default"].createElement("div", {
+    className: "content"
+  }, react_1["default"].createElement("div", {
+    className: "content-heading"
+  }, react_1["default"].createElement("div", {
+    className: "dropdown float-right"
+  }, react_1["default"].createElement("button", {
+    type: "button",
+    className: "btn btn-sm btn-secondary dropdown-toggle",
+    id: "ecom-dashboard-stats-drop",
+    "data-toggle": "dropdown",
+    "aria-haspopup": "true",
+    "aria-expanded": "false"
+  }, "Today"), react_1["default"].createElement("div", {
+    className: "dropdown-menu dropdown-menu-right",
+    "aria-labelledby": "ecom-dashboard-stats-drop"
+  }, react_1["default"].createElement("a", {
+    className: "dropdown-item active",
+    href: "javascript:void(0)"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-fw fa-calendar mr-5"
+  }), "Today"), react_1["default"].createElement("a", {
+    className: "dropdown-item",
+    href: "javascript:void(0)"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-fw fa-calendar mr-5"
+  }), "This Week"), react_1["default"].createElement("a", {
+    className: "dropdown-item",
+    href: "javascript:void(0)"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-fw fa-calendar mr-5"
+  }), "This Month"), react_1["default"].createElement("a", {
+    className: "dropdown-item",
+    href: "javascript:void(0)"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-fw fa-calendar mr-5"
+  }), "This Year"), react_1["default"].createElement("div", {
+    className: "dropdown-divider"
+  }), react_1["default"].createElement("a", {
+    className: "dropdown-item",
+    href: "javascript:void(0)"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-fw fa-circle-o mr-5"
+  }), "All Time"))), "Statistics"), react_1["default"].createElement("div", {
+    className: "row gutters-tiny"
+  }, react_1["default"].createElement("div", {
+    className: "col-md-6 col-xl-3"
+  }, react_1["default"].createElement("a", {
+    className: "block block-rounded block-transparent bg-gd-elegance",
+    href: "javascript:void(0)"
+  }, react_1["default"].createElement("div", {
+    className: "block-content block-content-full block-sticky-options"
+  }, react_1["default"].createElement("div", {
+    className: "block-options"
+  }, react_1["default"].createElement("div", {
+    className: "block-options-item"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-area-chart text-white-op"
+  }))), react_1["default"].createElement("div", {
+    className: "py-20 text-center"
+  }, react_1["default"].createElement("div", {
+    className: "font-size-h2 font-w700 mb-0 text-white",
+    "data-toggle": "countTo",
+    "data-to": "2420",
+    "data-before": "$"
+  }, "0"), react_1["default"].createElement("div", {
+    className: "font-size-sm font-w600 text-uppercase text-white-op"
+  }, "Earnings"))))), react_1["default"].createElement("div", {
+    className: "col-md-6 col-xl-3"
+  }, react_1["default"].createElement("a", {
+    className: "block block-rounded block-transparent bg-gd-dusk",
+    href: "be_pages_ecom_orders.html"
+  }, react_1["default"].createElement("div", {
+    className: "block-content block-content-full block-sticky-options"
+  }, react_1["default"].createElement("div", {
+    className: "block-options"
+  }, react_1["default"].createElement("div", {
+    className: "block-options-item"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-archive text-white-op"
+  }))), react_1["default"].createElement("div", {
+    className: "py-20 text-center"
+  }, react_1["default"].createElement("div", {
+    className: "font-size-h2 font-w700 mb-0 text-white",
+    "data-toggle": "countTo",
+    "data-to": "35"
+  }, "0"), react_1["default"].createElement("div", {
+    className: "font-size-sm font-w600 text-uppercase text-white-op"
+  }, "Orders"))))), react_1["default"].createElement("div", {
+    className: "col-md-6 col-xl-3"
+  }, react_1["default"].createElement("a", {
+    className: "block block-rounded block-transparent bg-gd-sea",
+    href: "javascript:void(0)"
+  }, react_1["default"].createElement("div", {
+    className: "block-content block-content-full block-sticky-options"
+  }, react_1["default"].createElement("div", {
+    className: "block-options"
+  }, react_1["default"].createElement("div", {
+    className: "block-options-item"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-users text-white-op"
+  }))), react_1["default"].createElement("div", {
+    className: "py-20 text-center"
+  }, react_1["default"].createElement("div", {
+    className: "font-size-h2 font-w700 mb-0 text-white",
+    "data-toggle": "countTo",
+    "data-to": "15"
+  }, "0"), react_1["default"].createElement("div", {
+    className: "font-size-sm font-w600 text-uppercase text-white-op"
+  }, "New Customers"))))), react_1["default"].createElement("div", {
+    className: "col-md-6 col-xl-3"
+  }, react_1["default"].createElement("a", {
+    className: "block block-rounded block-transparent bg-gd-aqua",
+    href: "javascript:void(0)"
+  }, react_1["default"].createElement("div", {
+    className: "block-content block-content-full block-sticky-options"
+  }, react_1["default"].createElement("div", {
+    className: "block-options"
+  }, react_1["default"].createElement("div", {
+    className: "block-options-item"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-cart-arrow-down text-white-op"
+  }))), react_1["default"].createElement("div", {
+    className: "py-20 text-center"
+  }, react_1["default"].createElement("div", {
+    className: "font-size-h2 font-w700 mb-0 text-white"
+  }, "5.6%"), react_1["default"].createElement("div", {
+    className: "font-size-sm font-w600 text-uppercase text-white-op"
+  }, "Conversion")))))), react_1["default"].createElement("div", {
+    className: "content-heading"
+  }, react_1["default"].createElement("div", {
+    className: "dropdown float-right"
+  }, react_1["default"].createElement("button", {
+    type: "button",
+    className: "btn btn-sm btn-secondary dropdown-toggle",
+    id: "ecom-orders-overview-drop",
+    "data-toggle": "dropdown",
+    "aria-haspopup": "true",
+    "aria-expanded": "false"
+  }, "This Week"), react_1["default"].createElement("div", {
+    className: "dropdown-menu dropdown-menu-right",
+    "aria-labelledby": "ecom-orders-overview-drop"
+  }, react_1["default"].createElement("a", {
+    className: "dropdown-item active",
+    href: "javascript:void(0)"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-fw fa-calendar mr-5"
+  }), "This Week"), react_1["default"].createElement("a", {
+    className: "dropdown-item",
+    href: "javascript:void(0)"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-fw fa-calendar mr-5"
+  }), "This Month"), react_1["default"].createElement("a", {
+    className: "dropdown-item",
+    href: "javascript:void(0)"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-fw fa-calendar mr-5"
+  }), "This Year"), react_1["default"].createElement("div", {
+    className: "dropdown-divider"
+  }), react_1["default"].createElement("a", {
+    className: "dropdown-item",
+    href: "javascript:void(0)"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-fw fa-circle-o mr-5"
+  }), "All Time"))), "Orders ", react_1["default"].createElement("small", {
+    className: "d-none d-sm-inline"
+  }, "Overview")), react_1["default"].createElement("div", {
+    className: "row gutters-tiny"
+  }, react_1["default"].createElement("div", {
+    className: "col-md-6"
+  }, react_1["default"].createElement("div", {
+    className: "block block-rounded block-mode-loading-refresh"
+  }, react_1["default"].createElement("div", {
+    className: "block-header"
+  }, react_1["default"].createElement("h3", {
+    className: "block-title"
+  }, "Earnings"), react_1["default"].createElement("div", {
+    className: "block-options"
+  }, react_1["default"].createElement("button", {
+    type: "button",
+    className: "btn-block-option",
+    "data-toggle": "block-option",
+    "data-action": "state_toggle",
+    "data-action-mode": "demo"
+  }, react_1["default"].createElement("i", {
+    className: "si si-refresh"
+  })))), react_1["default"].createElement("div", {
+    className: "block-content block-content-full bg-body-light text-center"
+  }, react_1["default"].createElement("div", {
+    className: "row gutters-tiny"
+  }, react_1["default"].createElement("div", {
+    className: "col-4"
+  }, react_1["default"].createElement("div", {
+    className: "font-size-sm font-w600 text-uppercase text-muted"
+  }, "All"), react_1["default"].createElement("div", {
+    className: "font-size-h3 font-w600"
+  }, "$9,587")), react_1["default"].createElement("div", {
+    className: "col-4"
+  }, react_1["default"].createElement("div", {
+    className: "font-size-sm font-w600 text-uppercase text-muted"
+  }, "Profit"), react_1["default"].createElement("div", {
+    className: "font-size-h3 font-w600 text-success"
+  }, "$8,087")), react_1["default"].createElement("div", {
+    className: "col-4"
+  }, react_1["default"].createElement("div", {
+    className: "font-size-sm font-w600 text-uppercase text-muted"
+  }, "Expenses"), react_1["default"].createElement("div", {
+    className: "font-size-h3 font-w600 text-danger"
+  }, "$1,500")))), react_1["default"].createElement("div", {
+    className: "block-content block-content-full"
+  }, react_1["default"].createElement("div", {
+    className: "pull-all"
+  }, react_1["default"].createElement("canvas", {
+    className: "js-chartjs-ecom-dashboard-earnings"
+  }))))), react_1["default"].createElement("div", {
+    className: "col-md-6"
+  }, react_1["default"].createElement("div", {
+    className: "block block-rounded block-mode-loading-refresh"
+  }, react_1["default"].createElement("div", {
+    className: "block-header"
+  }, react_1["default"].createElement("h3", {
+    className: "block-title"
+  }, "Volume"), react_1["default"].createElement("div", {
+    className: "block-options"
+  }, react_1["default"].createElement("button", {
+    type: "button",
+    className: "btn-block-option",
+    "data-toggle": "block-option",
+    "data-action": "state_toggle",
+    "data-action-mode": "demo"
+  }, react_1["default"].createElement("i", {
+    className: "si si-refresh"
+  })))), react_1["default"].createElement("div", {
+    className: "block-content block-content-full bg-body-light text-center"
+  }, react_1["default"].createElement("div", {
+    className: "row gutters-tiny"
+  }, react_1["default"].createElement("div", {
+    className: "col-4"
+  }, react_1["default"].createElement("div", {
+    className: "font-size-sm font-w600 text-uppercase text-muted"
+  }, "All"), react_1["default"].createElement("div", {
+    className: "font-size-h3 font-w600"
+  }, "183")), react_1["default"].createElement("div", {
+    className: "col-4"
+  }, react_1["default"].createElement("div", {
+    className: "font-size-sm font-w600 text-uppercase text-muted"
+  }, "Completed"), react_1["default"].createElement("div", {
+    className: "font-size-h3 font-w600 text-success"
+  }, "175")), react_1["default"].createElement("div", {
+    className: "col-4"
+  }, react_1["default"].createElement("div", {
+    className: "font-size-sm font-w600 text-uppercase text-muted"
+  }, "Canceled"), react_1["default"].createElement("div", {
+    className: "font-size-h3 font-w600 text-danger"
+  }, "8")))), react_1["default"].createElement("div", {
+    className: "block-content block-content-full"
+  }, react_1["default"].createElement("div", {
+    className: "pull-all"
+  }, react_1["default"].createElement("canvas", {
+    className: "js-chartjs-ecom-dashboard-orders"
+  })))))), react_1["default"].createElement("div", {
+    className: "row gutters-tiny"
+  }, react_1["default"].createElement("div", {
+    className: "col-xl-6"
+  }, react_1["default"].createElement("h2", {
+    className: "content-heading"
+  }, "Latest Orders"), react_1["default"].createElement("div", {
+    className: "block block-rounded"
+  }, react_1["default"].createElement("div", {
+    className: "block-content"
+  }, react_1["default"].createElement("table", {
+    className: "table table-borderless table-striped"
+  }, react_1["default"].createElement("thead", null, react_1["default"].createElement("tr", null, react_1["default"].createElement("th", {
+    style: {
+      width: '100px'
+    }
+  }, "ID"), react_1["default"].createElement("th", null, "Status"), react_1["default"].createElement("th", {
+    className: "d-none d-sm-table-cell"
+  }, "Customer"), react_1["default"].createElement("th", {
+    className: "text-right"
+  }, "Value"))), react_1["default"].createElement("tbody", null, react_1["default"].createElement("tr", null, react_1["default"].createElement("td", null, react_1["default"].createElement("a", {
+    className: "font-w600",
+    href: "/admin/orders/ORD.1851"
+  }, "ORD.1851")), react_1["default"].createElement("td", null, react_1["default"].createElement("span", {
+    className: "badge badge-danger"
+  }, "Canceled")), react_1["default"].createElement("td", {
+    className: "d-none d-sm-table-cell"
+  }, react_1["default"].createElement("a", {
+    href: "be_pages_ecom_customer.html"
+  }, "Jesse Fisher")), react_1["default"].createElement("td", {
+    className: "text-right"
+  }, react_1["default"].createElement("span", {
+    className: "text-black"
+  }, "$468"))), react_1["default"].createElement("tr", null, react_1["default"].createElement("td", null, react_1["default"].createElement("a", {
+    className: "font-w600",
+    href: "/admin/orders/ORD.1851"
+  }, "ORD.1850")), react_1["default"].createElement("td", null, react_1["default"].createElement("span", {
+    className: "badge badge-danger"
+  }, "Canceled")), react_1["default"].createElement("td", {
+    className: "d-none d-sm-table-cell"
+  }, react_1["default"].createElement("a", {
+    href: "be_pages_ecom_customer.html"
+  }, "Andrea Gardner")), react_1["default"].createElement("td", {
+    className: "text-right"
+  }, react_1["default"].createElement("span", {
+    className: "text-black"
+  }, "$986"))), react_1["default"].createElement("tr", null, react_1["default"].createElement("td", null, react_1["default"].createElement("a", {
+    className: "font-w600",
+    href: "/admin/orders/ORD.1851"
+  }, "ORD.1849")), react_1["default"].createElement("td", null, react_1["default"].createElement("span", {
+    className: "badge badge-info"
+  }, "Processing")), react_1["default"].createElement("td", {
+    className: "d-none d-sm-table-cell"
+  }, react_1["default"].createElement("a", {
+    href: "be_pages_ecom_customer.html"
+  }, "Laura Carr")), react_1["default"].createElement("td", {
+    className: "text-right"
+  }, react_1["default"].createElement("span", {
+    className: "text-black"
+  }, "$545"))), react_1["default"].createElement("tr", null, react_1["default"].createElement("td", null, react_1["default"].createElement("a", {
+    className: "font-w600",
+    href: "/admin/orders/ORD.1851"
+  }, "ORD.1848")), react_1["default"].createElement("td", null, react_1["default"].createElement("span", {
+    className: "badge badge-info"
+  }, "Processing")), react_1["default"].createElement("td", {
+    className: "d-none d-sm-table-cell"
+  }, react_1["default"].createElement("a", {
+    href: "be_pages_ecom_customer.html"
+  }, "Amanda Powell")), react_1["default"].createElement("td", {
+    className: "text-right"
+  }, react_1["default"].createElement("span", {
+    className: "text-black"
+  }, "$665"))), react_1["default"].createElement("tr", null, react_1["default"].createElement("td", null, react_1["default"].createElement("a", {
+    className: "font-w600",
+    href: "/admin/orders/ORD.1851"
+  }, "ORD.1847")), react_1["default"].createElement("td", null, react_1["default"].createElement("span", {
+    className: "badge badge-warning"
+  }, "Pending")), react_1["default"].createElement("td", {
+    className: "d-none d-sm-table-cell"
+  }, react_1["default"].createElement("a", {
+    href: "be_pages_ecom_customer.html"
+  }, "Jesse Fisher")), react_1["default"].createElement("td", {
+    className: "text-right"
+  }, react_1["default"].createElement("span", {
+    className: "text-black"
+  }, "$498"))), react_1["default"].createElement("tr", null, react_1["default"].createElement("td", null, react_1["default"].createElement("a", {
+    className: "font-w600",
+    href: "/admin/orders/ORD.1851"
+  }, "ORD.1846")), react_1["default"].createElement("td", null, react_1["default"].createElement("span", {
+    className: "badge badge-warning"
+  }, "Pending")), react_1["default"].createElement("td", {
+    className: "d-none d-sm-table-cell"
+  }, react_1["default"].createElement("a", {
+    href: "be_pages_ecom_customer.html"
+  }, "Scott Young")), react_1["default"].createElement("td", {
+    className: "text-right"
+  }, react_1["default"].createElement("span", {
+    className: "text-black"
+  }, "$652"))), react_1["default"].createElement("tr", null, react_1["default"].createElement("td", null, react_1["default"].createElement("a", {
+    className: "font-w600",
+    href: "/admin/orders/ORD.1851"
+  }, "ORD.1845")), react_1["default"].createElement("td", null, react_1["default"].createElement("span", {
+    className: "badge badge-info"
+  }, "Processing")), react_1["default"].createElement("td", {
+    className: "d-none d-sm-table-cell"
+  }, react_1["default"].createElement("a", {
+    href: "be_pages_ecom_customer.html"
+  }, "Henry Harrison")), react_1["default"].createElement("td", {
+    className: "text-right"
+  }, react_1["default"].createElement("span", {
+    className: "text-black"
+  }, "$134"))), react_1["default"].createElement("tr", null, react_1["default"].createElement("td", null, react_1["default"].createElement("a", {
+    className: "font-w600",
+    href: "/admin/orders/ORD.1851"
+  }, "ORD.1844")), react_1["default"].createElement("td", null, react_1["default"].createElement("span", {
+    className: "badge badge-danger"
+  }, "Canceled")), react_1["default"].createElement("td", {
+    className: "d-none d-sm-table-cell"
+  }, react_1["default"].createElement("a", {
+    href: "be_pages_ecom_customer.html"
+  }, "David Fuller")), react_1["default"].createElement("td", {
+    className: "text-right"
+  }, react_1["default"].createElement("span", {
+    className: "text-black"
+  }, "$663"))), react_1["default"].createElement("tr", null, react_1["default"].createElement("td", null, react_1["default"].createElement("a", {
+    className: "font-w600",
+    href: "/admin/orders/ORD.1851"
+  }, "ORD.1843")), react_1["default"].createElement("td", null, react_1["default"].createElement("span", {
+    className: "badge badge-danger"
+  }, "Canceled")), react_1["default"].createElement("td", {
+    className: "d-none d-sm-table-cell"
+  }, react_1["default"].createElement("a", {
+    href: "be_pages_ecom_customer.html"
+  }, "Jose Wagner")), react_1["default"].createElement("td", {
+    className: "text-right"
+  }, react_1["default"].createElement("span", {
+    className: "text-black"
+  }, "$732"))), react_1["default"].createElement("tr", null, react_1["default"].createElement("td", null, react_1["default"].createElement("a", {
+    className: "font-w600",
+    href: "/admin/orders/ORD.1851"
+  }, "ORD.1842")), react_1["default"].createElement("td", null, react_1["default"].createElement("span", {
+    className: "badge badge-warning"
+  }, "Pending")), react_1["default"].createElement("td", {
+    className: "d-none d-sm-table-cell"
+  }, react_1["default"].createElement("a", {
+    href: "be_pages_ecom_customer.html"
+  }, "Melissa Rice")), react_1["default"].createElement("td", {
+    className: "text-right"
+  }, react_1["default"].createElement("span", {
+    className: "text-black"
+  }, "$537")))))))), react_1["default"].createElement("div", {
+    className: "col-xl-6"
+  }, react_1["default"].createElement("h2", {
+    className: "content-heading"
+  }, "Top Products"), react_1["default"].createElement("div", {
+    className: "block block-rounded"
+  }, react_1["default"].createElement("div", {
+    className: "block-content"
+  }, react_1["default"].createElement("table", {
+    className: "table table-borderless table-striped"
+  }, react_1["default"].createElement("thead", null, react_1["default"].createElement("tr", null, react_1["default"].createElement("th", {
+    className: "d-none d-sm-table-cell",
+    style: {
+      width: '100px'
+    }
+  }, "ID"), react_1["default"].createElement("th", null, "Product"), react_1["default"].createElement("th", {
+    className: "text-center"
+  }, "Orders"), react_1["default"].createElement("th", {
+    className: "d-none d-sm-table-cell text-center"
+  }, "Rating"))), react_1["default"].createElement("tbody", null, react_1["default"].createElement("tr", null, react_1["default"].createElement("td", {
+    className: "d-none d-sm-table-cell"
+  }, react_1["default"].createElement("a", {
+    className: "font-w600",
+    href: "/admin/products/PID.445"
+  }, "PID.258")), react_1["default"].createElement("td", null, react_1["default"].createElement("a", {
+    href: "be_pages_ecom_product_edit.html"
+  }, "Dark Souls III")), react_1["default"].createElement("td", {
+    className: "text-center"
+  }, react_1["default"].createElement("a", {
+    className: "text-gray-dark",
+    href: "be_pages_ecom_orders.html"
+  }, "912")), react_1["default"].createElement("td", {
+    className: "d-none d-sm-table-cell text-center"
+  }, react_1["default"].createElement("div", {
+    className: "text-warning"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-star"
+  }), react_1["default"].createElement("i", {
+    className: "fa fa-star"
+  }), react_1["default"].createElement("i", {
+    className: "fa fa-star"
+  }), react_1["default"].createElement("i", {
+    className: "fa fa-star"
+  }), react_1["default"].createElement("i", {
+    className: "fa fa-star"
+  })))), react_1["default"].createElement("tr", null, react_1["default"].createElement("td", {
+    className: "d-none d-sm-table-cell"
+  }, react_1["default"].createElement("a", {
+    className: "font-w600",
+    href: "/admin/products/PID.445"
+  }, "PID.198")), react_1["default"].createElement("td", null, react_1["default"].createElement("a", {
+    href: "be_pages_ecom_product_edit.html"
+  }, "Bioshock Collection")), react_1["default"].createElement("td", {
+    className: "text-center"
+  }, react_1["default"].createElement("a", {
+    className: "text-gray-dark",
+    href: "be_pages_ecom_orders.html"
+  }, "895")), react_1["default"].createElement("td", {
+    className: "d-none d-sm-table-cell text-center"
+  }, react_1["default"].createElement("div", {
+    className: "text-warning"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-star"
+  }), react_1["default"].createElement("i", {
+    className: "fa fa-star"
+  }), react_1["default"].createElement("i", {
+    className: "fa fa-star"
+  }), react_1["default"].createElement("i", {
+    className: "fa fa-star"
+  }), react_1["default"].createElement("i", {
+    className: "fa fa-star"
+  })))), react_1["default"].createElement("tr", null, react_1["default"].createElement("td", {
+    className: "d-none d-sm-table-cell"
+  }, react_1["default"].createElement("a", {
+    className: "font-w600",
+    href: "/admin/products/PID.445"
+  }, "PID.852")), react_1["default"].createElement("td", null, react_1["default"].createElement("a", {
+    href: "be_pages_ecom_product_edit.html"
+  }, "Alien Isolation")), react_1["default"].createElement("td", {
+    className: "text-center"
+  }, react_1["default"].createElement("a", {
+    className: "text-gray-dark",
+    href: "be_pages_ecom_orders.html"
+  }, "820")), react_1["default"].createElement("td", {
+    className: "d-none d-sm-table-cell text-center"
+  }, react_1["default"].createElement("div", {
+    className: "text-warning"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-star"
+  }), react_1["default"].createElement("i", {
+    className: "fa fa-star"
+  }), react_1["default"].createElement("i", {
+    className: "fa fa-star"
+  }), react_1["default"].createElement("i", {
+    className: "fa fa-star"
+  }), react_1["default"].createElement("i", {
+    className: "fa fa-star"
+  })))), react_1["default"].createElement("tr", null, react_1["default"].createElement("td", {
+    className: "d-none d-sm-table-cell"
+  }, react_1["default"].createElement("a", {
+    className: "font-w600",
+    href: "/admin/products/PID.445"
+  }, "PID.741")), react_1["default"].createElement("td", null, react_1["default"].createElement("a", {
+    href: "be_pages_ecom_product_edit.html"
+  }, "Bloodborne")), react_1["default"].createElement("td", {
+    className: "text-center"
+  }, react_1["default"].createElement("a", {
+    className: "text-gray-dark",
+    href: "be_pages_ecom_orders.html"
+  }, "793")), react_1["default"].createElement("td", {
+    className: "d-none d-sm-table-cell text-center"
+  }, react_1["default"].createElement("div", {
+    className: "text-warning"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-star"
+  }), react_1["default"].createElement("i", {
+    className: "fa fa-star"
+  }), react_1["default"].createElement("i", {
+    className: "fa fa-star"
+  }), react_1["default"].createElement("i", {
+    className: "fa fa-star"
+  }), react_1["default"].createElement("i", {
+    className: "fa fa-star"
+  })))), react_1["default"].createElement("tr", null, react_1["default"].createElement("td", {
+    className: "d-none d-sm-table-cell"
+  }, react_1["default"].createElement("a", {
+    className: "font-w600",
+    href: "/admin/products/PID.445"
+  }, "PID.985")), react_1["default"].createElement("td", null, react_1["default"].createElement("a", {
+    href: "be_pages_ecom_product_edit.html"
+  }, "Forza Motorsport 7")), react_1["default"].createElement("td", {
+    className: "text-center"
+  }, react_1["default"].createElement("a", {
+    className: "text-gray-dark",
+    href: "be_pages_ecom_orders.html"
+  }, "782")), react_1["default"].createElement("td", {
+    className: "d-none d-sm-table-cell text-center"
+  }, react_1["default"].createElement("div", {
+    className: "text-warning"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-star"
+  }), react_1["default"].createElement("i", {
+    className: "fa fa-star"
+  }), react_1["default"].createElement("i", {
+    className: "fa fa-star"
+  }), react_1["default"].createElement("i", {
+    className: "fa fa-star"
+  }), react_1["default"].createElement("i", {
+    className: "fa fa-star"
+  })))), react_1["default"].createElement("tr", null, react_1["default"].createElement("td", {
+    className: "d-none d-sm-table-cell"
+  }, react_1["default"].createElement("a", {
+    className: "font-w600",
+    href: "/admin/products/PID.445"
+  }, "PID.056")), react_1["default"].createElement("td", null, react_1["default"].createElement("a", {
+    href: "be_pages_ecom_product_edit.html"
+  }, "Fifa 18")), react_1["default"].createElement("td", {
+    className: "text-center"
+  }, react_1["default"].createElement("a", {
+    className: "text-gray-dark",
+    href: "be_pages_ecom_orders.html"
+  }, "776")), react_1["default"].createElement("td", {
+    className: "d-none d-sm-table-cell text-center"
+  }, react_1["default"].createElement("div", {
+    className: "text-warning"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-star"
+  }), react_1["default"].createElement("i", {
+    className: "fa fa-star"
+  }), react_1["default"].createElement("i", {
+    className: "fa fa-star"
+  }), react_1["default"].createElement("i", {
+    className: "fa fa-star"
+  }), react_1["default"].createElement("i", {
+    className: "fa fa-star"
+  })))), react_1["default"].createElement("tr", null, react_1["default"].createElement("td", {
+    className: "d-none d-sm-table-cell"
+  }, react_1["default"].createElement("a", {
+    className: "font-w600",
+    href: "/admin/products/PID.445"
+  }, "PID.036")), react_1["default"].createElement("td", null, react_1["default"].createElement("a", {
+    href: "be_pages_ecom_product_edit.html"
+  }, "Gears of War 4")), react_1["default"].createElement("td", {
+    className: "text-center"
+  }, react_1["default"].createElement("a", {
+    className: "text-gray-dark",
+    href: "be_pages_ecom_orders.html"
+  }, "680")), react_1["default"].createElement("td", {
+    className: "d-none d-sm-table-cell text-center"
+  }, react_1["default"].createElement("div", {
+    className: "text-warning"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-star"
+  }), react_1["default"].createElement("i", {
+    className: "fa fa-star"
+  }), react_1["default"].createElement("i", {
+    className: "fa fa-star"
+  }), react_1["default"].createElement("i", {
+    className: "fa fa-star"
+  }), react_1["default"].createElement("i", {
+    className: "fa fa-star"
+  })))), react_1["default"].createElement("tr", null, react_1["default"].createElement("td", {
+    className: "d-none d-sm-table-cell"
+  }, react_1["default"].createElement("a", {
+    className: "font-w600",
+    href: "/admin/products/PID.445"
+  }, "PID.682")), react_1["default"].createElement("td", null, react_1["default"].createElement("a", {
+    href: "be_pages_ecom_product_edit.html"
+  }, "Minecraft")), react_1["default"].createElement("td", {
+    className: "text-center"
+  }, react_1["default"].createElement("a", {
+    className: "text-gray-dark",
+    href: "be_pages_ecom_orders.html"
+  }, "670")), react_1["default"].createElement("td", {
+    className: "d-none d-sm-table-cell text-center"
+  }, react_1["default"].createElement("div", {
+    className: "text-warning"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-star"
+  }), react_1["default"].createElement("i", {
+    className: "fa fa-star"
+  }), react_1["default"].createElement("i", {
+    className: "fa fa-star"
+  }), react_1["default"].createElement("i", {
+    className: "fa fa-star"
+  }), react_1["default"].createElement("i", {
+    className: "fa fa-star"
+  })))), react_1["default"].createElement("tr", null, react_1["default"].createElement("td", {
+    className: "d-none d-sm-table-cell"
+  }, react_1["default"].createElement("a", {
+    className: "font-w600",
+    href: "/admin/products/PID.445"
+  }, "PID.478")), react_1["default"].createElement("td", null, react_1["default"].createElement("a", {
+    href: "be_pages_ecom_product_edit.html"
+  }, "Dishonored 2")), react_1["default"].createElement("td", {
+    className: "text-center"
+  }, react_1["default"].createElement("a", {
+    className: "text-gray-dark",
+    href: "be_pages_ecom_orders.html"
+  }, "640")), react_1["default"].createElement("td", {
+    className: "d-none d-sm-table-cell text-center"
+  }, react_1["default"].createElement("div", {
+    className: "text-warning"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-star"
+  }), react_1["default"].createElement("i", {
+    className: "fa fa-star"
+  }), react_1["default"].createElement("i", {
+    className: "fa fa-star"
+  }), react_1["default"].createElement("i", {
+    className: "fa fa-star"
+  }), react_1["default"].createElement("i", {
+    className: "fa fa-star"
+  })))), react_1["default"].createElement("tr", null, react_1["default"].createElement("td", {
+    className: "d-none d-sm-table-cell"
+  }, react_1["default"].createElement("a", {
+    className: "font-w600",
+    href: "/admin/products/PID.445"
+  }, "PID.952")), react_1["default"].createElement("td", null, react_1["default"].createElement("a", {
+    href: "be_pages_ecom_product_edit.html"
+  }, "Gran Turismo Sport")), react_1["default"].createElement("td", {
+    className: "text-center"
+  }, react_1["default"].createElement("a", {
+    className: "text-gray-dark",
+    href: "be_pages_ecom_orders.html"
+  }, "630")), react_1["default"].createElement("td", {
+    className: "d-none d-sm-table-cell text-center"
+  }, react_1["default"].createElement("div", {
+    className: "text-warning"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-star"
+  }), react_1["default"].createElement("i", {
+    className: "fa fa-star"
+  }), react_1["default"].createElement("i", {
+    className: "fa fa-star"
+  }), react_1["default"].createElement("i", {
+    className: "fa fa-star"
+  }), react_1["default"].createElement("i", {
+    className: "fa fa-star"
+  }))))))))))));
 };
 
 exports["default"] = Dashboard;
 
 /***/ }),
 
-/***/ "./resources/app/Pages/Layout/SideBar/index.tsx":
-/*!******************************************************!*\
-  !*** ./resources/app/Pages/Layout/SideBar/index.tsx ***!
-  \******************************************************/
+/***/ "./resources/app/Pages/Admin/Layout/Header/index.tsx":
+/*!***********************************************************!*\
+  !*** ./resources/app/Pages/Admin/Layout/Header/index.tsx ***!
+  \***********************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+
+function _objectDestructuringEmpty(obj) {
+  if (obj == null) throw new TypeError("Cannot destructure undefined");
+}
+
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+
+var react_1 = __importDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
+
+var Header = function Header(props) {
+  _objectDestructuringEmpty(props);
+
+  return react_1["default"].createElement(react_1["default"].Fragment, null, react_1["default"].createElement("header", {
+    id: "page-header"
+  }, react_1["default"].createElement("div", {
+    className: "content-header"
+  }, react_1["default"].createElement("div", {
+    className: "content-header-section"
+  }, react_1["default"].createElement("button", {
+    type: "button",
+    className: "btn btn-circle btn-dual-secondary",
+    "data-toggle": "layout",
+    "data-action": "sidebar_toggle"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-navicon"
+  }))), react_1["default"].createElement("div", {
+    className: "content-header-section"
+  }, react_1["default"].createElement("div", {
+    className: "btn-group",
+    role: "group"
+  }, react_1["default"].createElement("button", {
+    type: "button",
+    className: "btn btn-rounded btn-dual-secondary",
+    id: "page-header-user-dropdown",
+    "data-toggle": "dropdown",
+    "aria-haspopup": "true",
+    "aria-expanded": "false"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-user d-sm-none"
+  }), react_1["default"].createElement("span", {
+    className: "d-none d-sm-inline-block"
+  }, "J. Smith"), react_1["default"].createElement("i", {
+    className: "fa fa-angle-down ml-5"
+  })), react_1["default"].createElement("div", {
+    className: "dropdown-menu dropdown-menu-right min-width-200",
+    "aria-labelledby": "page-header-user-dropdown"
+  }, react_1["default"].createElement("a", {
+    className: "dropdown-item",
+    href: "javascript:void(0)"
+  }, react_1["default"].createElement("i", {
+    className: "si si-user mr-5"
+  }), " Profile"), react_1["default"].createElement("div", {
+    className: "dropdown-divider"
+  }), react_1["default"].createElement("a", {
+    className: "dropdown-item",
+    href: "/"
+  }, react_1["default"].createElement("i", {
+    className: "si si-logout mr-5"
+  }), " Sign Out"))))), react_1["default"].createElement("div", {
+    id: "page-header-search",
+    className: "overlay-header"
+  }, react_1["default"].createElement("div", {
+    className: "content-header content-header-fullrow"
+  }, react_1["default"].createElement("form", {
+    action: "/dashboard",
+    method: "POST"
+  }, react_1["default"].createElement("div", {
+    className: "input-group"
+  }, react_1["default"].createElement("div", {
+    className: "input-group-prepend"
+  }, react_1["default"].createElement("button", {
+    type: "button",
+    className: "btn btn-secondary",
+    "data-toggle": "layout",
+    "data-action": "header_search_off"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-times"
+  }))), react_1["default"].createElement("input", {
+    type: "text",
+    className: "form-control",
+    placeholder: "Search or hit ESC..",
+    id: "page-header-search-input",
+    name: "page-header-search-input"
+  }), react_1["default"].createElement("div", {
+    className: "input-group-append"
+  }, react_1["default"].createElement("button", {
+    type: "submit",
+    className: "btn btn-secondary"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-search"
+  }))))))), react_1["default"].createElement("div", {
+    id: "page-header-loader",
+    className: "overlay-header bg-primary"
+  }, react_1["default"].createElement("div", {
+    className: "content-header content-header-fullrow text-center"
+  }, react_1["default"].createElement("div", {
+    className: "content-header-item"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-sun-o fa-spin text-white"
+  }))))));
+};
+
+exports["default"] = Header;
+
+/***/ }),
+
+/***/ "./resources/app/Pages/Admin/Layout/SideBar/index.tsx":
+/*!************************************************************!*\
+  !*** ./resources/app/Pages/Admin/Layout/SideBar/index.tsx ***!
+  \************************************************************/
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -2886,14 +4604,12 @@ var SideBar = function SideBar(props) {
     className: "content-header-item"
   }, react_1["default"].createElement("a", {
     className: "link-effect font-w700",
-    href: "/"
-  }, react_1["default"].createElement("i", {
-    className: "si si-fire text-primary"
-  }), react_1["default"].createElement("span", {
+    href: "/admin"
+  }, react_1["default"].createElement("span", {
     className: "font-size-xl text-dual-primary-dark"
-  }, "code"), react_1["default"].createElement("span", {
+  }, "E-Waste"), react_1["default"].createElement("span", {
     className: "font-size-xl text-primary"
-  }, "base"))))), react_1["default"].createElement("div", {
+  }, " Collect"))))), react_1["default"].createElement("div", {
     className: "js-sidebar-scroll"
   }, react_1["default"].createElement("div", {
     className: "content-side content-side-full content-side-user px-10 align-parent"
@@ -2901,7 +4617,7 @@ var SideBar = function SideBar(props) {
     className: "sidebar-mini-visible-b align-v animated fadeIn"
   }, react_1["default"].createElement("img", {
     className: "img-avatar img-avatar32",
-    src: "./media/avatars/avatar15.jpg",
+    src: "/media/avatars/avatar15.jpg",
     alt: ""
   })), react_1["default"].createElement("div", {
     className: "sidebar-mini-hidden-b text-center"
@@ -2910,7 +4626,7 @@ var SideBar = function SideBar(props) {
     href: "javascript:void(0)"
   }, react_1["default"].createElement("img", {
     className: "img-avatar",
-    src: "./media/avatars/avatar15.jpg",
+    src: "/media/avatars/avatar15.jpg",
     alt: ""
   })), react_1["default"].createElement("ul", {
     className: "list-inline mt-10"
@@ -2923,16 +4639,7 @@ var SideBar = function SideBar(props) {
     className: "list-inline-item"
   }, react_1["default"].createElement("a", {
     className: "link-effect text-dual-primary-dark",
-    "data-toggle": "layout",
-    "data-action": "sidebar_style_inverse_toggle",
-    href: "javascript:void(0)"
-  }, react_1["default"].createElement("i", {
-    className: "si si-drop"
-  }))), react_1["default"].createElement("li", {
-    className: "list-inline-item"
-  }, react_1["default"].createElement("a", {
-    className: "link-effect text-dual-primary-dark",
-    href: "javascript:void(0)"
+    href: "/"
   }, react_1["default"].createElement("i", {
     className: "si si-logout"
   })))))), react_1["default"].createElement("div", {
@@ -2940,60 +4647,42 @@ var SideBar = function SideBar(props) {
   }, react_1["default"].createElement("ul", {
     className: "nav-main"
   }, react_1["default"].createElement("li", null, react_1["default"].createElement("a", {
-    className: "{{ request()->is('dashboard') ? ' active' : '' }}",
-    href: "/dashboard"
+    className: "",
+    href: "/admin"
   }, react_1["default"].createElement("i", {
-    className: "si si-cup"
+    className: "si si-bar-chart"
   }), react_1["default"].createElement("span", {
     className: "sidebar-mini-hide"
-  }, "Dashboard"))), react_1["default"].createElement("li", {
-    className: "nav-main-heading"
-  }, react_1["default"].createElement("span", {
-    className: "sidebar-mini-visible"
-  }, "VR"), react_1["default"].createElement("span", {
-    className: "sidebar-mini-hidden"
-  }, "Various")), react_1["default"].createElement("li", {
-    className: "{{ request()->is('pages/*') ? ' open' : '' }}"
-  }, react_1["default"].createElement("a", {
-    className: "nav-subSideBar",
-    "data-toggle": "nav-subSideBar",
-    href: "#"
+  }, "Dashboard"))), react_1["default"].createElement("li", null, react_1["default"].createElement("a", {
+    className: "{{request()->is('/orders') ? 'active': ''}}",
+    href: "/admin/orders"
   }, react_1["default"].createElement("i", {
-    className: "si si-bulb"
+    className: "si si-basket"
   }), react_1["default"].createElement("span", {
     className: "sidebar-mini-hide"
-  }, "Examples")), react_1["default"].createElement("ul", null, react_1["default"].createElement("li", null, react_1["default"].createElement("a", {
-    className: "{{ request()->is('pages/datatables') ? ' active' : '' }}",
-    href: "/pages/datatables"
-  }, "DataTables")), react_1["default"].createElement("li", null, react_1["default"].createElement("a", {
-    className: "{{ request()->is('pages/slick') ? ' active' : '' }}",
-    href: "/pages/slick"
-  }, "Slick Slider")), react_1["default"].createElement("li", null, react_1["default"].createElement("a", {
-    className: "{{ request()->is('pages/blank') ? ' active' : '' }}",
-    href: "/pages/blank"
-  }, "Blank")))), react_1["default"].createElement("li", {
-    className: "nav-main-heading"
-  }, react_1["default"].createElement("span", {
-    className: "sidebar-mini-visible"
-  }, "MR"), react_1["default"].createElement("span", {
-    className: "sidebar-mini-hidden"
-  }, "More")), react_1["default"].createElement("li", null, react_1["default"].createElement("a", {
-    href: "/"
+  }, "Orders"))), react_1["default"].createElement("li", null, react_1["default"].createElement("a", {
+    href: "/admin/categories"
   }, react_1["default"].createElement("i", {
-    className: "si si-globe"
+    className: "si si-list"
   }), react_1["default"].createElement("span", {
     className: "sidebar-mini-hide"
-  }, "Landing")))))))));
+  }, "Categories"))), react_1["default"].createElement("li", null, react_1["default"].createElement("a", {
+    href: "/admin/products"
+  }, react_1["default"].createElement("i", {
+    className: "si si-screen-desktop"
+  }), react_1["default"].createElement("span", {
+    className: "sidebar-mini-hide"
+  }, "Products")))))))));
 };
 
 exports["default"] = SideBar;
 
 /***/ }),
 
-/***/ "./resources/app/Pages/Layout/index.tsx":
-/*!**********************************************!*\
-  !*** ./resources/app/Pages/Layout/index.tsx ***!
-  \**********************************************/
+/***/ "./resources/app/Pages/Admin/Layout/index.tsx":
+/*!****************************************************!*\
+  !*** ./resources/app/Pages/Admin/Layout/index.tsx ***!
+  \****************************************************/
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -3011,202 +4700,3406 @@ Object.defineProperty(exports, "__esModule", ({
 
 var react_1 = __importDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
 
-var routes_1 = __webpack_require__(/*! ../../routes */ "./resources/app/routes.tsx");
+var routes_1 = __webpack_require__(/*! ../../../routes */ "./resources/app/routes.tsx");
 
-var index_1 = __importDefault(__webpack_require__(/*! ./SideBar/index */ "./resources/app/Pages/Layout/SideBar/index.tsx"));
+var Header_1 = __importDefault(__webpack_require__(/*! ./Header */ "./resources/app/Pages/Admin/Layout/Header/index.tsx"));
 
-var Layout = function Layout(props) {
+var index_1 = __importDefault(__webpack_require__(/*! ./SideBar/index */ "./resources/app/Pages/Admin/Layout/SideBar/index.tsx"));
+
+var AdminLayout = function AdminLayout(props) {
   return react_1["default"].createElement(react_1["default"].Fragment, null, react_1["default"].createElement("div", {
     id: "page-container",
     className: "sidebar-o enable-page-overlay side-scroll page-header-modern main-content-boxed sidebar-inverse"
-  }, react_1["default"].createElement(index_1["default"], null), react_1["default"].createElement("header", {
-    id: "page-header"
+  }, react_1["default"].createElement(index_1["default"], null), react_1["default"].createElement(Header_1["default"], null), react_1["default"].createElement("main", {
+    id: "main-container"
+  }, react_1["default"].createElement(routes_1.RenderRouters, null))));
+};
+
+exports["default"] = AdminLayout;
+
+/***/ }),
+
+/***/ "./resources/app/Pages/Admin/Orders/OrderDetail.tsx":
+/*!**********************************************************!*\
+  !*** ./resources/app/Pages/Admin/Orders/OrderDetail.tsx ***!
+  \**********************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+
+function _slicedToArray(arr, i) {
+  return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();
+}
+
+function _nonIterableRest() {
+  throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+
+function _unsupportedIterableToArray(o, minLen) {
+  if (!o) return;
+  if (typeof o === "string") return _arrayLikeToArray(o, minLen);
+  var n = Object.prototype.toString.call(o).slice(8, -1);
+  if (n === "Object" && o.constructor) n = o.constructor.name;
+  if (n === "Map" || n === "Set") return Array.from(o);
+  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
+}
+
+function _arrayLikeToArray(arr, len) {
+  if (len == null || len > arr.length) len = arr.length;
+
+  for (var i = 0, arr2 = new Array(len); i < len; i++) {
+    arr2[i] = arr[i];
+  }
+
+  return arr2;
+}
+
+function _iterableToArrayLimit(arr, i) {
+  var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"];
+
+  if (_i == null) return;
+  var _arr = [];
+  var _n = true;
+  var _d = false;
+
+  var _s, _e;
+
+  try {
+    for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) {
+      _arr.push(_s.value);
+
+      if (i && _arr.length === i) break;
+    }
+  } catch (err) {
+    _d = true;
+    _e = err;
+  } finally {
+    try {
+      if (!_n && _i["return"] != null) _i["return"]();
+    } finally {
+      if (_d) throw _e;
+    }
+  }
+
+  return _arr;
+}
+
+function _arrayWithHoles(arr) {
+  if (Array.isArray(arr)) return arr;
+}
+
+var __createBinding = this && this.__createBinding || (Object.create ? function (o, m, k, k2) {
+  if (k2 === undefined) k2 = k;
+  var desc = Object.getOwnPropertyDescriptor(m, k);
+
+  if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+    desc = {
+      enumerable: true,
+      get: function get() {
+        return m[k];
+      }
+    };
+  }
+
+  Object.defineProperty(o, k2, desc);
+} : function (o, m, k, k2) {
+  if (k2 === undefined) k2 = k;
+  o[k2] = m[k];
+});
+
+var __setModuleDefault = this && this.__setModuleDefault || (Object.create ? function (o, v) {
+  Object.defineProperty(o, "default", {
+    enumerable: true,
+    value: v
+  });
+} : function (o, v) {
+  o["default"] = v;
+});
+
+var __importStar = this && this.__importStar || function (mod) {
+  if (mod && mod.__esModule) return mod;
+  var result = {};
+  if (mod != null) for (var k in mod) {
+    if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+  }
+
+  __setModuleDefault(result, mod);
+
+  return result;
+};
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+
+var react_1 = __importStar(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
+
+var react_router_dom_1 = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/index.js");
+
+var Components_1 = __webpack_require__(/*! ../../../Components */ "./resources/app/Components/index.tsx");
+
+var OrderModel = __importStar(__webpack_require__(/*! ../../../Models/Order */ "./resources/app/Models/Order.tsx"));
+
+var OrderDetail = function OrderDetail(props) {
+  var _ref = (0, react_router_dom_1.useParams)(),
+      id = _ref.id;
+
+  var _ref2 = (0, react_1.useState)(),
+      _ref3 = _slicedToArray(_ref2, 2),
+      order = _ref3[0],
+      setOrder = _ref3[1];
+
+  (0, react_1.useEffect)(function () {
+    setOrder(OrderModel.getOrder(id));
+  }, [id]);
+  return react_1["default"].createElement(react_1["default"].Fragment, null, react_1["default"].createElement(Components_1.PageContentHeader, {
+    title: order === null || order === void 0 ? void 0 : order.id
+  }), react_1["default"].createElement(Components_1.Breadcrumb, {
+    items: [{
+      name: 'Dashboard',
+      link: '/admin'
+    }, {
+      name: 'Orders',
+      link: '/orders'
+    }, {
+      name: order === null || order === void 0 ? void 0 : order.id,
+      active: true
+    }]
+  }), react_1["default"].createElement("div", {
+    className: "content"
+  }, react_1["default"].createElement("h2", {
+    className: "content-heading"
+  }, "Products (5)"), react_1["default"].createElement("div", {
+    className: "block block-rounded"
   }, react_1["default"].createElement("div", {
-    className: "content-header"
+    className: "block-content"
   }, react_1["default"].createElement("div", {
-    className: "content-header-section"
+    className: "table-responsive"
+  }, react_1["default"].createElement("table", {
+    className: "table table-borderless table-striped"
+  }, react_1["default"].createElement("thead", null, react_1["default"].createElement("tr", null, react_1["default"].createElement("th", {
+    style: {
+      width: '100px'
+    }
+  }, "ID"), react_1["default"].createElement("th", null, "Product"), react_1["default"].createElement("th", {
+    className: "text-center"
+  }, "Stock"), react_1["default"].createElement("th", {
+    className: "text-center"
+  }, "QTY"), react_1["default"].createElement("th", {
+    className: "text-right",
+    style: {
+      width: '10%'
+    }
+  }, "UNIT"), react_1["default"].createElement("th", {
+    className: "text-right",
+    style: {
+      width: '10%'
+    }
+  }, "PRICE"))), react_1["default"].createElement("tbody", null, react_1["default"].createElement("tr", null, react_1["default"].createElement("td", null, react_1["default"].createElement("a", {
+    className: "font-w600",
+    href: "/admin/products/PID.445"
+  }, "PID.258")), react_1["default"].createElement("td", null, react_1["default"].createElement("a", {
+    href: "be_pages_ecom_product_edit.html"
+  }, "Dark Souls III")), react_1["default"].createElement("td", {
+    className: "text-center"
+  }, "92"), react_1["default"].createElement("td", {
+    className: "text-center font-w600"
+  }, "1"), react_1["default"].createElement("td", {
+    className: "text-right"
+  }, "$69,00"), react_1["default"].createElement("td", {
+    className: "text-right"
+  }, "$69,00")), react_1["default"].createElement("tr", null, react_1["default"].createElement("td", null, react_1["default"].createElement("a", {
+    className: "font-w600",
+    href: "/admin/products/PID.445"
+  }, "PID.263")), react_1["default"].createElement("td", null, react_1["default"].createElement("a", {
+    href: "be_pages_ecom_product_edit.html"
+  }, "Bloodborne")), react_1["default"].createElement("td", {
+    className: "text-center"
+  }, "32"), react_1["default"].createElement("td", {
+    className: "text-center font-w600"
+  }, "1"), react_1["default"].createElement("td", {
+    className: "text-right"
+  }, "$29,00"), react_1["default"].createElement("td", {
+    className: "text-right"
+  }, "$29,00")), react_1["default"].createElement("tr", null, react_1["default"].createElement("td", null, react_1["default"].createElement("a", {
+    className: "font-w600",
+    href: "/admin/products/PID.445"
+  }, "PID.214")), react_1["default"].createElement("td", null, react_1["default"].createElement("a", {
+    href: "be_pages_ecom_product_edit.html"
+  }, "The Surge")), react_1["default"].createElement("td", {
+    className: "text-center"
+  }, "15"), react_1["default"].createElement("td", {
+    className: "text-center font-w600"
+  }, "1"), react_1["default"].createElement("td", {
+    className: "text-right"
+  }, "$59,00"), react_1["default"].createElement("td", {
+    className: "text-right"
+  }, "$59,00")), react_1["default"].createElement("tr", null, react_1["default"].createElement("td", null, react_1["default"].createElement("a", {
+    className: "font-w600",
+    href: "/admin/products/PID.445"
+  }, "PID.358")), react_1["default"].createElement("td", null, react_1["default"].createElement("a", {
+    href: "be_pages_ecom_product_edit.html"
+  }, "Bioshock Collection")), react_1["default"].createElement("td", {
+    className: "text-center"
+  }, "77"), react_1["default"].createElement("td", {
+    className: "text-center font-w600"
+  }, "1"), react_1["default"].createElement("td", {
+    className: "text-right"
+  }, "$39,00"), react_1["default"].createElement("td", {
+    className: "text-right"
+  }, "$39,00")), react_1["default"].createElement("tr", null, react_1["default"].createElement("td", null, react_1["default"].createElement("a", {
+    className: "font-w600",
+    href: "/admin/products/PID.445"
+  }, "PID.425")), react_1["default"].createElement("td", null, react_1["default"].createElement("a", {
+    href: "be_pages_ecom_product_edit.html"
+  }, "Until Dawn")), react_1["default"].createElement("td", {
+    className: "text-center"
+  }, "25"), react_1["default"].createElement("td", {
+    className: "text-center font-w600"
+  }, "1"), react_1["default"].createElement("td", {
+    className: "text-right"
+  }, "$49,00"), react_1["default"].createElement("td", {
+    className: "text-right"
+  }, "$49,00")), react_1["default"].createElement("tr", null, react_1["default"].createElement("td", {
+    colSpan: 5,
+    className: "text-right font-w600"
+  }, "Total Price:"), react_1["default"].createElement("td", {
+    className: "text-right"
+  }, "$245,00")), react_1["default"].createElement("tr", null, react_1["default"].createElement("td", {
+    colSpan: 5,
+    className: "text-right font-w600"
+  }, "Total Paid:"), react_1["default"].createElement("td", {
+    className: "text-right"
+  }, "$245,00")), react_1["default"].createElement("tr", {
+    className: "table-success"
+  }, react_1["default"].createElement("td", {
+    colSpan: 5,
+    className: "text-right font-w600 text-uppercase"
+  }, "Total Due:"), react_1["default"].createElement("td", {
+    className: "text-right font-w600"
+  }, "$0,00"))))))), react_1["default"].createElement("h2", {
+    className: "content-heading"
   }, react_1["default"].createElement("button", {
     type: "button",
-    className: "btn btn-circle btn-dual-secondary",
-    "data-toggle": "layout",
-    "data-action": "sidebar_toggle"
+    className: "btn btn-sm btn-secondary float-right"
   }, react_1["default"].createElement("i", {
-    className: "fa fa-navicon"
-  })), react_1["default"].createElement("button", {
-    type: "button",
-    className: "btn btn-circle btn-dual-secondary",
-    "data-toggle": "layout",
-    "data-action": "header_search_on"
-  }, react_1["default"].createElement("i", {
-    className: "fa fa-search"
+    className: "fa fa-envelope-o text-info mr-5"
+  }), "Contact"), "Customer"), react_1["default"].createElement("div", {
+    className: "row row-deck"
+  }, react_1["default"].createElement("div", {
+    className: "col-lg-4"
+  }, react_1["default"].createElement("a", {
+    className: "block block-rounded block-link-shadow text-center",
+    href: "be_pages_ecom_customer.html"
+  }, react_1["default"].createElement("div", {
+    className: "block-content bg-gd-dusk"
+  }, react_1["default"].createElement("div", {
+    className: "push"
+  }, react_1["default"].createElement("img", {
+    className: "img-avatar img-avatar-thumb",
+    src: "/media/avatars/avatar15.jpg",
+    alt: ""
   })), react_1["default"].createElement("div", {
-    className: "btn-group",
-    role: "group"
+    className: "pull-r-l pull-b py-10 bg-black-op-25"
+  }, react_1["default"].createElement("div", {
+    className: "font-w600 mb-5 text-white"
+  }, "John Smith ", react_1["default"].createElement("i", {
+    className: "fa fa-star text-warning"
+  })), react_1["default"].createElement("div", {
+    className: "font-size-sm text-white-op"
+  }, "Premium Member"))), react_1["default"].createElement("div", {
+    className: "block-content"
+  }, react_1["default"].createElement("div", {
+    className: "row items-push text-center"
+  }, react_1["default"].createElement("div", {
+    className: "col-6"
+  }, react_1["default"].createElement("div", {
+    className: "mb-5"
+  }, react_1["default"].createElement("i", {
+    className: "si si-bag fa-2x"
+  })), react_1["default"].createElement("div", {
+    className: "font-size-sm text-muted"
+  }, "6 Orders")), react_1["default"].createElement("div", {
+    className: "col-6"
+  }, react_1["default"].createElement("div", {
+    className: "mb-5"
+  }, react_1["default"].createElement("i", {
+    className: "si si-basket-loaded fa-2x"
+  })), react_1["default"].createElement("div", {
+    className: "font-size-sm text-muted"
+  }, "15 Products")))))), react_1["default"].createElement("div", {
+    className: "col-lg-8"
+  }, react_1["default"].createElement("div", {
+    className: "block block-rounded"
+  }, react_1["default"].createElement("div", {
+    className: "block-header block-header-default"
+  }, react_1["default"].createElement("h3", {
+    className: "block-title"
+  }, "Past Orders")), react_1["default"].createElement("div", {
+    className: "block-content"
+  }, react_1["default"].createElement("table", {
+    className: "table table-borderless table-sm table-striped"
+  }, react_1["default"].createElement("tbody", null, react_1["default"].createElement("tr", null, react_1["default"].createElement("td", null, react_1["default"].createElement("a", {
+    className: "font-w600",
+    href: "be_pages_ecom_order.html"
+  }, "ORD.560")), react_1["default"].createElement("td", null, react_1["default"].createElement("span", {
+    className: "badge badge-success"
+  }, "Completed")), react_1["default"].createElement("td", {
+    className: "d-none d-sm-table-cell"
+  }, "2017/10/27                                "), react_1["default"].createElement("td", {
+    className: "d-none d-sm-table-cell"
+  }, react_1["default"].createElement("a", {
+    href: "be_pages_ecom_customer.html"
+  }, "John Smith")), react_1["default"].createElement("td", {
+    className: "text-right"
+  }, react_1["default"].createElement("span", {
+    className: "text-black"
+  }, "$830"))), react_1["default"].createElement("tr", null, react_1["default"].createElement("td", null, react_1["default"].createElement("a", {
+    className: "font-w600",
+    href: "be_pages_ecom_order.html"
+  }, "ORD.496")), react_1["default"].createElement("td", null, react_1["default"].createElement("span", {
+    className: "badge badge-success"
+  }, "Completed")), react_1["default"].createElement("td", {
+    className: "d-none d-sm-table-cell"
+  }, "2017/10/26                                "), react_1["default"].createElement("td", {
+    className: "d-none d-sm-table-cell"
+  }, react_1["default"].createElement("a", {
+    href: "be_pages_ecom_customer.html"
+  }, "John Smith")), react_1["default"].createElement("td", {
+    className: "text-right"
+  }, react_1["default"].createElement("span", {
+    className: "text-black"
+  }, "$976"))), react_1["default"].createElement("tr", null, react_1["default"].createElement("td", null, react_1["default"].createElement("a", {
+    className: "font-w600",
+    href: "be_pages_ecom_order.html"
+  }, "ORD.906")), react_1["default"].createElement("td", null, react_1["default"].createElement("span", {
+    className: "badge badge-success"
+  }, "Completed")), react_1["default"].createElement("td", {
+    className: "d-none d-sm-table-cell"
+  }, "2017/10/25                                "), react_1["default"].createElement("td", {
+    className: "d-none d-sm-table-cell"
+  }, react_1["default"].createElement("a", {
+    href: "be_pages_ecom_customer.html"
+  }, "John Smith")), react_1["default"].createElement("td", {
+    className: "text-right"
+  }, react_1["default"].createElement("span", {
+    className: "text-black"
+  }, "$577"))), react_1["default"].createElement("tr", null, react_1["default"].createElement("td", null, react_1["default"].createElement("a", {
+    className: "font-w600",
+    href: "be_pages_ecom_order.html"
+  }, "ORD.822")), react_1["default"].createElement("td", null, react_1["default"].createElement("span", {
+    className: "badge badge-success"
+  }, "Completed")), react_1["default"].createElement("td", {
+    className: "d-none d-sm-table-cell"
+  }, "2017/10/24                                "), react_1["default"].createElement("td", {
+    className: "d-none d-sm-table-cell"
+  }, react_1["default"].createElement("a", {
+    href: "be_pages_ecom_customer.html"
+  }, "John Smith")), react_1["default"].createElement("td", {
+    className: "text-right"
+  }, react_1["default"].createElement("span", {
+    className: "text-black"
+  }, "$243"))), react_1["default"].createElement("tr", null, react_1["default"].createElement("td", null, react_1["default"].createElement("a", {
+    className: "font-w600",
+    href: "be_pages_ecom_order.html"
+  }, "ORD.933")), react_1["default"].createElement("td", null, react_1["default"].createElement("span", {
+    className: "badge badge-success"
+  }, "Completed")), react_1["default"].createElement("td", {
+    className: "d-none d-sm-table-cell"
+  }, "2017/10/23                                "), react_1["default"].createElement("td", {
+    className: "d-none d-sm-table-cell"
+  }, react_1["default"].createElement("a", {
+    href: "be_pages_ecom_customer.html"
+  }, "John Smith")), react_1["default"].createElement("td", {
+    className: "text-right"
+  }, react_1["default"].createElement("span", {
+    className: "text-black"
+  }, "$982"))))))))), react_1["default"].createElement("h2", {
+    className: "content-heading"
+  }, "Addresses"), react_1["default"].createElement("div", {
+    className: "row row-deck gutters-tiny"
+  }, react_1["default"].createElement("div", {
+    className: "col-md-6"
+  }, react_1["default"].createElement("div", {
+    className: "block block-rounded"
+  }, react_1["default"].createElement("div", {
+    className: "block-header block-header-default"
+  }, react_1["default"].createElement("h3", {
+    className: "block-title"
+  }, "Billing Address")), react_1["default"].createElement("div", {
+    className: "block-content"
+  }, react_1["default"].createElement("div", {
+    className: "font-size-lg text-black mb-5"
+  }, "John Smith"), react_1["default"].createElement("address", null, "5110 8th Ave", react_1["default"].createElement("br", null), "New York 11220", react_1["default"].createElement("br", null), "United States", react_1["default"].createElement("br", null), react_1["default"].createElement("i", {
+    className: "fa fa-phone mr-5"
+  }), " (999) 111-222222", react_1["default"].createElement("br", null), react_1["default"].createElement("i", {
+    className: "fa fa-envelope-o mr-5"
+  }), " ", react_1["default"].createElement("a", {
+    href: "javascript:void(0)"
+  }, "company@example.com"))))), react_1["default"].createElement("div", {
+    className: "col-md-6"
+  }, react_1["default"].createElement("div", {
+    className: "block block-rounded"
+  }, react_1["default"].createElement("div", {
+    className: "block-header block-header-default"
+  }, react_1["default"].createElement("h3", {
+    className: "block-title"
+  }, "Shipping Address")), react_1["default"].createElement("div", {
+    className: "block-content"
+  }, react_1["default"].createElement("div", {
+    className: "font-size-lg text-black mb-5"
+  }, "John Smith"), react_1["default"].createElement("address", null, "5110 8th Ave", react_1["default"].createElement("br", null), "New York 11220", react_1["default"].createElement("br", null), "United States", react_1["default"].createElement("br", null), react_1["default"].createElement("br", null), react_1["default"].createElement("i", {
+    className: "fa fa-phone mr-5"
+  }), " (999) 111-222222", react_1["default"].createElement("br", null), react_1["default"].createElement("i", {
+    className: "fa fa-envelope-o mr-5"
+  }), " ", react_1["default"].createElement("a", {
+    href: "javascript:void(0)"
+  }, "company@example.com"))))))));
+};
+
+exports["default"] = OrderDetail;
+
+/***/ }),
+
+/***/ "./resources/app/Pages/Admin/Orders/index.tsx":
+/*!****************************************************!*\
+  !*** ./resources/app/Pages/Admin/Orders/index.tsx ***!
+  \****************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+
+function _slicedToArray(arr, i) {
+  return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();
+}
+
+function _nonIterableRest() {
+  throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+
+function _unsupportedIterableToArray(o, minLen) {
+  if (!o) return;
+  if (typeof o === "string") return _arrayLikeToArray(o, minLen);
+  var n = Object.prototype.toString.call(o).slice(8, -1);
+  if (n === "Object" && o.constructor) n = o.constructor.name;
+  if (n === "Map" || n === "Set") return Array.from(o);
+  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
+}
+
+function _arrayLikeToArray(arr, len) {
+  if (len == null || len > arr.length) len = arr.length;
+
+  for (var i = 0, arr2 = new Array(len); i < len; i++) {
+    arr2[i] = arr[i];
+  }
+
+  return arr2;
+}
+
+function _iterableToArrayLimit(arr, i) {
+  var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"];
+
+  if (_i == null) return;
+  var _arr = [];
+  var _n = true;
+  var _d = false;
+
+  var _s, _e;
+
+  try {
+    for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) {
+      _arr.push(_s.value);
+
+      if (i && _arr.length === i) break;
+    }
+  } catch (err) {
+    _d = true;
+    _e = err;
+  } finally {
+    try {
+      if (!_n && _i["return"] != null) _i["return"]();
+    } finally {
+      if (_d) throw _e;
+    }
+  }
+
+  return _arr;
+}
+
+function _arrayWithHoles(arr) {
+  if (Array.isArray(arr)) return arr;
+}
+
+var __createBinding = this && this.__createBinding || (Object.create ? function (o, m, k, k2) {
+  if (k2 === undefined) k2 = k;
+  var desc = Object.getOwnPropertyDescriptor(m, k);
+
+  if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+    desc = {
+      enumerable: true,
+      get: function get() {
+        return m[k];
+      }
+    };
+  }
+
+  Object.defineProperty(o, k2, desc);
+} : function (o, m, k, k2) {
+  if (k2 === undefined) k2 = k;
+  o[k2] = m[k];
+});
+
+var __setModuleDefault = this && this.__setModuleDefault || (Object.create ? function (o, v) {
+  Object.defineProperty(o, "default", {
+    enumerable: true,
+    value: v
+  });
+} : function (o, v) {
+  o["default"] = v;
+});
+
+var __importStar = this && this.__importStar || function (mod) {
+  if (mod && mod.__esModule) return mod;
+  var result = {};
+  if (mod != null) for (var k in mod) {
+    if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+  }
+
+  __setModuleDefault(result, mod);
+
+  return result;
+};
+
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+
+var react_1 = __importStar(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
+
+var Components_1 = __webpack_require__(/*! ../../../Components */ "./resources/app/Components/index.tsx");
+
+var Order = __importStar(__webpack_require__(/*! ../../../Models/Order */ "./resources/app/Models/Order.tsx"));
+
+var react_router_dom_1 = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/index.js");
+
+var index_1 = __importDefault(__webpack_require__(/*! ../../../Components/PageContentHeader/index */ "./resources/app/Components/PageContentHeader/index.tsx"));
+
+var Orders = function Orders() {
+  var _ref = (0, react_1.useState)(),
+      _ref2 = _slicedToArray(_ref, 2),
+      orders = _ref2[0],
+      setOrders = _ref2[1];
+
+  var getOrderList = function getOrderList() {
+    setOrders(Order.data);
+  };
+
+  var getStatusColor = function getStatusColor(status) {
+    switch (status) {
+      case 'Processing':
+        return 'info';
+
+      case 'Canceled':
+        return 'danger';
+
+      case 'Pending':
+        return 'warning';
+
+      case 'Completed':
+        return 'success';
+
+      default:
+        return 'primary';
+    }
+  };
+
+  var getOrderByStatus = function getOrderByStatus(status) {
+    setOrders(Order.getOrderByStatus(status !== null && status !== void 0 ? status : ''));
+  };
+
+  var countByStatus = function countByStatus(status) {
+    return Order.countByStatus(status !== null && status !== void 0 ? status : '');
+  };
+
+  (0, react_1.useEffect)(function () {
+    getOrderList();
+  }, []);
+  return react_1["default"].createElement(react_1["default"].Fragment, null, react_1["default"].createElement(index_1["default"], {
+    title: "Orders"
+  }), react_1["default"].createElement(Components_1.Breadcrumb, {
+    items: [{
+      name: 'Dashboard',
+      link: '/admin'
+    }, {
+      name: 'Orders',
+      active: true
+    }]
+  }), react_1["default"].createElement("div", {
+    className: "content"
+  }, react_1["default"].createElement("div", {
+    className: "content-heading"
+  }, react_1["default"].createElement("div", {
+    className: "dropdown float-right"
   }, react_1["default"].createElement("button", {
     type: "button",
-    className: "btn btn-circle btn-dual-secondary",
-    id: "page-header-options-dropdown",
+    className: "btn btn-sm btn-secondary dropdown-toggle",
+    id: "ecom-orders-stats-drop",
     "data-toggle": "dropdown",
     "aria-haspopup": "true",
     "aria-expanded": "false"
-  }, react_1["default"].createElement("i", {
-    className: "fa fa-wrench"
-  })), react_1["default"].createElement("div", {
-    className: "dropdown-menu min-width-300",
-    "aria-labelledby": "page-header-options-dropdown"
-  }, react_1["default"].createElement("h5", {
-    className: "h6 text-center py-10 mb-10 border-b text-uppercase"
-  }, "Settings"), react_1["default"].createElement("h6", {
-    className: "dropdown-header"
-  }, "Color Themes"), react_1["default"].createElement("div", {
-    className: "row no-gutters text-center mb-5"
-  }, react_1["default"].createElement("div", {
-    className: "col-2 mb-5"
+  }, "Today"), react_1["default"].createElement("div", {
+    className: "dropdown-menu dropdown-menu-right",
+    "aria-labelledby": "ecom-orders-stats-drop"
   }, react_1["default"].createElement("a", {
-    className: "text-default",
-    "data-toggle": "theme",
-    "data-theme": "default",
+    className: "dropdown-item active",
     href: "javascript:void(0)"
   }, react_1["default"].createElement("i", {
-    className: "fa fa-2x fa-circle"
-  }))), react_1["default"].createElement("div", {
-    className: "col-2 mb-5"
-  }, react_1["default"].createElement("a", {
-    className: "text-elegance",
-    "data-toggle": "theme",
-    "data-theme": "/css/themes/elegance.css",
-    href: "javascript:void(0)"
-  }, react_1["default"].createElement("i", {
-    className: "fa fa-2x fa-circle"
-  }))), react_1["default"].createElement("div", {
-    className: "col-2 mb-5"
-  }, react_1["default"].createElement("a", {
-    className: "text-pulse",
-    "data-toggle": "theme",
-    "data-theme": "/css/themes/pulse.css",
-    href: "javascript:void(0)"
-  }, react_1["default"].createElement("i", {
-    className: "fa fa-2x fa-circle"
-  }))), react_1["default"].createElement("div", {
-    className: "col-2 mb-5"
-  }, react_1["default"].createElement("a", {
-    className: "text-flat",
-    "data-toggle": "theme",
-    "data-theme": "/css/themes/flat.css",
-    href: "javascript:void(0)"
-  }, react_1["default"].createElement("i", {
-    className: "fa fa-2x fa-circle"
-  }))), react_1["default"].createElement("div", {
-    className: "col-2 mb-5"
-  }, react_1["default"].createElement("a", {
-    className: "text-corporate",
-    "data-toggle": "theme",
-    "data-theme": "/css/themes/corporate.css",
-    href: "javascript:void(0)"
-  }, react_1["default"].createElement("i", {
-    className: "fa fa-2x fa-circle"
-  }))), react_1["default"].createElement("div", {
-    className: "col-2 mb-5"
-  }, react_1["default"].createElement("a", {
-    className: "text-earth",
-    "data-toggle": "theme",
-    "data-theme": "/css/themes/earth.css",
-    href: "javascript:void(0)"
-  }, react_1["default"].createElement("i", {
-    className: "fa fa-2x fa-circle"
-  })))), react_1["default"].createElement("h6", {
-    className: "dropdown-header"
-  }, "Header"), react_1["default"].createElement("div", {
-    className: "row gutters-tiny text-center mb-5"
-  }, react_1["default"].createElement("div", {
-    className: "col-6"
-  }, react_1["default"].createElement("button", {
-    type: "button",
-    className: "btn btn-sm btn-block btn-alt-secondary",
-    "data-toggle": "layout",
-    "data-action": "header_fixed_toggle"
-  }, "Fixed Mode")), react_1["default"].createElement("div", {
-    className: "col-6"
-  }, react_1["default"].createElement("button", {
-    type: "button",
-    className: "btn btn-sm btn-block btn-alt-secondary d-none d-lg-block mb-10",
-    "data-toggle": "layout",
-    "data-action": "header_style_classic"
-  }, "Classic Style"))), react_1["default"].createElement("h6", {
-    className: "dropdown-header"
-  }, "Sidebar"), react_1["default"].createElement("div", {
-    className: "row gutters-tiny text-center mb-5"
-  }, react_1["default"].createElement("div", {
-    className: "col-6"
-  }, react_1["default"].createElement("button", {
-    type: "button",
-    className: "btn btn-sm btn-block btn-alt-secondary mb-10",
-    "data-toggle": "layout",
-    "data-action": "sidebar_style_inverse_off"
-  }, "Light")), react_1["default"].createElement("div", {
-    className: "col-6"
-  }, react_1["default"].createElement("button", {
-    type: "button",
-    className: "btn btn-sm btn-block btn-alt-secondary mb-10",
-    "data-toggle": "layout",
-    "data-action": "sidebar_style_inverse_on"
-  }, "Dark"))), react_1["default"].createElement("div", {
-    className: "d-none d-xl-block"
-  }, react_1["default"].createElement("h6", {
-    className: "dropdown-header"
-  }, "Main Content"), react_1["default"].createElement("button", {
-    type: "button",
-    className: "btn btn-sm btn-block btn-alt-secondary mb-10",
-    "data-toggle": "layout",
-    "data-action": "content_layout_toggle"
-  }, "Toggle Layout"))))), react_1["default"].createElement("div", {
-    className: "content-header-section"
-  }, react_1["default"].createElement("div", {
-    className: "btn-group",
-    role: "group"
-  }, react_1["default"].createElement("button", {
-    type: "button",
-    className: "btn btn-rounded btn-dual-secondary",
-    id: "page-header-user-dropdown",
-    "data-toggle": "dropdown",
-    "aria-haspopup": "true",
-    "aria-expanded": "false"
-  }, react_1["default"].createElement("i", {
-    className: "fa fa-user d-sm-none"
-  }), react_1["default"].createElement("span", {
-    className: "d-none d-sm-inline-block"
-  }, "J. Smith"), react_1["default"].createElement("i", {
-    className: "fa fa-angle-down ml-5"
-  })), react_1["default"].createElement("div", {
-    className: "dropdown-menu dropdown-menu-right min-width-200",
-    "aria-labelledby": "page-header-user-dropdown"
-  }, react_1["default"].createElement("a", {
+    className: "fa fa-fw fa-calendar mr-5"
+  }), "Today"), react_1["default"].createElement("a", {
     className: "dropdown-item",
     href: "javascript:void(0)"
   }, react_1["default"].createElement("i", {
-    className: "si si-user mr-5"
-  }), " Profile"), react_1["default"].createElement("div", {
+    className: "fa fa-fw fa-calendar mr-5"
+  }), "This Week"), react_1["default"].createElement("a", {
+    className: "dropdown-item",
+    href: "javascript:void(0)"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-fw fa-calendar mr-5"
+  }), "This Month"), react_1["default"].createElement("a", {
+    className: "dropdown-item",
+    href: "javascript:void(0)"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-fw fa-calendar mr-5"
+  }), "This Year"), react_1["default"].createElement("div", {
     className: "dropdown-divider"
   }), react_1["default"].createElement("a", {
     className: "dropdown-item",
     href: "javascript:void(0)"
   }, react_1["default"].createElement("i", {
-    className: "si si-logout mr-5"
-  }), " Sign Out"))))), react_1["default"].createElement("div", {
+    className: "fa fa-fw fa-circle-o mr-5"
+  }), "All Time"))), "Statistics"), react_1["default"].createElement("div", {
+    className: "row gutters-tiny"
+  }, react_1["default"].createElement("div", {
+    className: "col-md-6 col-xl-3"
+  }, react_1["default"].createElement("a", {
+    className: "block block-rounded block-transparent bg-gd-aqua",
+    href: "javascript:void(0)"
+  }, react_1["default"].createElement("div", {
+    className: "block-content block-content-full block-sticky-options"
+  }, react_1["default"].createElement("div", {
+    className: "block-options"
+  }, react_1["default"].createElement("div", {
+    className: "block-options-item"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-spinner fa-spin text-white-op"
+  }))), react_1["default"].createElement("div", {
+    className: "py-20 text-center"
+  }, react_1["default"].createElement("div", {
+    className: "font-size-h2 font-w700 mb-0 text-white",
+    "data-toggle": "countTo",
+    "data-to": countByStatus('Processing')
+  }, "0"), react_1["default"].createElement("div", {
+    className: "font-size-sm font-w600 text-uppercase text-white-op"
+  }, "Processing"))))), react_1["default"].createElement("div", {
+    className: "col-md-6 col-xl-3"
+  }, react_1["default"].createElement("a", {
+    className: "block block-rounded block-transparent bg-gd-sun",
+    href: "javascript:void(0)"
+  }, react_1["default"].createElement("div", {
+    className: "block-content block-content-full block-sticky-options"
+  }, react_1["default"].createElement("div", {
+    className: "block-options"
+  }, react_1["default"].createElement("div", {
+    className: "block-options-item"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-spinner fa-spin text-white-op"
+  }))), react_1["default"].createElement("div", {
+    className: "py-20 text-center"
+  }, react_1["default"].createElement("div", {
+    className: "font-size-h2 font-w700 mb-0 text-white",
+    "data-toggle": "countTo",
+    "data-to": countByStatus('Pending')
+  }, "0"), react_1["default"].createElement("div", {
+    className: "font-size-sm font-w600 text-uppercase text-white-op"
+  }, "Pending"))))), react_1["default"].createElement("div", {
+    className: "col-md-6 col-xl-3"
+  }, react_1["default"].createElement("a", {
+    className: "block block-rounded block-transparent bg-gd-cherry",
+    href: "javascript:void(0)"
+  }, react_1["default"].createElement("div", {
+    className: "block-content block-content-full block-sticky-options"
+  }, react_1["default"].createElement("div", {
+    className: "block-options"
+  }, react_1["default"].createElement("div", {
+    className: "block-options-item"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-times text-white-op"
+  }))), react_1["default"].createElement("div", {
+    className: "py-20 text-center"
+  }, react_1["default"].createElement("div", {
+    className: "font-size-h2 font-w700 mb-0 text-white",
+    "data-toggle": "countTo",
+    "data-to": countByStatus('Canceled')
+  }, "0"), react_1["default"].createElement("div", {
+    className: "font-size-sm font-w600 text-uppercase text-white-op"
+  }, "Canceled"))))), react_1["default"].createElement("div", {
+    className: "col-md-6 col-xl-3"
+  }, react_1["default"].createElement("a", {
+    className: "block block-rounded block-transparent bg-gd-lake",
+    href: "javascript:void(0)"
+  }, react_1["default"].createElement("div", {
+    className: "block-content block-content-full block-sticky-options"
+  }, react_1["default"].createElement("div", {
+    className: "block-options"
+  }, react_1["default"].createElement("div", {
+    className: "block-options-item"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-check text-white-op"
+  }))), react_1["default"].createElement("div", {
+    className: "py-20 text-center"
+  }, react_1["default"].createElement("div", {
+    className: "font-size-h2 font-w700 mb-0 text-white",
+    "data-toggle": "countTo",
+    "data-to": countByStatus('Completed')
+  }, "0"), react_1["default"].createElement("div", {
+    className: "font-size-sm font-w600 text-uppercase text-white-op"
+  }, "Completed")))))), react_1["default"].createElement("div", {
+    className: "content-heading"
+  }, react_1["default"].createElement("div", {
+    className: "dropdown float-right"
+  }, react_1["default"].createElement("button", {
+    type: "button",
+    className: "btn btn-sm btn-secondary dropdown-toggle",
+    id: "ecom-orders-drop",
+    "data-toggle": "dropdown",
+    "aria-haspopup": "true",
+    "aria-expanded": "false"
+  }, "Today"), react_1["default"].createElement("div", {
+    className: "dropdown-menu dropdown-menu-right",
+    "aria-labelledby": "ecom-orders-drop"
+  }, react_1["default"].createElement("a", {
+    className: "dropdown-item active",
+    href: "javascript:void(0)"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-fw fa-calendar mr-5"
+  }), "Today"), react_1["default"].createElement("a", {
+    className: "dropdown-item",
+    href: "javascript:void(0)"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-fw fa-calendar mr-5"
+  }), "This Week"), react_1["default"].createElement("a", {
+    className: "dropdown-item",
+    href: "javascript:void(0)"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-fw fa-calendar mr-5"
+  }), "This Month"), react_1["default"].createElement("a", {
+    className: "dropdown-item",
+    href: "javascript:void(0)"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-fw fa-calendar mr-5"
+  }), "This Year"), react_1["default"].createElement("div", {
+    className: "dropdown-divider"
+  }), react_1["default"].createElement("a", {
+    className: "dropdown-item",
+    href: "javascript:void(0)"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-fw fa-circle-o mr-5"
+  }), "All Time"))), react_1["default"].createElement("div", {
+    className: "dropdown float-right mr-5"
+  }, react_1["default"].createElement("button", {
+    type: "button",
+    className: "btn btn-sm btn-secondary dropdown-toggle",
+    id: "ecom-orders-filter-drop",
+    "data-toggle": "dropdown",
+    "aria-haspopup": "true",
+    "aria-expanded": "false"
+  }, "All"), react_1["default"].createElement("div", {
+    className: "dropdown-menu dropdown-menu-right",
+    "aria-labelledby": "ecom-orders-filter-drop"
+  }, react_1["default"].createElement("a", {
+    className: "dropdown-item",
+    href: "javascript:void(0)",
+    onClick: function onClick() {
+      return getOrderByStatus('Pending');
+    }
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-fw fa-spinner fa-spin text-warning mr-5"
+  }), "Pending"), react_1["default"].createElement("a", {
+    className: "dropdown-item",
+    href: "javascript:void(0)",
+    onClick: function onClick() {
+      return getOrderByStatus('Processing');
+    }
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-fw fa-refresh fa-spin text-info mr-5"
+  }), "Processing"), react_1["default"].createElement("a", {
+    className: "dropdown-item",
+    href: "javascript:void(0)",
+    onClick: function onClick() {
+      return getOrderByStatus('Canceled');
+    }
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-fw fa-times text-danger mr-5"
+  }), "Canceled"), react_1["default"].createElement("a", {
+    className: "dropdown-item",
+    href: "javascript:void(0)",
+    onClick: function onClick() {
+      return getOrderByStatus('Completed');
+    }
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-fw fa-check text-success mr-5"
+  }), "Completed"), react_1["default"].createElement("div", {
+    className: "dropdown-divider"
+  }), react_1["default"].createElement("a", {
+    className: "dropdown-item active",
+    href: "javascript:void(0)",
+    onClick: function onClick() {
+      return getOrderByStatus();
+    }
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-fw fa-circle-o mr-5"
+  }), "All"))), "Orders (", countByStatus(), ")"), react_1["default"].createElement("div", {
+    className: "block block-rounded"
+  }, react_1["default"].createElement("div", {
+    className: "block-content bg-body-light"
+  }, react_1["default"].createElement("form", {
+    action: "be_pages_ecom_orders.html",
+    method: "post"
+  }, react_1["default"].createElement("div", {
+    className: "form-group"
+  }, react_1["default"].createElement("div", {
+    className: "input-group"
+  }, react_1["default"].createElement("input", {
+    type: "text",
+    className: "form-control",
+    placeholder: "Search orders.."
+  }), react_1["default"].createElement("div", {
+    className: "input-group-append"
+  }, react_1["default"].createElement("button", {
+    type: "submit",
+    className: "btn btn-secondary"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-search"
+  }))))))), react_1["default"].createElement("div", {
+    className: "block-content"
+  }, react_1["default"].createElement("table", {
+    className: "table table-borderless table-striped"
+  }, react_1["default"].createElement("thead", null, react_1["default"].createElement("tr", null, react_1["default"].createElement("th", {
+    style: {
+      width: '100px'
+    }
+  }, "ID"), react_1["default"].createElement("th", null, "Status"), react_1["default"].createElement("th", {
+    className: "d-none d-sm-table-cell"
+  }, "Submitted"), react_1["default"].createElement("th", {
+    className: "d-none d-sm-table-cell"
+  }, "Products"), react_1["default"].createElement("th", {
+    className: "d-none d-sm-table-cell"
+  }, "Customer"), react_1["default"].createElement("th", {
+    className: "text-right"
+  }, "Value"))), react_1["default"].createElement("tbody", null, orders === null || orders === void 0 ? void 0 : orders.map(function (order) {
+    return react_1["default"].createElement("tr", null, react_1["default"].createElement("td", null, react_1["default"].createElement(react_router_dom_1.Link, {
+      className: "font-w600",
+      to: "/admin/orders/".concat(order.id)
+    }, order.id)), react_1["default"].createElement("td", null, react_1["default"].createElement("span", {
+      className: "badge badge-".concat(getStatusColor(order.status))
+    }, order.status)), react_1["default"].createElement("td", {
+      className: "d-none d-sm-table-cell"
+    }, order.submitted), react_1["default"].createElement("td", {
+      className: "d-none d-sm-table-cell"
+    }, react_1["default"].createElement("a", {
+      href: "javascript:void(0)"
+    }, order.products_count)), react_1["default"].createElement("td", {
+      className: "d-none d-sm-table-cell"
+    }, react_1["default"].createElement("a", {
+      href: "be_pages_ecom_customer.html"
+    }, order.customer_name)), react_1["default"].createElement("td", {
+      className: "text-right"
+    }, react_1["default"].createElement("span", {
+      className: "text-black"
+    }, "$", order.total_price)));
+  }))), react_1["default"].createElement("nav", {
+    "aria-label": "Orders navigation"
+  }, react_1["default"].createElement("ul", {
+    className: "pagination justify-content-end"
+  }, react_1["default"].createElement("li", {
+    className: "page-item"
+  }, react_1["default"].createElement("a", {
+    className: "page-link",
+    href: "javascript:void(0)",
+    "aria-label": "Previous"
+  }, react_1["default"].createElement("span", {
+    "aria-hidden": "true"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-angle-left"
+  })), react_1["default"].createElement("span", {
+    className: "sr-only"
+  }, "Previous"))), react_1["default"].createElement("li", {
+    className: "page-item active"
+  }, react_1["default"].createElement("a", {
+    className: "page-link",
+    href: "javascript:void(0)"
+  }, "1")), react_1["default"].createElement("li", {
+    className: "page-item"
+  }, react_1["default"].createElement("a", {
+    className: "page-link",
+    href: "javascript:void(0)"
+  }, "2")), react_1["default"].createElement("li", {
+    className: "page-item disabled"
+  }, react_1["default"].createElement("a", {
+    className: "page-link",
+    href: "javascript:void(0)"
+  }, "...")), react_1["default"].createElement("li", {
+    className: "page-item"
+  }, react_1["default"].createElement("a", {
+    className: "page-link",
+    href: "javascript:void(0)"
+  }, "8")), react_1["default"].createElement("li", {
+    className: "page-item"
+  }, react_1["default"].createElement("a", {
+    className: "page-link",
+    href: "javascript:void(0)"
+  }, "9")), react_1["default"].createElement("li", {
+    className: "page-item"
+  }, react_1["default"].createElement("a", {
+    className: "page-link",
+    href: "javascript:void(0)",
+    "aria-label": "Next"
+  }, react_1["default"].createElement("span", {
+    "aria-hidden": "true"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-angle-right"
+  })), react_1["default"].createElement("span", {
+    className: "sr-only"
+  }, "Next")))))))));
+};
+
+exports["default"] = Orders;
+
+/***/ }),
+
+/***/ "./resources/app/Pages/Admin/Products/ProductDetail.tsx":
+/*!**************************************************************!*\
+  !*** ./resources/app/Pages/Admin/Products/ProductDetail.tsx ***!
+  \**************************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+
+function _slicedToArray(arr, i) {
+  return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();
+}
+
+function _nonIterableRest() {
+  throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+
+function _unsupportedIterableToArray(o, minLen) {
+  if (!o) return;
+  if (typeof o === "string") return _arrayLikeToArray(o, minLen);
+  var n = Object.prototype.toString.call(o).slice(8, -1);
+  if (n === "Object" && o.constructor) n = o.constructor.name;
+  if (n === "Map" || n === "Set") return Array.from(o);
+  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
+}
+
+function _arrayLikeToArray(arr, len) {
+  if (len == null || len > arr.length) len = arr.length;
+
+  for (var i = 0, arr2 = new Array(len); i < len; i++) {
+    arr2[i] = arr[i];
+  }
+
+  return arr2;
+}
+
+function _iterableToArrayLimit(arr, i) {
+  var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"];
+
+  if (_i == null) return;
+  var _arr = [];
+  var _n = true;
+  var _d = false;
+
+  var _s, _e;
+
+  try {
+    for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) {
+      _arr.push(_s.value);
+
+      if (i && _arr.length === i) break;
+    }
+  } catch (err) {
+    _d = true;
+    _e = err;
+  } finally {
+    try {
+      if (!_n && _i["return"] != null) _i["return"]();
+    } finally {
+      if (_d) throw _e;
+    }
+  }
+
+  return _arr;
+}
+
+function _arrayWithHoles(arr) {
+  if (Array.isArray(arr)) return arr;
+}
+
+var __createBinding = this && this.__createBinding || (Object.create ? function (o, m, k, k2) {
+  if (k2 === undefined) k2 = k;
+  var desc = Object.getOwnPropertyDescriptor(m, k);
+
+  if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+    desc = {
+      enumerable: true,
+      get: function get() {
+        return m[k];
+      }
+    };
+  }
+
+  Object.defineProperty(o, k2, desc);
+} : function (o, m, k, k2) {
+  if (k2 === undefined) k2 = k;
+  o[k2] = m[k];
+});
+
+var __setModuleDefault = this && this.__setModuleDefault || (Object.create ? function (o, v) {
+  Object.defineProperty(o, "default", {
+    enumerable: true,
+    value: v
+  });
+} : function (o, v) {
+  o["default"] = v;
+});
+
+var __importStar = this && this.__importStar || function (mod) {
+  if (mod && mod.__esModule) return mod;
+  var result = {};
+  if (mod != null) for (var k in mod) {
+    if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+  }
+
+  __setModuleDefault(result, mod);
+
+  return result;
+};
+
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+
+var react_1 = __importStar(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
+
+var CategoryModel = __importStar(__webpack_require__(/*! ../../../Models/Categories */ "./resources/app/Models/Categories.tsx"));
+
+var ProductModel = __importStar(__webpack_require__(/*! ../../../Models/Products */ "./resources/app/Models/Products.tsx"));
+
+var react_router_dom_1 = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/index.js");
+
+var index_1 = __importDefault(__webpack_require__(/*! ../../../Components/Breadcrumb/index */ "./resources/app/Components/Breadcrumb/index.tsx"));
+
+var index_2 = __importDefault(__webpack_require__(/*! ../../../Components/PageContentHeader/index */ "./resources/app/Components/PageContentHeader/index.tsx"));
+
+var ProductDetail = function ProductDetail(props) {
+  var _ref = (0, react_router_dom_1.useParams)(),
+      id = _ref.id;
+
+  var _ref2 = (0, react_1.useState)(),
+      _ref3 = _slicedToArray(_ref2, 2),
+      categories = _ref3[0],
+      setCategories = _ref3[1];
+
+  var _ref4 = (0, react_1.useState)(),
+      _ref5 = _slicedToArray(_ref4, 2),
+      product = _ref5[0],
+      setProduct = _ref5[1];
+
+  (0, react_1.useEffect)(function () {
+    setProduct(ProductModel.getProduct());
+    setCategories(CategoryModel.getList());
+  }, [id]);
+  return react_1["default"].createElement(react_1["default"].Fragment, null, react_1["default"].createElement(index_2["default"], {
+    title: product === null || product === void 0 ? void 0 : product.id
+  }), react_1["default"].createElement(index_1["default"], {
+    items: [{
+      name: 'Dashboard',
+      link: '/admin'
+    }, {
+      name: "Products",
+      link: '/products'
+    }, {
+      name: product === null || product === void 0 ? void 0 : product.id,
+      active: true
+    }]
+  }), react_1["default"].createElement("div", {
+    className: "content"
+  }, react_1["default"].createElement("h2", {
+    className: "content-heading"
+  }, "Overview"), react_1["default"].createElement("div", {
+    className: "row gutters-tiny"
+  }, react_1["default"].createElement("div", {
+    className: "col-md-6 col-xl-4"
+  }, react_1["default"].createElement("a", {
+    className: "block block-rounded block-link-shadow",
+    href: "javascript:void(0)"
+  }, react_1["default"].createElement("div", {
+    className: "block-content block-content-full block-sticky-options"
+  }, react_1["default"].createElement("div", {
+    className: "block-options"
+  }, react_1["default"].createElement("div", {
+    className: "block-options-item"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-shopping-basket fa-2x text-info-light"
+  }))), react_1["default"].createElement("div", {
+    className: "py-20 text-center"
+  }, react_1["default"].createElement("div", {
+    className: "font-size-h2 font-w700 mb-0 text-info",
+    "data-toggle": "countTo",
+    "data-to": "39"
+  }, "0"), react_1["default"].createElement("div", {
+    className: "font-size-sm font-w600 text-uppercase text-muted"
+  }, "In Orders"))))), react_1["default"].createElement("div", {
+    className: "col-md-6 col-xl-4"
+  }, react_1["default"].createElement("a", {
+    className: "block block-rounded block-link-shadow",
+    href: "javascript:void(0)"
+  }, react_1["default"].createElement("div", {
+    className: "block-content block-content-full block-sticky-options"
+  }, react_1["default"].createElement("div", {
+    className: "block-options"
+  }, react_1["default"].createElement("div", {
+    className: "block-options-item"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-check fa-2x text-success-light"
+  }))), react_1["default"].createElement("div", {
+    className: "py-20 text-center"
+  }, react_1["default"].createElement("div", {
+    className: "font-size-h2 font-w700 mb-0 text-success",
+    "data-toggle": "countTo",
+    "data-to": "85"
+  }, "0"), react_1["default"].createElement("div", {
+    className: "font-size-sm font-w600 text-uppercase text-muted"
+  }, "Stock"))))), react_1["default"].createElement("div", {
+    className: "col-xl-4"
+  }, react_1["default"].createElement("a", {
+    className: "block block-rounded block-link-shadow",
+    href: "javascript:void(0)",
+    "data-toggle": "modal",
+    "data-target": "#modal-fadein"
+  }, react_1["default"].createElement("div", {
+    className: "block-content block-content-full block-sticky-options"
+  }, react_1["default"].createElement("div", {
+    className: "block-options"
+  }, react_1["default"].createElement("div", {
+    className: "block-options-item"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-archive fa-2x text-danger-light"
+  }))), react_1["default"].createElement("div", {
+    className: "py-20 text-center"
+  }, react_1["default"].createElement("div", {
+    className: "font-size-h2 font-w700 mb-0 text-danger"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-times"
+  })), react_1["default"].createElement("div", {
+    className: "font-size-sm font-w600 text-uppercase text-muted"
+  }, "Delete Product")))))), react_1["default"].createElement("h2", {
+    className: "content-heading"
+  }, "Update Product"), react_1["default"].createElement("div", {
+    className: "row gutters-tiny"
+  }, react_1["default"].createElement("div", {
+    className: "col-md-7"
+  }, react_1["default"].createElement("form", null, react_1["default"].createElement("div", {
+    className: "block block-rounded block-themed"
+  }, react_1["default"].createElement("div", {
+    className: "block-header bg-gd-primary"
+  }, react_1["default"].createElement("h3", {
+    className: "block-title"
+  }, "Basic Info"), react_1["default"].createElement("div", {
+    className: "block-options"
+  }, react_1["default"].createElement("button", {
+    type: "button",
+    className: "btn btn-sm btn-alt-primary",
+    "data-toggle": "modal",
+    "data-target": "#modal-fadein"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-save mr-5"
+  }), "Save"))), react_1["default"].createElement("div", {
+    className: "block-content block-content-full"
+  }, react_1["default"].createElement("div", {
+    className: "form-group row"
+  }, react_1["default"].createElement("label", {
+    className: "col-12"
+  }, "Product ID"), react_1["default"].createElement("div", {
+    className: "col-12"
+  }, react_1["default"].createElement("div", {
+    className: "form-control-plaintext"
+  }, product === null || product === void 0 ? void 0 : product.id))), react_1["default"].createElement("div", {
+    className: "form-group row"
+  }, react_1["default"].createElement("label", {
+    className: "col-12",
+    htmlFor: "ecom-product-name"
+  }, "Name"), react_1["default"].createElement("div", {
+    className: "col-12"
+  }, react_1["default"].createElement("input", {
+    type: "text",
+    className: "form-control",
+    id: "ecom-product-name",
+    name: "ecom-product-name",
+    placeholder: "Product Name",
+    onChange: function onChange(e) {
+      return setProduct(Object.assign(Object.assign({}, product), {
+        name: e.target.value
+      }));
+    },
+    value: product === null || product === void 0 ? void 0 : product.name
+  }))), react_1["default"].createElement("div", {
+    className: "form-group row"
+  }, react_1["default"].createElement("label", {
+    className: "col-12",
+    htmlFor: "example-select2"
+  }, "Category"), react_1["default"].createElement("div", {
+    className: "col-12"
+  }, react_1["default"].createElement("select", {
+    className: "js-select2 form-control",
+    id: "example-select2",
+    name: "example-select2",
+    style: {
+      width: '100%'
+    },
+    "data-placeholder": "Choose one.."
+  }, categories === null || categories === void 0 ? void 0 : categories.map(function (category) {
+    return react_1["default"].createElement("option", {
+      value: category.id,
+      selected: (product === null || product === void 0 ? void 0 : product.category) == category.name
+    }, category.name);
+  })))), react_1["default"].createElement("div", {
+    className: "form-group row"
+  }, react_1["default"].createElement("label", {
+    className: "col-12"
+  }, "Description"), react_1["default"].createElement("div", {
+    className: "col-12"
+  }, react_1["default"].createElement("textarea", {
+    className: "form-control",
+    id: "js-ckeditor",
+    name: "js-ckeditor",
+    placeholder: "Main Description",
+    rows: 8
+  }, "Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium necessitatibus, ratione tempore vel quisquam, nostrum minima quis veniam asperiores, repellendus nulla sint sed ipsum quas! Dolor incidunt vero consectetur minus? Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum ea cupiditate tenetur dolorum. Necessitatibus cum quam temporibus nisi natus aliquid ratione commodi repellat ducimus quibusdam minima, aspernatur praesentium error corporis?"))), react_1["default"].createElement("div", {
+    className: "form-group row"
+  }, react_1["default"].createElement("label", {
+    className: "col-12",
+    htmlFor: "ecom-product-description-short"
+  }, "Short Description"), react_1["default"].createElement("div", {
+    className: "col-12"
+  }, react_1["default"].createElement("textarea", {
+    className: "form-control",
+    id: "ecom-product-description-short",
+    name: "ecom-product-description-short",
+    placeholder: "Description visible on preview..",
+    rows: 6
+  }, "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Assumenda, nisi ratione tenetur porro cumque dolore reiciendis ad cum, optio itaque labore. Eum praesentium illum hic aut, ipsum qui nisi temporibus."))), react_1["default"].createElement("div", {
+    className: "form-group row"
+  }, react_1["default"].createElement("label", {
+    className: "col-12",
+    htmlFor: "ecom-product-stock"
+  }, "Stock"), react_1["default"].createElement("div", {
+    className: "col-sm-6"
+  }, react_1["default"].createElement("div", {
+    className: "input-group"
+  }, react_1["default"].createElement("div", {
+    className: "input-group-prepend"
+  }, react_1["default"].createElement("span", {
+    className: "input-group-text"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-fw fa-archive"
+  }))), react_1["default"].createElement("input", {
+    type: "text",
+    className: "form-control",
+    id: "ecom-product-stock",
+    name: "ecom-product-stock",
+    placeholder: "0",
+    value: "85"
+  })))), react_1["default"].createElement("div", {
+    className: "form-group row"
+  }, react_1["default"].createElement("label", {
+    className: "col-12",
+    htmlFor: "ecom-product-price"
+  }, "Price"), react_1["default"].createElement("div", {
+    className: "col-sm-6"
+  }, react_1["default"].createElement("div", {
+    className: "input-group"
+  }, react_1["default"].createElement("div", {
+    className: "input-group-prepend"
+  }, react_1["default"].createElement("span", {
+    className: "input-group-text"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-fw fa-usd"
+  }))), react_1["default"].createElement("input", {
+    type: "text",
+    className: "form-control",
+    id: "ecom-product-price",
+    name: "ecom-product-price",
+    placeholder: "Price in USD..",
+    value: product === null || product === void 0 ? void 0 : product.price
+  })))))))), react_1["default"].createElement("div", {
+    className: "col-md-5"
+  }, react_1["default"].createElement("form", null, react_1["default"].createElement("div", {
+    className: "block block-rounded block-themed"
+  }, react_1["default"].createElement("div", {
+    className: "block-header bg-gd-primary"
+  }, react_1["default"].createElement("h3", {
+    className: "block-title"
+  }, "Status"), react_1["default"].createElement("div", {
+    className: "block-options"
+  }, react_1["default"].createElement("button", {
+    type: "button",
+    className: "btn btn-sm btn-alt-primary",
+    "data-toggle": "modal",
+    "data-target": "#modal-fadein"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-save mr-5"
+  }), "Save"))), react_1["default"].createElement("div", {
+    className: "block-content block-content-full"
+  }, react_1["default"].createElement("div", {
+    className: "form-group row"
+  }, react_1["default"].createElement("label", {
+    className: "col-12"
+  }, "Condition"), react_1["default"].createElement("div", {
+    className: "col-12"
+  }, react_1["default"].createElement("label", {
+    className: "css-control css-control-primary css-radio"
+  }, react_1["default"].createElement("input", {
+    type: "radio",
+    className: "css-control-input",
+    id: "ecom-product-condition-new",
+    name: "ecom-product-condition",
+    checked: true
+  }), react_1["default"].createElement("span", {
+    className: "css-control-indicator"
+  }), " New"), react_1["default"].createElement("label", {
+    className: "css-control css-control-secondary css-radio"
+  }, react_1["default"].createElement("input", {
+    type: "radio",
+    className: "css-control-input",
+    id: "ecom-product-condition-old",
+    name: "ecom-product-condition"
+  }), react_1["default"].createElement("span", {
+    className: "css-control-indicator"
+  }), " Old"))), react_1["default"].createElement("div", {
+    className: "form-group row"
+  }, react_1["default"].createElement("label", {
+    className: "col-12"
+  }, "Published"), react_1["default"].createElement("div", {
+    className: "col-12"
+  }, react_1["default"].createElement("label", {
+    className: "css-control css-control-success css-switch"
+  }, react_1["default"].createElement("input", {
+    type: "checkbox",
+    className: "css-control-input",
+    id: "ecom-product-published",
+    name: "ecom-product-published"
+  }), react_1["default"].createElement("span", {
+    className: "css-control-indicator"
+  }))))))), react_1["default"].createElement("div", {
+    className: "block block-rounded block-themed"
+  }, react_1["default"].createElement("div", {
+    className: "block-header bg-gd-primary"
+  }, react_1["default"].createElement("h3", {
+    className: "block-title"
+  }, "Images")), react_1["default"].createElement("div", {
+    className: "block-content block-content-full"
+  }, react_1["default"].createElement("div", {
+    className: "row gutters-tiny items-push"
+  }, react_1["default"].createElement("div", {
+    className: "col-sm-6 col-xl-4"
+  }, react_1["default"].createElement("div", {
+    className: "options-container"
+  }, react_1["default"].createElement("img", {
+    className: "img-fluid options-item",
+    src: "/media/photos/photo8.jpg",
+    alt: ""
+  }), react_1["default"].createElement("div", {
+    className: "options-overlay bg-black-op-75"
+  }, react_1["default"].createElement("div", {
+    className: "options-overlay-content"
+  }, react_1["default"].createElement("a", {
+    className: "btn btn-sm btn-rounded btn-alt-danger min-width-75",
+    href: "javascript:void(0)"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-times"
+  }), " Remove"))))), react_1["default"].createElement("div", {
+    className: "col-sm-6 col-xl-4"
+  }, react_1["default"].createElement("div", {
+    className: "options-container"
+  }, react_1["default"].createElement("img", {
+    className: "img-fluid options-item",
+    src: "/media/photos/photo18.jpg",
+    alt: ""
+  }), react_1["default"].createElement("div", {
+    className: "options-overlay bg-black-op-75"
+  }, react_1["default"].createElement("div", {
+    className: "options-overlay-content"
+  }, react_1["default"].createElement("a", {
+    className: "btn btn-sm btn-rounded btn-alt-danger min-width-75",
+    href: "javascript:void(0)"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-times"
+  }), " Remove")))))), react_1["default"].createElement("form", {
+    className: "dropzone"
+  })))))), react_1["default"].createElement("div", {
+    className: "modal fade",
+    id: "modal-fadein",
+    tabIndex: -1,
+    role: "dialog",
+    "aria-labelledby": "modal-fadein",
+    "aria-modal": "true"
+  }, react_1["default"].createElement("div", {
+    className: "modal-dialog",
+    role: "document"
+  }, react_1["default"].createElement("div", {
+    className: "modal-content"
+  }, react_1["default"].createElement("div", {
+    className: "block block-themed block-transparent mb-0"
+  }, react_1["default"].createElement("div", {
+    className: "block-header bg-primary-dark"
+  }, react_1["default"].createElement("h3", {
+    className: "block-title"
+  }, "Confirm"), react_1["default"].createElement("div", {
+    className: "block-options"
+  }, react_1["default"].createElement("button", {
+    type: "button",
+    className: "btn-block-option",
+    "data-dismiss": "modal",
+    "aria-label": "Close"
+  }, react_1["default"].createElement("i", {
+    className: "si si-close"
+  })))), react_1["default"].createElement("div", {
+    className: "block-content"
+  }, react_1["default"].createElement("p", null, "Are you sure you want to perform this action?"))), react_1["default"].createElement("div", {
+    className: "modal-footer"
+  }, react_1["default"].createElement("button", {
+    type: "button",
+    className: "btn btn-alt-secondary",
+    "data-dismiss": "modal"
+  }, "Close"), react_1["default"].createElement("button", {
+    type: "button",
+    className: "btn btn-alt-success",
+    "data-dismiss": "modal"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-check"
+  }), " Confirm"))))));
+};
+
+exports["default"] = ProductDetail;
+
+/***/ }),
+
+/***/ "./resources/app/Pages/Admin/Products/index.tsx":
+/*!******************************************************!*\
+  !*** ./resources/app/Pages/Admin/Products/index.tsx ***!
+  \******************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+
+function _slicedToArray(arr, i) {
+  return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();
+}
+
+function _nonIterableRest() {
+  throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+
+function _unsupportedIterableToArray(o, minLen) {
+  if (!o) return;
+  if (typeof o === "string") return _arrayLikeToArray(o, minLen);
+  var n = Object.prototype.toString.call(o).slice(8, -1);
+  if (n === "Object" && o.constructor) n = o.constructor.name;
+  if (n === "Map" || n === "Set") return Array.from(o);
+  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
+}
+
+function _arrayLikeToArray(arr, len) {
+  if (len == null || len > arr.length) len = arr.length;
+
+  for (var i = 0, arr2 = new Array(len); i < len; i++) {
+    arr2[i] = arr[i];
+  }
+
+  return arr2;
+}
+
+function _iterableToArrayLimit(arr, i) {
+  var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"];
+
+  if (_i == null) return;
+  var _arr = [];
+  var _n = true;
+  var _d = false;
+
+  var _s, _e;
+
+  try {
+    for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) {
+      _arr.push(_s.value);
+
+      if (i && _arr.length === i) break;
+    }
+  } catch (err) {
+    _d = true;
+    _e = err;
+  } finally {
+    try {
+      if (!_n && _i["return"] != null) _i["return"]();
+    } finally {
+      if (_d) throw _e;
+    }
+  }
+
+  return _arr;
+}
+
+function _arrayWithHoles(arr) {
+  if (Array.isArray(arr)) return arr;
+}
+
+var __createBinding = this && this.__createBinding || (Object.create ? function (o, m, k, k2) {
+  if (k2 === undefined) k2 = k;
+  var desc = Object.getOwnPropertyDescriptor(m, k);
+
+  if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+    desc = {
+      enumerable: true,
+      get: function get() {
+        return m[k];
+      }
+    };
+  }
+
+  Object.defineProperty(o, k2, desc);
+} : function (o, m, k, k2) {
+  if (k2 === undefined) k2 = k;
+  o[k2] = m[k];
+});
+
+var __setModuleDefault = this && this.__setModuleDefault || (Object.create ? function (o, v) {
+  Object.defineProperty(o, "default", {
+    enumerable: true,
+    value: v
+  });
+} : function (o, v) {
+  o["default"] = v;
+});
+
+var __importStar = this && this.__importStar || function (mod) {
+  if (mod && mod.__esModule) return mod;
+  var result = {};
+  if (mod != null) for (var k in mod) {
+    if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+  }
+
+  __setModuleDefault(result, mod);
+
+  return result;
+};
+
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+
+var react_1 = __importStar(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
+
+var index_1 = __importDefault(__webpack_require__(/*! ../../../Components/Breadcrumb/index */ "./resources/app/Components/Breadcrumb/index.tsx"));
+
+var react_router_dom_1 = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/index.js");
+
+var CategoryModel = __importStar(__webpack_require__(/*! ../../../Models/Categories */ "./resources/app/Models/Categories.tsx"));
+
+var ProductModel = __importStar(__webpack_require__(/*! ../../../Models/Products */ "./resources/app/Models/Products.tsx"));
+
+var Components_1 = __webpack_require__(/*! ../../../Components */ "./resources/app/Components/index.tsx");
+
+var Products = function Products(props) {
+  var _ref = (0, react_1.useState)(),
+      _ref2 = _slicedToArray(_ref, 2),
+      categories = _ref2[0],
+      setCategories = _ref2[1];
+
+  var _ref3 = (0, react_1.useState)(),
+      _ref4 = _slicedToArray(_ref3, 2),
+      products = _ref4[0],
+      setProducts = _ref4[1];
+
+  var countByStatus = function countByStatus(status) {
+    return ProductModel.countByStatus(status !== null && status !== void 0 ? status : '');
+  };
+
+  var getByCategory = function getByCategory(category) {
+    setProducts(ProductModel.getByCategory(category !== null && category !== void 0 ? category : ''));
+  };
+
+  var getByStatus = function getByStatus(status) {
+    setProducts(ProductModel.getByStatus(status !== null && status !== void 0 ? status : ''));
+  };
+
+  (0, react_1.useEffect)(function () {
+    setCategories(CategoryModel.data);
+    setProducts(ProductModel.data);
+  }, []);
+  return react_1["default"].createElement(react_1["default"].Fragment, null, react_1["default"].createElement(Components_1.PageContentHeader, {
+    title: "Products"
+  }), react_1["default"].createElement(index_1["default"], {
+    items: [{
+      name: 'Dashboard',
+      link: '/admin'
+    }, {
+      name: 'Products',
+      active: true
+    }]
+  }), react_1["default"].createElement("div", {
+    className: "content"
+  }, react_1["default"].createElement("h2", {
+    className: "content-heading"
+  }, "Overview"), react_1["default"].createElement("div", {
+    className: "row gutters-tiny"
+  }, react_1["default"].createElement("div", {
+    className: "col-md-6 col-xl-3"
+  }, react_1["default"].createElement("a", {
+    className: "block block-rounded block-link-shadow",
+    href: "javascript:void(0)"
+  }, react_1["default"].createElement("div", {
+    className: "block-content block-content-full block-sticky-options"
+  }, react_1["default"].createElement("div", {
+    className: "block-options"
+  }, react_1["default"].createElement("div", {
+    className: "block-options-item"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-circle-o fa-2x text-info-light"
+  }))), react_1["default"].createElement("div", {
+    className: "py-20 text-center"
+  }, react_1["default"].createElement("div", {
+    className: "font-size-h2 font-w700 mb-0 text-info",
+    "data-toggle": "countTo",
+    "data-to": countByStatus()
+  }, "0"), react_1["default"].createElement("div", {
+    className: "font-size-sm font-w600 text-uppercase text-muted"
+  }, "All Products"))))), react_1["default"].createElement("div", {
+    className: "col-md-6 col-xl-3"
+  }, react_1["default"].createElement("a", {
+    className: "block block-rounded block-link-shadow",
+    href: "javascript:void(0)"
+  }, react_1["default"].createElement("div", {
+    className: "block-content block-content-full block-sticky-options"
+  }, react_1["default"].createElement("div", {
+    className: "block-options"
+  }, react_1["default"].createElement("div", {
+    className: "block-options-item"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-check fa-2x text-info-light"
+  }))), react_1["default"].createElement("div", {
+    className: "py-20 text-center"
+  }, react_1["default"].createElement("div", {
+    className: "font-size-h2 font-w700 mb-0 text-info",
+    "data-toggle": "countTo",
+    "data-to": countByStatus('Available')
+  }, "0"), react_1["default"].createElement("div", {
+    className: "font-size-sm font-w600 text-uppercase text-muted"
+  }, "Available"))))), react_1["default"].createElement("div", {
+    className: "col-md-6 col-xl-3"
+  }, react_1["default"].createElement("a", {
+    className: "block block-rounded block-link-shadow",
+    href: "javascript:void(0)"
+  }, react_1["default"].createElement("div", {
+    className: "block-content block-content-full block-sticky-options"
+  }, react_1["default"].createElement("div", {
+    className: "block-options"
+  }, react_1["default"].createElement("div", {
+    className: "block-options-item"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-warning fa-2x text-danger-light"
+  }))), react_1["default"].createElement("div", {
+    className: "py-20 text-center"
+  }, react_1["default"].createElement("div", {
+    className: "font-size-h2 font-w700 mb-0 text-danger",
+    "data-toggle": "countTo",
+    "data-to": countByStatus('Out of Stock')
+  }, "0"), react_1["default"].createElement("div", {
+    className: "font-size-sm font-w600 text-uppercase text-muted"
+  }, "Out of Stock"))))), react_1["default"].createElement("div", {
+    className: "col-md-6 col-xl-3"
+  }, react_1["default"].createElement("a", {
+    className: "block block-rounded block-link-shadow",
+    href: "be_pages_ecom_product_edit.html"
+  }, react_1["default"].createElement("div", {
+    className: "block-content block-content-full block-sticky-options"
+  }, react_1["default"].createElement("div", {
+    className: "block-options"
+  }, react_1["default"].createElement("div", {
+    className: "block-options-item"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-archive fa-2x text-success-light"
+  }))), react_1["default"].createElement("div", {
+    className: "py-20 text-center"
+  }, react_1["default"].createElement("div", {
+    className: "font-size-h2 font-w700 mb-0 text-success"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-plus"
+  })), react_1["default"].createElement("div", {
+    className: "font-size-sm font-w600 text-uppercase text-muted"
+  }, "New Product")))))), react_1["default"].createElement("div", {
+    className: "content-heading"
+  }, react_1["default"].createElement("div", {
+    className: "dropdown float-right"
+  }, react_1["default"].createElement("button", {
+    type: "button",
+    className: "btn btn-sm btn-secondary dropdown-toggle",
+    id: "ecom-products-filter-drop",
+    "data-toggle": "dropdown",
+    "aria-haspopup": "true",
+    "aria-expanded": "false"
+  }, "All"), react_1["default"].createElement("div", {
+    className: "dropdown-menu dropdown-menu-right",
+    "aria-labelledby": "ecom-products-filter-drop"
+  }, react_1["default"].createElement("a", {
+    className: "dropdown-item",
+    href: "javascript:void(0)",
+    onClick: function onClick() {
+      return getByStatus('Available');
+    }
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-fw fa-check text-warning mr-5"
+  }), "Available"), react_1["default"].createElement("a", {
+    className: "dropdown-item",
+    href: "javascript:void(0)",
+    onClick: function onClick() {
+      return getByStatus('Out of Stock');
+    }
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-fw fa-warning text-danger mr-5"
+  }), "Out of Stock"), react_1["default"].createElement("div", {
+    className: "dropdown-divider"
+  }), react_1["default"].createElement("a", {
+    className: "dropdown-item",
+    href: "javascript:void(0)",
+    onClick: function onClick() {
+      return getByStatus();
+    }
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-fw fa-circle-o text-info mr-5"
+  }), "All"))), react_1["default"].createElement("div", {
+    className: "dropdown float-right mr-5"
+  }, react_1["default"].createElement("button", {
+    type: "button",
+    className: "btn btn-sm btn-secondary dropdown-toggle",
+    id: "ecom-products-category-drop",
+    "data-toggle": "dropdown",
+    "aria-haspopup": "true",
+    "aria-expanded": "false"
+  }, "Category"), react_1["default"].createElement("div", {
+    className: "dropdown-menu dropdown-menu-right",
+    "aria-labelledby": "ecom-products-category-drop"
+  }, categories === null || categories === void 0 ? void 0 : categories.map(function (category) {
+    return react_1["default"].createElement("a", {
+      className: "dropdown-item",
+      href: "javascript:void(0)",
+      onClick: function onClick() {
+        return getByCategory(category.name);
+      }
+    }, category.name);
+  }), react_1["default"].createElement("div", {
+    className: "dropdown-divider"
+  }), react_1["default"].createElement("a", {
+    className: "dropdown-item",
+    href: "javascript:void(0)",
+    onClick: function onClick() {
+      return getByCategory();
+    }
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-fw fa-circle-o text-info mr-5"
+  }), "All"))), "Products (", countByStatus(), ")"), react_1["default"].createElement("div", {
+    className: "block block-rounded"
+  }, react_1["default"].createElement("div", {
+    className: "block-content bg-body-light"
+  }, react_1["default"].createElement("form", {
+    method: "post"
+  }, react_1["default"].createElement("div", {
+    className: "form-group"
+  }, react_1["default"].createElement("div", {
+    className: "input-group"
+  }, react_1["default"].createElement("input", {
+    type: "text",
+    className: "form-control",
+    placeholder: "Search products.."
+  }), react_1["default"].createElement("div", {
+    className: "input-group-append"
+  }, react_1["default"].createElement("button", {
+    type: "submit",
+    className: "btn btn-secondary"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-search"
+  }))))))), react_1["default"].createElement("div", {
+    className: "block-content"
+  }, react_1["default"].createElement("table", {
+    className: "table table-borderless table-striped"
+  }, react_1["default"].createElement("thead", null, react_1["default"].createElement("tr", null, react_1["default"].createElement("th", {
+    style: {
+      width: '100px'
+    }
+  }, "ID"), react_1["default"].createElement("th", {
+    className: "d-none d-sm-table-cell"
+  }, "Status"), react_1["default"].createElement("th", {
+    className: "d-none d-sm-table-cell"
+  }, "Submitted"), react_1["default"].createElement("th", null, "Product"), react_1["default"].createElement("th", {
+    className: "d-none d-md-table-cell"
+  }, "Category"), react_1["default"].createElement("th", {
+    className: "text-right"
+  }, "Value"))), react_1["default"].createElement("tbody", null, products === null || products === void 0 ? void 0 : products.map(function (product) {
+    return react_1["default"].createElement("tr", null, react_1["default"].createElement("td", null, react_1["default"].createElement(react_router_dom_1.Link, {
+      className: "font-w600",
+      to: "/admin/products/".concat(product.id)
+    }, product.id)), react_1["default"].createElement("td", {
+      className: "d-none d-sm-table-cell"
+    }, react_1["default"].createElement("span", {
+      className: "badge badge-success"
+    }, product.status)), react_1["default"].createElement("td", {
+      className: "d-none d-sm-table-cell"
+    }, product.submitted), react_1["default"].createElement("td", null, react_1["default"].createElement(react_router_dom_1.Link, {
+      to: "/admin/products/".concat(product.id)
+    }, product.name)), react_1["default"].createElement("td", {
+      className: "d-none d-md-table-cell"
+    }, react_1["default"].createElement(react_router_dom_1.Link, {
+      to: "/admin/categories/".concat(product.category_id)
+    }, product.category)), react_1["default"].createElement("td", {
+      className: "text-right"
+    }, react_1["default"].createElement("span", {
+      className: "text-black"
+    }, "$", product.price)));
+  }))), react_1["default"].createElement("nav", {
+    "aria-label": "Products navigation"
+  }, react_1["default"].createElement("ul", {
+    className: "pagination justify-content-end"
+  }, react_1["default"].createElement("li", {
+    className: "page-item"
+  }, react_1["default"].createElement("a", {
+    className: "page-link",
+    href: "javascript:void(0)",
+    "aria-label": "Previous"
+  }, react_1["default"].createElement("span", {
+    "aria-hidden": "true"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-angle-left"
+  })), react_1["default"].createElement("span", {
+    className: "sr-only"
+  }, "Previous"))), react_1["default"].createElement("li", {
+    className: "page-item active"
+  }, react_1["default"].createElement("a", {
+    className: "page-link",
+    href: "javascript:void(0)"
+  }, "1")), react_1["default"].createElement("li", {
+    className: "page-item"
+  }, react_1["default"].createElement("a", {
+    className: "page-link",
+    href: "javascript:void(0)"
+  }, "2")), react_1["default"].createElement("li", {
+    className: "page-item disabled"
+  }, react_1["default"].createElement("a", {
+    className: "page-link",
+    href: "javascript:void(0)"
+  }, "...")), react_1["default"].createElement("li", {
+    className: "page-item"
+  }, react_1["default"].createElement("a", {
+    className: "page-link",
+    href: "javascript:void(0)"
+  }, "39")), react_1["default"].createElement("li", {
+    className: "page-item"
+  }, react_1["default"].createElement("a", {
+    className: "page-link",
+    href: "javascript:void(0)"
+  }, "40")), react_1["default"].createElement("li", {
+    className: "page-item"
+  }, react_1["default"].createElement("a", {
+    className: "page-link",
+    href: "javascript:void(0)",
+    "aria-label": "Next"
+  }, react_1["default"].createElement("span", {
+    "aria-hidden": "true"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-angle-right"
+  })), react_1["default"].createElement("span", {
+    className: "sr-only"
+  }, "Next")))))))));
+};
+
+exports["default"] = Products;
+
+/***/ }),
+
+/***/ "./resources/app/Pages/Client/About/index.tsx":
+/*!****************************************************!*\
+  !*** ./resources/app/Pages/Client/About/index.tsx ***!
+  \****************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+
+function _slicedToArray(arr, i) {
+  return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();
+}
+
+function _nonIterableRest() {
+  throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+
+function _unsupportedIterableToArray(o, minLen) {
+  if (!o) return;
+  if (typeof o === "string") return _arrayLikeToArray(o, minLen);
+  var n = Object.prototype.toString.call(o).slice(8, -1);
+  if (n === "Object" && o.constructor) n = o.constructor.name;
+  if (n === "Map" || n === "Set") return Array.from(o);
+  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
+}
+
+function _arrayLikeToArray(arr, len) {
+  if (len == null || len > arr.length) len = arr.length;
+
+  for (var i = 0, arr2 = new Array(len); i < len; i++) {
+    arr2[i] = arr[i];
+  }
+
+  return arr2;
+}
+
+function _iterableToArrayLimit(arr, i) {
+  var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"];
+
+  if (_i == null) return;
+  var _arr = [];
+  var _n = true;
+  var _d = false;
+
+  var _s, _e;
+
+  try {
+    for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) {
+      _arr.push(_s.value);
+
+      if (i && _arr.length === i) break;
+    }
+  } catch (err) {
+    _d = true;
+    _e = err;
+  } finally {
+    try {
+      if (!_n && _i["return"] != null) _i["return"]();
+    } finally {
+      if (_d) throw _e;
+    }
+  }
+
+  return _arr;
+}
+
+function _arrayWithHoles(arr) {
+  if (Array.isArray(arr)) return arr;
+}
+
+var __createBinding = this && this.__createBinding || (Object.create ? function (o, m, k, k2) {
+  if (k2 === undefined) k2 = k;
+  var desc = Object.getOwnPropertyDescriptor(m, k);
+
+  if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+    desc = {
+      enumerable: true,
+      get: function get() {
+        return m[k];
+      }
+    };
+  }
+
+  Object.defineProperty(o, k2, desc);
+} : function (o, m, k, k2) {
+  if (k2 === undefined) k2 = k;
+  o[k2] = m[k];
+});
+
+var __setModuleDefault = this && this.__setModuleDefault || (Object.create ? function (o, v) {
+  Object.defineProperty(o, "default", {
+    enumerable: true,
+    value: v
+  });
+} : function (o, v) {
+  o["default"] = v;
+});
+
+var __importStar = this && this.__importStar || function (mod) {
+  if (mod && mod.__esModule) return mod;
+  var result = {};
+  if (mod != null) for (var k in mod) {
+    if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+  }
+
+  __setModuleDefault(result, mod);
+
+  return result;
+};
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+
+var react_1 = __importStar(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
+
+var Contact = function Contact(props) {
+  var _ref = (0, react_1.useState)(),
+      _ref2 = _slicedToArray(_ref, 2),
+      value = _ref2[0],
+      setvalue = _ref2[1];
+
+  (0, react_1.useEffect)(function () {}, []);
+  return react_1["default"].createElement(react_1["default"].Fragment, null, react_1["default"].createElement("div", {
+    className: "bg-primary-lighter"
+  }, react_1["default"].createElement("div", {
+    className: "content content-top content-full text-center"
+  }, react_1["default"].createElement("div", {
+    className: "py-50"
+  }, react_1["default"].createElement("h1", {
+    className: "h2 font-w700 m-10 text-primary-dark"
+  }, "About Us")))), react_1["default"].createElement("div", {
+    className: "content"
+  }, react_1["default"].createElement("div", {
+    className: "row items-push py-30"
+  }, react_1["default"].createElement("div", {
+    className: "col-xl-8"
+  }, react_1["default"].createElement("div", {
+    className: "mb-50"
+  }, react_1["default"].createElement("h3", null, "What do we take"), react_1["default"].createElement("p", null, "Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo repellat nisi non sapiente illum distinctio eius. Accusantium deleniti, fugit quaerat explicabo neque id quae officiis iusto quis doloribus molestiae optio?"), react_1["default"].createElement("img", {
+    src: "/media/about/what-we-take-items-2.png",
+    alt: "",
+    className: "w-100"
+  }), react_1["default"].createElement("p", null, "Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo repellat nisi non sapiente illum distinctio eius. Accusantium deleniti, fugit quaerat explicabo neque id quae officiis iusto quis doloribus molestiae optio?"), react_1["default"].createElement("p", null, "Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo repellat nisi non sapiente illum distinctio eius. Accusantium deleniti, fugit quaerat explicabo neque id quae officiis iusto quis doloribus molestiae optio?"), react_1["default"].createElement("p", null, "Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo repellat nisi non sapiente illum distinctio eius. Accusantium deleniti, fugit quaerat explicabo neque id quae officiis iusto quis doloribus molestiae optio?")), react_1["default"].createElement("hr", null), react_1["default"].createElement("div", {
+    className: "mb-50"
+  }, react_1["default"].createElement("h3", null, "Where does our e-waste go?"), react_1["default"].createElement("p", null, "Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo repellat nisi non sapiente illum distinctio eius. Accusantium deleniti, fugit quaerat explicabo neque id quae officiis iusto quis doloribus molestiae optio?"), react_1["default"].createElement("img", {
+    src: "/media/about/what-we-take-items-2.png",
+    alt: "",
+    className: "w-100"
+  }), react_1["default"].createElement("p", null, "Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo repellat nisi non sapiente illum distinctio eius. Accusantium deleniti, fugit quaerat explicabo neque id quae officiis iusto quis doloribus molestiae optio?"), react_1["default"].createElement("p", null, "Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo repellat nisi non sapiente illum distinctio eius. Accusantium deleniti, fugit quaerat explicabo neque id quae officiis iusto quis doloribus molestiae optio?"), react_1["default"].createElement("p", null, "Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo repellat nisi non sapiente illum distinctio eius. Accusantium deleniti, fugit quaerat explicabo neque id quae officiis iusto quis doloribus molestiae optio?")), react_1["default"].createElement("hr", null)), react_1["default"].createElement("div", {
+    className: "col-xl-4 px-30"
+  }, react_1["default"].createElement("h3", null, "Latest news"), react_1["default"].createElement("div", {
+    className: "card my-30"
+  }, react_1["default"].createElement("div", {
+    className: "card-body"
+  }, react_1["default"].createElement("a", {
+    href: "#"
+  }, react_1["default"].createElement("h3", null, "Lorem ipsum, dolor sit amet...")), react_1["default"].createElement("p", null, "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa excepturi facilis nam voluptate commodi labore tempora cupiditate natus culpa dicta maiores, necessitatibus expedita quibusdam, repellendus aliquid mollitia consequuntur? Quas, nobis."))), react_1["default"].createElement("div", {
+    className: "card my-30"
+  }, react_1["default"].createElement("div", {
+    className: "card-body"
+  }, react_1["default"].createElement("a", {
+    href: "#"
+  }, react_1["default"].createElement("h3", null, "Lorem ipsum, dolor sit amet...")), react_1["default"].createElement("p", null, "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa excepturi facilis nam voluptate commodi labore tempora cupiditate natus culpa dicta maiores, necessitatibus expedita quibusdam, repellendus aliquid mollitia consequuntur? Quas, nobis."))), react_1["default"].createElement("div", {
+    className: "card my-30"
+  }, react_1["default"].createElement("div", {
+    className: "card-body"
+  }, react_1["default"].createElement("a", {
+    href: "#"
+  }, react_1["default"].createElement("h3", null, "Lorem ipsum, dolor sit amet...")), react_1["default"].createElement("p", null, "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa excepturi facilis nam voluptate commodi labore tempora cupiditate natus culpa dicta maiores, necessitatibus expedita quibusdam, repellendus aliquid mollitia consequuntur? Quas, nobis."))), react_1["default"].createElement("div", {
+    className: "card my-30"
+  }, react_1["default"].createElement("div", {
+    className: "card-body"
+  }, react_1["default"].createElement("h3", null, "Lorem ipsum, dolor sit amet..."), react_1["default"].createElement("p", null, "Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsa excepturi facilis nam voluptate commodi labore tempora cupiditate natus culpa dicta maiores, necessitatibus expedita quibusdam, repellendus aliquid mollitia consequuntur? Quas, nobis.")))))));
+};
+
+exports["default"] = Contact;
+
+/***/ }),
+
+/***/ "./resources/app/Pages/Client/Blog/index.tsx":
+/*!***************************************************!*\
+  !*** ./resources/app/Pages/Client/Blog/index.tsx ***!
+  \***************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+
+var react_1 = __importDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
+
+var Blog = function Blog(props) {
+  return react_1["default"].createElement(react_1["default"].Fragment, null, react_1["default"].createElement("div", {
+    className: "bg-primary-lighter"
+  }, react_1["default"].createElement("div", {
+    className: "content content-top content-full text-center"
+  }, react_1["default"].createElement("div", {
+    className: "py-50"
+  }, react_1["default"].createElement("h1", {
+    className: "h2 font-w700 m-10 text-primary-dark"
+  }, "Blog")))), react_1["default"].createElement("div", {
+    className: "content"
+  }, react_1["default"].createElement("div", {
+    className: "row items-push py-30"
+  }, react_1["default"].createElement("div", {
+    className: "col-xl-8"
+  }, react_1["default"].createElement("div", {
+    className: "mb-50"
+  }, react_1["default"].createElement("div", {
+    className: "overflow-hidden rounded mb-20",
+    style: {
+      height: '200px'
+    }
+  }, react_1["default"].createElement("a", {
+    className: "img-link",
+    href: "be_pages_generic_story.html"
+  }, react_1["default"].createElement("img", {
+    className: "img-fluid",
+    src: "/media/photos/photo3@2x.jpg",
+    alt: ""
+  }))), react_1["default"].createElement("h3", {
+    className: "h4 font-w700 text-uppercase mb-5"
+  }, "The new version is now live!"), react_1["default"].createElement("div", {
+    className: "text-muted mb-10"
+  }, react_1["default"].createElement("span", {
+    className: "mr-15"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-fw fa-calendar mr-5"
+  }), "July 16, 2017"), react_1["default"].createElement("a", {
+    className: "text-muted mr-15",
+    href: "be_pages_generic_profile.html"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-fw fa-user mr-5"
+  }), "John Smith"), react_1["default"].createElement("a", {
+    className: "text-muted",
+    href: "javascript:void(0)"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-fw fa-tag mr-5"
+  }), "News")), react_1["default"].createElement("p", null, "Dolor posuere proin blandit accumsan senectus netus nullam curae, ornare laoreet adipiscing luctus mauris adipiscing pretium eget fermentum, tristique lobortis est ut metus lobortis tortor tincidunt himenaeos habitant quis dictumst proin odio sagittis purus mi, nec taciti vestibulum quis in sit varius lorem sit metus mi."), react_1["default"].createElement("a", {
+    className: "link-effect font-w600",
+    href: "be_pages_generic_story.html"
+  }, "Read More..")), react_1["default"].createElement("div", {
+    className: "mb-50"
+  }, react_1["default"].createElement("div", {
+    className: "overflow-hidden rounded mb-20",
+    style: {
+      height: '200px'
+    }
+  }, react_1["default"].createElement("a", {
+    className: "img-link",
+    href: "be_pages_generic_story.html"
+  }, react_1["default"].createElement("img", {
+    className: "img-fluid",
+    src: "/media/photos/photo7@2x.jpg",
+    alt: ""
+  }))), react_1["default"].createElement("h3", {
+    className: "h4 font-w700 text-uppercase mb-5"
+  }, "How to work from home more efficiently"), react_1["default"].createElement("div", {
+    className: "text-muted mb-10"
+  }, react_1["default"].createElement("span", {
+    className: "mr-15"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-fw fa-calendar mr-5"
+  }), "July 10, 2017"), react_1["default"].createElement("a", {
+    className: "text-muted mr-15",
+    href: "be_pages_generic_profile.html"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-fw fa-user mr-5"
+  }), "John Smith"), react_1["default"].createElement("a", {
+    className: "text-muted",
+    href: "javascript:void(0)"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-fw fa-tag mr-5"
+  }), "Inpiration")), react_1["default"].createElement("p", null, "Dolor posuere proin blandit accumsan senectus netus nullam curae, ornare laoreet adipiscing luctus mauris adipiscing pretium eget fermentum, tristique lobortis est ut metus lobortis tortor tincidunt himenaeos habitant quis dictumst proin odio sagittis purus mi, nec taciti vestibulum quis in sit varius lorem sit metus mi."), react_1["default"].createElement("a", {
+    className: "link-effect font-w600",
+    href: "be_pages_generic_story.html"
+  }, "Read More..")), react_1["default"].createElement("div", {
+    className: "mb-50"
+  }, react_1["default"].createElement("div", {
+    className: "overflow-hidden rounded mb-20",
+    style: {
+      height: '200px'
+    }
+  }, react_1["default"].createElement("a", {
+    className: "img-link",
+    href: "be_pages_generic_story.html"
+  }, react_1["default"].createElement("img", {
+    className: "img-fluid",
+    src: "/media/photos/photo28@2x.jpg",
+    alt: ""
+  }))), react_1["default"].createElement("h3", {
+    className: "h4 font-w700 text-uppercase mb-5"
+  }, "Travel the world and feel alive"), react_1["default"].createElement("div", {
+    className: "text-muted mb-10"
+  }, react_1["default"].createElement("span", {
+    className: "mr-15"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-fw fa-calendar mr-5"
+  }), "July 5, 2017"), react_1["default"].createElement("a", {
+    className: "text-muted mr-15",
+    href: "be_pages_generic_profile.html"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-fw fa-user mr-5"
+  }), "John Smith"), react_1["default"].createElement("a", {
+    className: "text-muted",
+    href: "javascript:void(0)"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-fw fa-tag mr-5"
+  }), "Travel")), react_1["default"].createElement("p", null, "Dolor posuere proin blandit accumsan senectus netus nullam curae, ornare laoreet adipiscing luctus mauris adipiscing pretium eget fermentum, tristique lobortis est ut metus lobortis tortor tincidunt himenaeos habitant quis dictumst proin odio sagittis purus mi, nec taciti vestibulum quis in sit varius lorem sit metus mi."), react_1["default"].createElement("a", {
+    className: "link-effect font-w600",
+    href: "be_pages_generic_story.html"
+  }, "Read More..")), react_1["default"].createElement("div", {
+    className: "mb-50"
+  }, react_1["default"].createElement("div", {
+    className: "overflow-hidden rounded mb-20",
+    style: {
+      height: '200px'
+    }
+  }, react_1["default"].createElement("a", {
+    className: "img-link",
+    href: "be_pages_generic_story.html"
+  }, react_1["default"].createElement("img", {
+    className: "img-fluid",
+    src: "/media/photos/photo30@2x.jpg",
+    alt: ""
+  }))), react_1["default"].createElement("h3", {
+    className: "h4 font-w700 text-uppercase mb-5"
+  }, "Believe in your dreams and start working"), react_1["default"].createElement("div", {
+    className: "text-muted mb-10"
+  }, react_1["default"].createElement("span", {
+    className: "mr-15"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-fw fa-calendar mr-5"
+  }), "July 1, 2017"), react_1["default"].createElement("a", {
+    className: "text-muted mr-15",
+    href: "be_pages_generic_profile.html"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-fw fa-user mr-5"
+  }), "John Smith"), react_1["default"].createElement("a", {
+    className: "text-muted",
+    href: "javascript:void(0)"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-fw fa-tag mr-5"
+  }), "Motivation")), react_1["default"].createElement("p", null, "Dolor posuere proin blandit accumsan senectus netus nullam curae, ornare laoreet adipiscing luctus mauris adipiscing pretium eget fermentum, tristique lobortis est ut metus lobortis tortor tincidunt himenaeos habitant quis dictumst proin odio sagittis purus mi, nec taciti vestibulum quis in sit varius lorem sit metus mi."), react_1["default"].createElement("a", {
+    className: "link-effect font-w600",
+    href: "be_pages_generic_story.html"
+  }, "Read More..")), react_1["default"].createElement("nav", {
+    className: "clearfix push"
+  }, react_1["default"].createElement("a", {
+    className: "btn btn-secondary min-width-100 float-right",
+    href: "javascript:void(0)"
+  }, "Next ", react_1["default"].createElement("i", {
+    className: "fa fa-arrow-right ml-5"
+  })), react_1["default"].createElement("a", {
+    className: "btn btn-secondary min-width-100 float-left",
+    href: "javascript:void(0)"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-arrow-left mr-5"
+  }), " Prev")), react_1["default"].createElement("hr", {
+    className: "d-xl-none"
+  })), react_1["default"].createElement("div", {
+    className: "col-xl-4"
+  }, react_1["default"].createElement("div", {
+    className: "block block-transparent"
+  }, react_1["default"].createElement("div", {
+    className: "block-header"
+  }, react_1["default"].createElement("h3", {
+    className: "block-title text-uppercase"
+  }, "Twitter Feed"), react_1["default"].createElement("div", {
+    className: "block-options"
+  }, react_1["default"].createElement("a", {
+    className: "btn btn-sm btn-alt-secondary",
+    href: "javascript:void(0)"
+  }, react_1["default"].createElement("i", {
+    className: "si si-social-twitter mr-5"
+  }), " Follow Us"))), react_1["default"].createElement("div", {
+    className: "block-content"
+  }, react_1["default"].createElement("div", {
+    className: "media mb-20"
+  }, react_1["default"].createElement("img", {
+    className: "img-avatar img-avatar32 d-flex mr-20",
+    src: "/media/avatars/avatar13.jpg",
+    alt: ""
+  }), react_1["default"].createElement("div", {
+    className: "media-body"
+  }, react_1["default"].createElement("p", {
+    className: "mb-5"
+  }, "In gravida nulla. Nulla vel metus scelerisque ante sollicitudin. ", react_1["default"].createElement("a", {
+    className: "text-elegance",
+    href: "javascript:void(0)"
+  }, "#startup"), " ", react_1["default"].createElement("a", {
+    className: "text-elegance",
+    href: "javascript:void(0)"
+  }, "#life")), react_1["default"].createElement("div", {
+    className: "font-size-sm text-muted"
+  }, "10 hrs ago"))), react_1["default"].createElement("div", {
+    className: "media mb-20"
+  }, react_1["default"].createElement("img", {
+    className: "img-avatar img-avatar32 d-flex mr-20",
+    src: "/media/avatars/avatar5.jpg",
+    alt: ""
+  }), react_1["default"].createElement("div", {
+    className: "media-body"
+  }, react_1["default"].createElement("p", {
+    className: "mb-5"
+  }, "Vestibulum in vulputate at, tempus viverra turpis. Fusce ", react_1["default"].createElement("a", {
+    href: "javascript:void(0)"
+  }, "condimentum"), " nunc ac nisi vulputate fringilla."), react_1["default"].createElement("div", {
+    className: "font-size-sm text-muted"
+  }, "15 hrs ago"))), react_1["default"].createElement("div", {
+    className: "media mb-20"
+  }, react_1["default"].createElement("img", {
+    className: "img-avatar img-avatar32 d-flex mr-20",
+    src: "/media/avatars/avatar6.jpg",
+    alt: ""
+  }), react_1["default"].createElement("div", {
+    className: "media-body"
+  }, react_1["default"].createElement("p", {
+    className: "mb-5"
+  }, "In gravida nulla. Nulla vel metus scelerisque ante sollicitudin."), react_1["default"].createElement("div", {
+    className: "font-size-sm text-muted"
+  }, "2 days ago"))), react_1["default"].createElement("div", {
+    className: "media mb-20"
+  }, react_1["default"].createElement("img", {
+    className: "img-avatar img-avatar32 d-flex mr-20",
+    src: "/media/avatars/avatar16.jpg",
+    alt: ""
+  }), react_1["default"].createElement("div", {
+    className: "media-body"
+  }, react_1["default"].createElement("p", {
+    className: "mb-5"
+  }, "Vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum ", react_1["default"].createElement("a", {
+    href: "javascript:void(0)"
+  }, "nunc"), " ac nisi vulputate fringilla. ", react_1["default"].createElement("a", {
+    className: "text-elegance",
+    href: "javascript:void(0)"
+  }, "#web"), " ", react_1["default"].createElement("a", {
+    className: "text-elegance",
+    href: "javascript:void(0)"
+  }, "#stuff")), react_1["default"].createElement("div", {
+    className: "font-size-sm text-muted"
+  }, "5 days ago"))), react_1["default"].createElement("div", {
+    className: "media mb-20"
+  }, react_1["default"].createElement("img", {
+    className: "img-avatar img-avatar32 d-flex mr-20",
+    src: "/media/avatars/avatar8.jpg",
+    alt: ""
+  }), react_1["default"].createElement("div", {
+    className: "media-body"
+  }, react_1["default"].createElement("p", {
+    className: "mb-5"
+  }, "Vestibulum in vulputate at, tempus viverra turpis. Fusce ", react_1["default"].createElement("a", {
+    href: "javascript:void(0)"
+  }, "condimentum"), " nunc ac nisi vulputate fringilla."), react_1["default"].createElement("div", {
+    className: "font-size-sm text-muted"
+  }, "1 week ago"))))), react_1["default"].createElement("div", {
+    className: "block block-transparent"
+  }, react_1["default"].createElement("div", {
+    className: "block-header"
+  }, react_1["default"].createElement("h3", {
+    className: "block-title text-uppercase"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-fw fa-list mr-5"
+  }), " Categories")), react_1["default"].createElement("div", {
+    className: "block-content"
+  }, react_1["default"].createElement("ul", {
+    className: "nav nav-pills flex-column push"
+  }, react_1["default"].createElement("li", {
+    className: "nav-item"
+  }, react_1["default"].createElement("a", {
+    className: "nav-link d-flex align-items-center justify-content-between active",
+    href: "javascript:void(0)"
+  }, react_1["default"].createElement("span", null, react_1["default"].createElement("i", {
+    className: "fa fa-fw fa-star mr-5"
+  }), " News"), react_1["default"].createElement("span", {
+    className: "badge badge-pill badge-secondary"
+  }, "59"))), react_1["default"].createElement("li", {
+    className: "nav-item"
+  }, react_1["default"].createElement("a", {
+    className: "nav-link d-flex align-items-center justify-content-between",
+    href: "javascript:void(0)"
+  }, react_1["default"].createElement("span", null, react_1["default"].createElement("i", {
+    className: "fa fa-fw fa-magic mr-5"
+  }), " Special Offers"), react_1["default"].createElement("span", {
+    className: "badge badge-pill badge-secondary"
+  }, "40"))), react_1["default"].createElement("li", {
+    className: "nav-item"
+  }, react_1["default"].createElement("a", {
+    className: "nav-link d-flex align-items-center justify-content-between",
+    href: "javascript:void(0)"
+  }, react_1["default"].createElement("span", null, react_1["default"].createElement("i", {
+    className: "fa fa-fw fa-briefcase mr-5"
+  }), " Products"), react_1["default"].createElement("span", {
+    className: "badge badge-pill badge-secondary"
+  }, "95"))), react_1["default"].createElement("li", {
+    className: "nav-item"
+  }, react_1["default"].createElement("a", {
+    className: "nav-link d-flex align-items-center justify-content-between",
+    href: "javascript:void(0)"
+  }, react_1["default"].createElement("span", null, react_1["default"].createElement("i", {
+    className: "fa fa-fw fa-pencil mr-5"
+  }), " Tutorials"), react_1["default"].createElement("span", {
+    className: "badge badge-pill badge-secondary"
+  }, "25"))), react_1["default"].createElement("li", {
+    className: "nav-item"
+  }, react_1["default"].createElement("a", {
+    className: "nav-link d-flex align-items-center justify-content-between",
+    href: "javascript:void(0)"
+  }, react_1["default"].createElement("span", null, react_1["default"].createElement("i", {
+    className: "fa fa-fw fa-book mr-5"
+  }), " Guides"), react_1["default"].createElement("span", {
+    className: "badge badge-pill badge-secondary"
+  }, "49"))), react_1["default"].createElement("li", {
+    className: "nav-item"
+  }, react_1["default"].createElement("a", {
+    className: "nav-link d-flex align-items-center justify-content-between",
+    href: "javascript:void(0)"
+  }, react_1["default"].createElement("span", null, react_1["default"].createElement("i", {
+    className: "fa fa-fw fa-newspaper-o mr-5"
+  }), " Updates"), react_1["default"].createElement("span", {
+    className: "badge badge-pill badge-secondary"
+  }, "78")))))), react_1["default"].createElement("div", {
+    className: "block block-transparent"
+  }, react_1["default"].createElement("div", {
+    className: "block-header"
+  }, react_1["default"].createElement("h3", {
+    className: "block-title text-uppercase"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-fw fa-tags mr-5"
+  }), " Tag Cloud")), react_1["default"].createElement("div", {
+    className: "block-content block-content-full"
+  }, react_1["default"].createElement("a", {
+    className: "btn btn-sm btn-alt-secondary mb-5",
+    href: "javascript:void(0)"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-tag text-muted mr-5"
+  }), "html5"), react_1["default"].createElement("a", {
+    className: "btn btn-sm btn-alt-secondary mb-5",
+    href: "javascript:void(0)"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-tag text-muted mr-5"
+  }), "css3"), react_1["default"].createElement("a", {
+    className: "btn btn-sm btn-alt-secondary mb-5",
+    href: "javascript:void(0)"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-tag text-muted mr-5"
+  }), "javascript"), react_1["default"].createElement("a", {
+    className: "btn btn-sm btn-alt-secondary mb-5",
+    href: "javascript:void(0)"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-tag text-muted mr-5"
+  }), "angular2"), react_1["default"].createElement("a", {
+    className: "btn btn-sm btn-alt-secondary mb-5",
+    href: "javascript:void(0)"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-tag text-muted mr-5"
+  }), "vuejs"), react_1["default"].createElement("a", {
+    className: "btn btn-sm btn-alt-secondary mb-5",
+    href: "javascript:void(0)"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-tag text-muted mr-5"
+  }), "react"), react_1["default"].createElement("a", {
+    className: "btn btn-sm btn-alt-secondary mb-5",
+    href: "javascript:void(0)"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-tag text-muted mr-5"
+  }), "php"), react_1["default"].createElement("a", {
+    className: "btn btn-sm btn-alt-secondary mb-5",
+    href: "javascript:void(0)"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-tag text-muted mr-5"
+  }), "ruby"), react_1["default"].createElement("a", {
+    className: "btn btn-sm btn-alt-secondary mb-5",
+    href: "javascript:void(0)"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-tag text-muted mr-5"
+  }), "jquery"), react_1["default"].createElement("a", {
+    className: "btn btn-sm btn-alt-secondary mb-5",
+    href: "javascript:void(0)"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-tag text-muted mr-5"
+  }), "modern"), react_1["default"].createElement("a", {
+    className: "btn btn-sm btn-alt-secondary mb-5",
+    href: "javascript:void(0)"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-tag text-muted mr-5"
+  }), "dashboard"), react_1["default"].createElement("a", {
+    className: "btn btn-sm btn-alt-secondary mb-5",
+    href: "javascript:void(0)"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-tag text-muted mr-5"
+  }), "themes"), react_1["default"].createElement("a", {
+    className: "btn btn-sm btn-alt-secondary mb-5",
+    href: "javascript:void(0)"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-tag text-muted mr-5"
+  }), "freebies")))))));
+};
+
+exports["default"] = Blog;
+
+/***/ }),
+
+/***/ "./resources/app/Pages/Client/Contact/index.tsx":
+/*!******************************************************!*\
+  !*** ./resources/app/Pages/Client/Contact/index.tsx ***!
+  \******************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+
+function _slicedToArray(arr, i) {
+  return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();
+}
+
+function _nonIterableRest() {
+  throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+
+function _unsupportedIterableToArray(o, minLen) {
+  if (!o) return;
+  if (typeof o === "string") return _arrayLikeToArray(o, minLen);
+  var n = Object.prototype.toString.call(o).slice(8, -1);
+  if (n === "Object" && o.constructor) n = o.constructor.name;
+  if (n === "Map" || n === "Set") return Array.from(o);
+  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
+}
+
+function _arrayLikeToArray(arr, len) {
+  if (len == null || len > arr.length) len = arr.length;
+
+  for (var i = 0, arr2 = new Array(len); i < len; i++) {
+    arr2[i] = arr[i];
+  }
+
+  return arr2;
+}
+
+function _iterableToArrayLimit(arr, i) {
+  var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"];
+
+  if (_i == null) return;
+  var _arr = [];
+  var _n = true;
+  var _d = false;
+
+  var _s, _e;
+
+  try {
+    for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) {
+      _arr.push(_s.value);
+
+      if (i && _arr.length === i) break;
+    }
+  } catch (err) {
+    _d = true;
+    _e = err;
+  } finally {
+    try {
+      if (!_n && _i["return"] != null) _i["return"]();
+    } finally {
+      if (_d) throw _e;
+    }
+  }
+
+  return _arr;
+}
+
+function _arrayWithHoles(arr) {
+  if (Array.isArray(arr)) return arr;
+}
+
+var __createBinding = this && this.__createBinding || (Object.create ? function (o, m, k, k2) {
+  if (k2 === undefined) k2 = k;
+  var desc = Object.getOwnPropertyDescriptor(m, k);
+
+  if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+    desc = {
+      enumerable: true,
+      get: function get() {
+        return m[k];
+      }
+    };
+  }
+
+  Object.defineProperty(o, k2, desc);
+} : function (o, m, k, k2) {
+  if (k2 === undefined) k2 = k;
+  o[k2] = m[k];
+});
+
+var __setModuleDefault = this && this.__setModuleDefault || (Object.create ? function (o, v) {
+  Object.defineProperty(o, "default", {
+    enumerable: true,
+    value: v
+  });
+} : function (o, v) {
+  o["default"] = v;
+});
+
+var __importStar = this && this.__importStar || function (mod) {
+  if (mod && mod.__esModule) return mod;
+  var result = {};
+  if (mod != null) for (var k in mod) {
+    if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+  }
+
+  __setModuleDefault(result, mod);
+
+  return result;
+};
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+
+var react_1 = __importStar(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
+
+var Contact = function Contact(props) {
+  var _ref = (0, react_1.useState)(),
+      _ref2 = _slicedToArray(_ref, 2),
+      value = _ref2[0],
+      setvalue = _ref2[1];
+
+  (0, react_1.useEffect)(function () {}, []);
+  return react_1["default"].createElement(react_1["default"].Fragment, null, react_1["default"].createElement("div", {
+    className: "bg-primary-lighter"
+  }, react_1["default"].createElement("div", {
+    className: "content content-top content-full text-center"
+  }, react_1["default"].createElement("div", {
+    className: "py-50"
+  }, react_1["default"].createElement("h1", {
+    className: "h2 font-w700 m-10 text-primary-dark"
+  }, "Get In Touch"), react_1["default"].createElement("h2", {
+    className: "h4 font-w400 text-primary-dark"
+  }, "If you have a question or need help with pick up or recycling services, here\u2019s how to reach us.")))), react_1["default"].createElement("div", {
+    className: "content"
+  }, react_1["default"].createElement("div", {
+    className: "row items-push py-30"
+  }, react_1["default"].createElement("div", {
+    className: "col-xl-8"
+  }, react_1["default"].createElement("div", {
+    className: "mb-50"
+  }, react_1["default"].createElement("h3", null, "Contact Us"), react_1["default"].createElement("form", {
+    className: "js-validation-be-contact"
+  }, react_1["default"].createElement("div", {
+    className: "form-group row"
+  }, react_1["default"].createElement("div", {
+    className: "col-12"
+  }, react_1["default"].createElement("label", {
+    htmlFor: "be-contact-name"
+  }, "Name"), react_1["default"].createElement("input", {
+    type: "text",
+    className: "form-control form-control-lg",
+    id: "be-contact-name",
+    name: "be-contact-name",
+    placeholder: "Enter your name.."
+  }))), react_1["default"].createElement("div", {
+    className: "form-group row"
+  }, react_1["default"].createElement("label", {
+    className: "col-12",
+    htmlFor: "be-contact-email"
+  }, "Email"), react_1["default"].createElement("div", {
+    className: "col-12"
+  }, react_1["default"].createElement("input", {
+    type: "email",
+    className: "form-control form-control-lg",
+    id: "be-contact-email",
+    name: "be-contact-email",
+    placeholder: "Enter your email.."
+  }))), react_1["default"].createElement("div", {
+    className: "form-group row"
+  }, react_1["default"].createElement("label", {
+    className: "col-12",
+    htmlFor: "be-contact-email"
+  }, "Address"), react_1["default"].createElement("div", {
+    className: "col-12"
+  }, react_1["default"].createElement("input", {
+    type: "text",
+    className: "form-control form-control-lg",
+    id: "be-contact-email",
+    name: "be-contact-email",
+    placeholder: "Enter your address.."
+  }))), react_1["default"].createElement("div", {
+    className: "form-group row"
+  }, react_1["default"].createElement("label", {
+    className: "col-12",
+    htmlFor: "be-contact-message"
+  }, "Message"), react_1["default"].createElement("div", {
+    className: "col-12"
+  }, react_1["default"].createElement("textarea", {
+    className: "form-control form-control-lg",
+    id: "be-contact-message",
+    name: "be-contact-message",
+    rows: 10,
+    placeholder: "Enter your message.."
+  }))), react_1["default"].createElement("div", {
+    className: "form-group row"
+  }, react_1["default"].createElement("div", {
+    className: "col-12 text-center"
+  }, react_1["default"].createElement("button", {
+    type: "submit",
+    className: "btn btn-hero btn-alt-primary min-width-175"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-send mr-5"
+  }), " Send Message")))))), react_1["default"].createElement("div", {
+    className: "col-xl-4 px-50"
+  }, react_1["default"].createElement("h3", null, "Locations"), react_1["default"].createElement("div", {
+    className: "card my-30"
+  }, react_1["default"].createElement("div", {
+    className: "card-body"
+  }, react_1["default"].createElement("h3", null, "Location 1"), react_1["default"].createElement("p", null, react_1["default"].createElement("i", {
+    className: "font-size-lg fa fa-map-marker mr-1"
+  }), "  Town Hall House Level 2, 456 Kent Street Sydney 2000"), react_1["default"].createElement("p", null, react_1["default"].createElement("i", {
+    className: "font-size-lg fa fa-phone mr-1 text-bold"
+  }), "  0123456789"), react_1["default"].createElement("span", null, react_1["default"].createElement("i", {
+    className: "font-size-lg fa fa-envelope mr-1 text-bold"
+  }), "  test@example.com"))), react_1["default"].createElement("div", {
+    className: "card my-30"
+  }, react_1["default"].createElement("div", {
+    className: "card-body"
+  }, react_1["default"].createElement("h3", null, "Location 2"), react_1["default"].createElement("p", null, react_1["default"].createElement("i", {
+    className: "font-size-lg fa fa-map-marker mr-1"
+  }), "  Town Hall House Level 2, 456 Kent Street Sydney 2000"), react_1["default"].createElement("p", null, react_1["default"].createElement("i", {
+    className: "font-size-lg fa fa-phone mr-1 text-bold"
+  }), "  0123456789"), react_1["default"].createElement("span", null, react_1["default"].createElement("i", {
+    className: "font-size-lg fa fa-envelope mr-1 text-bold"
+  }), "  test@example.com"))), react_1["default"].createElement("div", {
+    className: "card my-30"
+  }, react_1["default"].createElement("div", {
+    className: "card-body"
+  }, react_1["default"].createElement("h3", null, "Location 3"), react_1["default"].createElement("p", null, react_1["default"].createElement("i", {
+    className: "font-size-lg fa fa-map-marker mr-1"
+  }), "  Town Hall House Level 2, 456 Kent Street Sydney 2000"), react_1["default"].createElement("p", null, react_1["default"].createElement("i", {
+    className: "font-size-lg fa fa-phone mr-1 text-bold"
+  }), "  0123456789"), react_1["default"].createElement("span", null, react_1["default"].createElement("i", {
+    className: "font-size-lg fa fa-envelope mr-1 text-bold"
+  }), "  test@example.com")))))));
+};
+
+exports["default"] = Contact;
+
+/***/ }),
+
+/***/ "./resources/app/Pages/Client/Home/index.tsx":
+/*!***************************************************!*\
+  !*** ./resources/app/Pages/Client/Home/index.tsx ***!
+  \***************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+
+function _slicedToArray(arr, i) {
+  return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();
+}
+
+function _nonIterableRest() {
+  throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+
+function _unsupportedIterableToArray(o, minLen) {
+  if (!o) return;
+  if (typeof o === "string") return _arrayLikeToArray(o, minLen);
+  var n = Object.prototype.toString.call(o).slice(8, -1);
+  if (n === "Object" && o.constructor) n = o.constructor.name;
+  if (n === "Map" || n === "Set") return Array.from(o);
+  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
+}
+
+function _arrayLikeToArray(arr, len) {
+  if (len == null || len > arr.length) len = arr.length;
+
+  for (var i = 0, arr2 = new Array(len); i < len; i++) {
+    arr2[i] = arr[i];
+  }
+
+  return arr2;
+}
+
+function _iterableToArrayLimit(arr, i) {
+  var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"];
+
+  if (_i == null) return;
+  var _arr = [];
+  var _n = true;
+  var _d = false;
+
+  var _s, _e;
+
+  try {
+    for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) {
+      _arr.push(_s.value);
+
+      if (i && _arr.length === i) break;
+    }
+  } catch (err) {
+    _d = true;
+    _e = err;
+  } finally {
+    try {
+      if (!_n && _i["return"] != null) _i["return"]();
+    } finally {
+      if (_d) throw _e;
+    }
+  }
+
+  return _arr;
+}
+
+function _arrayWithHoles(arr) {
+  if (Array.isArray(arr)) return arr;
+}
+
+var __createBinding = this && this.__createBinding || (Object.create ? function (o, m, k, k2) {
+  if (k2 === undefined) k2 = k;
+  var desc = Object.getOwnPropertyDescriptor(m, k);
+
+  if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+    desc = {
+      enumerable: true,
+      get: function get() {
+        return m[k];
+      }
+    };
+  }
+
+  Object.defineProperty(o, k2, desc);
+} : function (o, m, k, k2) {
+  if (k2 === undefined) k2 = k;
+  o[k2] = m[k];
+});
+
+var __setModuleDefault = this && this.__setModuleDefault || (Object.create ? function (o, v) {
+  Object.defineProperty(o, "default", {
+    enumerable: true,
+    value: v
+  });
+} : function (o, v) {
+  o["default"] = v;
+});
+
+var __importStar = this && this.__importStar || function (mod) {
+  if (mod && mod.__esModule) return mod;
+  var result = {};
+  if (mod != null) for (var k in mod) {
+    if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+  }
+
+  __setModuleDefault(result, mod);
+
+  return result;
+};
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+
+var react_1 = __importStar(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
+
+var Home = function Home(props) {
+  var _ref = (0, react_1.useState)(),
+      _ref2 = _slicedToArray(_ref, 2),
+      value = _ref2[0],
+      setvalue = _ref2[1];
+
+  (0, react_1.useEffect)(function () {}, []);
+  return react_1["default"].createElement(react_1["default"].Fragment, null, react_1["default"].createElement("div", {
+    className: "bg-primary-lighter"
+  }, react_1["default"].createElement("div", {
+    className: "content content-top content-full text-center"
+  }, react_1["default"].createElement("div", {
+    className: "py-50"
+  }, react_1["default"].createElement("div", {
+    className: "row d-flex align-items-center"
+  }, react_1["default"].createElement("div", {
+    className: "col-12 col-md-6"
+  }, react_1["default"].createElement("h1", {
+    className: "h2 font-w700 my-10 text-primary-dark"
+  }, "Waste and recycling services"), react_1["default"].createElement("h2", {
+    className: "h4 font-w400 text-primary-dark"
+  }, "Garbage and waste collection days, organising bulky and household item collection, unwanted electronic goods, recycling and food scraps.")), react_1["default"].createElement("div", {
+    className: "col-12 col-md-6"
+  }, react_1["default"].createElement("img", {
+    src: "/media/background/home.jpeg",
+    alt: "",
+    className: "w-75"
+  })))))), react_1["default"].createElement("div", {
+    className: "content content-top content-full text-center"
+  }, react_1["default"].createElement("h3", null, "Latest Posts"), react_1["default"].createElement("div", {
+    className: "row d-flex align-items-center"
+  }, react_1["default"].createElement("div", {
+    className: "col-md-6 col-xl-4"
+  }, react_1["default"].createElement("a", {
+    className: "block bg-image d-flex flex-column",
+    style: {
+      backgroundImage: "url('/media/photos/photo31.jpg')"
+    },
+    href: "javascript:void(0)"
+  }, react_1["default"].createElement("div", {
+    className: "block-content bg-black-op flex-grow-1"
+  }, react_1["default"].createElement("div", {
+    className: "d-sm-flex justify-content-sm-between align-items-sm-center"
+  }, react_1["default"].createElement("p", null, react_1["default"].createElement("span", {
+    className: "badge badge-info font-w700 p-2 text-uppercase"
+  }, "Story")), react_1["default"].createElement("p", {
+    className: "font-size-sm"
+  }, react_1["default"].createElement("span", {
+    className: "text-white font-w600 mr-5"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-fw fa-eye text-white-50"
+  }), " 6.2k"), react_1["default"].createElement("span", {
+    className: "text-white font-w600 mr-5"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-fw fa-heart text-white-50"
+  }), " 485"), react_1["default"].createElement("span", {
+    className: "text-white font-w600 mr-5"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-fw fa-comments text-white-50"
+  }), " 92"))), react_1["default"].createElement("h5", {
+    className: "text-white font-w700 mb-5 mt-100"
+  }, "How the e-waste will impact the environment"), react_1["default"].createElement("p", {
+    className: "font-w600 text-white-op"
+  }, "Jose Parker \xB7 16 min")))), react_1["default"].createElement("div", {
+    className: "col-md-6 col-xl-4"
+  }, react_1["default"].createElement("a", {
+    className: "block bg-image d-flex flex-column",
+    style: {
+      backgroundImage: "url('/media/photos/photo32.jpg')"
+    },
+    href: "javascript:void(0)"
+  }, react_1["default"].createElement("div", {
+    className: "block-content bg-black-op flex-grow-1"
+  }, react_1["default"].createElement("div", {
+    className: "d-sm-flex justify-content-sm-between align-items-sm-center"
+  }, react_1["default"].createElement("p", null, react_1["default"].createElement("span", {
+    className: "badge badge-info font-w700 p-2 text-uppercase"
+  }, "Story")), react_1["default"].createElement("p", {
+    className: "font-size-sm"
+  }, react_1["default"].createElement("span", {
+    className: "text-white font-w600 mr-5"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-fw fa-eye text-white-50"
+  }), " 6.2k"), react_1["default"].createElement("span", {
+    className: "text-white font-w600 mr-5"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-fw fa-heart text-white-50"
+  }), " 485"), react_1["default"].createElement("span", {
+    className: "text-white font-w600 mr-5"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-fw fa-comments text-white-50"
+  }), " 92"))), react_1["default"].createElement("h5", {
+    className: "text-white font-w700 mb-5 mt-100"
+  }, "How the e-waste will impact the environment"), react_1["default"].createElement("p", {
+    className: "font-w600 text-white-op"
+  }, "Jose Parker \xB7 16 min")))), react_1["default"].createElement("div", {
+    className: "col-md-6 col-xl-4"
+  }, react_1["default"].createElement("a", {
+    className: "block bg-image d-flex flex-column",
+    style: {
+      backgroundImage: "url('/media/photos/photo34.jpg')"
+    },
+    href: "javascript:void(0)"
+  }, react_1["default"].createElement("div", {
+    className: "block-content bg-black-op flex-grow-1"
+  }, react_1["default"].createElement("div", {
+    className: "d-sm-flex justify-content-sm-between align-items-sm-center"
+  }, react_1["default"].createElement("p", null, react_1["default"].createElement("span", {
+    className: "badge badge-info font-w700 p-2 text-uppercase"
+  }, "Story")), react_1["default"].createElement("p", {
+    className: "font-size-sm"
+  }, react_1["default"].createElement("span", {
+    className: "text-white font-w600 mr-5"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-fw fa-eye text-white-50"
+  }), " 6.2k"), react_1["default"].createElement("span", {
+    className: "text-white font-w600 mr-5"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-fw fa-heart text-white-50"
+  }), " 485"), react_1["default"].createElement("span", {
+    className: "text-white font-w600 mr-5"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-fw fa-comments text-white-50"
+  }), " 92"))), react_1["default"].createElement("h5", {
+    className: "text-white font-w700 mb-5 mt-100"
+  }, "How the e-waste will impact the environment"), react_1["default"].createElement("p", {
+    className: "font-w600 text-white-op"
+  }, "Jose Parker \xB7 16 min")))))), react_1["default"].createElement("div", {
+    className: "bg-primary-lighter"
+  }, react_1["default"].createElement("div", {
+    className: "content content-top content-full text-center"
+  }, react_1["default"].createElement("img", {
+    src: "/media/background/home3.png",
+    alt: "",
+    className: "w-100"
+  }))));
+};
+
+exports["default"] = Home;
+
+/***/ }),
+
+/***/ "./resources/app/Pages/Client/Layout/Footer/index.tsx":
+/*!************************************************************!*\
+  !*** ./resources/app/Pages/Client/Layout/Footer/index.tsx ***!
+  \************************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+
+var react_1 = __importDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
+
+var Footer = function Footer(props) {
+  return react_1["default"].createElement(react_1["default"].Fragment, null, react_1["default"].createElement("div", {
+    className: "bg-primary-dark"
+  }, react_1["default"].createElement("div", {
+    className: "container content content-top content-full py-30"
+  }, react_1["default"].createElement("div", {
+    className: "row d-flex align-items-center"
+  }, react_1["default"].createElement("div", {
+    className: "col-12 col-md-4"
+  }, react_1["default"].createElement("a", {
+    className: "link-effect font-w600",
+    href: "/"
+  }, react_1["default"].createElement("span", {
+    className: "font-size-xl text-white"
+  }, "E-Waste"), react_1["default"].createElement("span", {
+    className: "font-size-xl text-primary"
+  }, " Collect"))), react_1["default"].createElement("div", {
+    className: "col-12 col-md-4 text-left"
+  }, react_1["default"].createElement("h3", {
+    className: "text-white"
+  }, "Quick Links"), react_1["default"].createElement("ul", {
+    className: "list-unstyled text-white font-size-lg"
+  }, react_1["default"].createElement("li", null, react_1["default"].createElement("a", {
+    href: "#"
+  }, "Blog")), react_1["default"].createElement("li", null, react_1["default"].createElement("a", {
+    href: "#"
+  }, "About Us")), react_1["default"].createElement("li", null, react_1["default"].createElement("a", {
+    href: "#"
+  }, "Contact Us")), react_1["default"].createElement("li", null, react_1["default"].createElement("a", {
+    href: "#"
+  }, "Shops")), react_1["default"].createElement("li", null, react_1["default"].createElement("a", {
+    href: "#"
+  }, "News")))), react_1["default"].createElement("div", {
+    className: "col-12 col-md-4 text-left"
+  }, react_1["default"].createElement("h3", {
+    className: "text-white"
+  }, "Contact"), react_1["default"].createElement("ul", {
+    className: "list-unstyled text-white font-size-lg"
+  }, react_1["default"].createElement("li", null, react_1["default"].createElement("a", {
+    href: "#"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-phone"
+  }), "   0123456778")), react_1["default"].createElement("li", null, react_1["default"].createElement("a", {
+    href: "#"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-envelope"
+  }), "   example@gmail.com")), react_1["default"].createElement("li", null, react_1["default"].createElement("a", {
+    href: "#"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-map-marker"
+  }), "   123 ABC, Canley Heights, NSW 2166"))))))));
+};
+
+exports["default"] = Footer;
+
+/***/ }),
+
+/***/ "./resources/app/Pages/Client/Layout/Header/index.tsx":
+/*!************************************************************!*\
+  !*** ./resources/app/Pages/Client/Layout/Header/index.tsx ***!
+  \************************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+
+function _objectDestructuringEmpty(obj) {
+  if (obj == null) throw new TypeError("Cannot destructure undefined");
+}
+
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+
+var react_1 = __importDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
+
+var Header = function Header(props) {
+  _objectDestructuringEmpty(props);
+
+  return react_1["default"].createElement(react_1["default"].Fragment, null, react_1["default"].createElement("header", {
+    id: "page-header",
+    className: "bg-primary-dark"
+  }, react_1["default"].createElement("div", {
+    className: "content-header"
+  }, react_1["default"].createElement("div", {
+    className: "content-header-section"
+  }, react_1["default"].createElement("div", {
+    className: "content-header-item mr-10"
+  }, react_1["default"].createElement("a", {
+    className: "link-effect font-w600",
+    href: "/"
+  }, react_1["default"].createElement("span", {
+    className: "font-size-xl text-dual-primary-dark"
+  }, "E-Waste"), react_1["default"].createElement("span", {
+    className: "font-size-xl text-primary"
+  }, " Collect")))), react_1["default"].createElement("div", {
+    className: "content-header-section"
+  }, react_1["default"].createElement("ul", {
+    className: "nav-main-header"
+  }, react_1["default"].createElement("li", null, react_1["default"].createElement("a", {
+    href: "/blog"
+  }, react_1["default"].createElement("i", {
+    className: "si si-graduation"
+  }), "Blog")), react_1["default"].createElement("li", null, react_1["default"].createElement("a", {
+    href: "/shops"
+  }, react_1["default"].createElement("i", {
+    className: "si si-bag"
+  }), "Shops")), react_1["default"].createElement("li", null, react_1["default"].createElement("a", {
+    href: "/about"
+  }, react_1["default"].createElement("i", {
+    className: "si si-info"
+  }), "About us")), react_1["default"].createElement("li", null, react_1["default"].createElement("a", {
+    href: "/contact"
+  }, react_1["default"].createElement("i", {
+    className: "si si-earphones"
+  }), "Contact us")), react_1["default"].createElement("li", null, react_1["default"].createElement("a", {
+    className: "active",
+    href: "#",
+    "data-toggle": "modal",
+    "data-target": "#modal-pick-up"
+  }, react_1["default"].createElement("i", {
+    className: "si si-rocket"
+  }), "Request for pick-up")), react_1["default"].createElement("li", null, react_1["default"].createElement("div", {
+    className: "btn-group show",
+    role: "group"
+  }, react_1["default"].createElement("button", {
+    type: "button",
+    className: "btn btn-dual-secondary",
+    id: "page-header-notifications",
+    "data-toggle": "dropdown",
+    "aria-haspopup": "true",
+    "aria-expanded": "true"
+  }, react_1["default"].createElement("i", {
+    className: "si si-basket mr-2"
+  }), react_1["default"].createElement("span", {
+    className: ""
+  }), "Cart", react_1["default"].createElement("span", {
+    className: "badge badge-primary badge-pill ml-2"
+  }, "5")), react_1["default"].createElement("div", {
+    className: "dropdown-menu dropdown-menu-right min-width-320",
+    "aria-labelledby": "page-header-notifications",
+    style: {
+      position: 'absolute',
+      willChange: 'transform',
+      top: '5px',
+      left: '0px',
+      transform: 'translate3d(-231px, -26px, 0px)'
+    },
+    "x-placement": "top-end"
+  }, react_1["default"].createElement("h5", {
+    className: "h6 text-center py-10 mb-0 border-b text-uppercase"
+  }, "Cart"), react_1["default"].createElement("div", {
+    className: "container dropdown-item"
+  }, react_1["default"].createElement("div", {
+    className: "row d-flex justify-content-between align-items-center"
+  }, react_1["default"].createElement("div", {
+    className: "col-4"
+  }, react_1["default"].createElement("img", {
+    src: "/media/products/6.png",
+    alt: "",
+    style: {
+      width: '100%'
+    }
+  })), react_1["default"].createElement("div", {
+    className: "col-6"
+  }, react_1["default"].createElement("h5", {
+    className: "mb-2"
+  }, "Product #21"), react_1["default"].createElement("span", null, "1 x $16")), react_1["default"].createElement("div", {
+    className: "col-2"
+  }, react_1["default"].createElement("i", {
+    className: "si si-trash",
+    style: {
+      cursor: 'pointer'
+    }
+  })))), react_1["default"].createElement("div", {
+    className: "container dropdown-item"
+  }, react_1["default"].createElement("div", {
+    className: "row d-flex justify-content-between align-items-center"
+  }, react_1["default"].createElement("div", {
+    className: "col-4"
+  }, react_1["default"].createElement("img", {
+    src: "/media/products/1.png",
+    alt: "",
+    style: {
+      width: '100%'
+    }
+  })), react_1["default"].createElement("div", {
+    className: "col-6"
+  }, react_1["default"].createElement("h5", {
+    className: "mb-2"
+  }, "Product #21"), react_1["default"].createElement("span", null, "1 x $16")), react_1["default"].createElement("div", {
+    className: "col-2"
+  }, react_1["default"].createElement("i", {
+    className: "si si-trash",
+    style: {
+      cursor: 'pointer'
+    }
+  })))), react_1["default"].createElement("div", {
+    className: "container dropdown-item"
+  }, react_1["default"].createElement("div", {
+    className: "row d-flex justify-content-between align-items-center"
+  }, react_1["default"].createElement("div", {
+    className: "col-4"
+  }, react_1["default"].createElement("img", {
+    src: "/media/products/2.png",
+    alt: "",
+    style: {
+      width: '100%'
+    }
+  })), react_1["default"].createElement("div", {
+    className: "col-6"
+  }, react_1["default"].createElement("h5", {
+    className: "mb-2"
+  }, "Product #21"), react_1["default"].createElement("span", null, "1 x $16")), react_1["default"].createElement("div", {
+    className: "col-2"
+  }, react_1["default"].createElement("i", {
+    className: "si si-trash",
+    style: {
+      cursor: 'pointer'
+    }
+  })))), react_1["default"].createElement("div", {
+    className: "container dropdown-item"
+  }, react_1["default"].createElement("div", {
+    className: "row d-flex justify-content-between align-items-center"
+  }, react_1["default"].createElement("div", {
+    className: "col-4"
+  }, react_1["default"].createElement("img", {
+    src: "/media/products/3.png",
+    alt: "",
+    style: {
+      width: '100%'
+    }
+  })), react_1["default"].createElement("div", {
+    className: "col-6"
+  }, react_1["default"].createElement("h5", {
+    className: "mb-2"
+  }, "Product #21"), react_1["default"].createElement("span", null, "1 x $16")), react_1["default"].createElement("div", {
+    className: "col-2"
+  }, react_1["default"].createElement("i", {
+    className: "si si-trash",
+    style: {
+      cursor: 'pointer'
+    }
+  })))), react_1["default"].createElement("div", {
+    className: "container dropdown-item"
+  }, react_1["default"].createElement("div", {
+    className: "row d-flex justify-content-between align-items-center"
+  }, react_1["default"].createElement("div", {
+    className: "col-4"
+  }, react_1["default"].createElement("img", {
+    src: "/media/products/8.png",
+    alt: "",
+    style: {
+      width: '100%'
+    }
+  })), react_1["default"].createElement("div", {
+    className: "col-6"
+  }, react_1["default"].createElement("h5", {
+    className: "mb-2"
+  }, "Product #21"), react_1["default"].createElement("span", null, "1 x $16")), react_1["default"].createElement("div", {
+    className: "col-2"
+  }, react_1["default"].createElement("i", {
+    className: "si si-trash",
+    style: {
+      cursor: 'pointer'
+    }
+  })))), react_1["default"].createElement("div", {
+    className: "dropdown-divider"
+  }), react_1["default"].createElement("a", {
+    className: "dropdown-item text-center mb-0",
+    href: "javascript:void(0)"
+  }, react_1["default"].createElement("i", {
+    className: "si si-basket mr-5"
+  }), " Checkout")))), react_1["default"].createElement("li", null, react_1["default"].createElement("a", {
+    className: "nav-submenu",
+    "data-toggle": "nav-submenu",
+    href: "#"
+  }, react_1["default"].createElement("i", {
+    className: "si si-user"
+  }), "J. Smith"), react_1["default"].createElement("ul", null, react_1["default"].createElement("li", null, react_1["default"].createElement("a", {
+    href: "#"
+  }, "Profile")), react_1["default"].createElement("li", null, react_1["default"].createElement("a", {
+    href: ""
+  }, "Logout"))))), react_1["default"].createElement("button", {
+    type: "button",
+    className: "btn btn-circle btn-dual-secondary d-lg-none",
+    "data-toggle": "layout",
+    "data-action": "sidebar_toggle"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-navicon"
+  })))), react_1["default"].createElement("div", {
     id: "page-header-search",
     className: "overlay-header"
   }, react_1["default"].createElement("div", {
     className: "content-header content-header-fullrow"
-  }, react_1["default"].createElement("form", {
-    action: "/dashboard",
-    method: "POST"
-  }, react_1["default"].createElement("div", {
+  }, react_1["default"].createElement("form", null, react_1["default"].createElement("div", {
     className: "input-group"
   }, react_1["default"].createElement("div", {
     className: "input-group-prepend"
   }, react_1["default"].createElement("button", {
     type: "button",
-    className: "btn btn-secondary",
+    className: "btn btn-secondary px-15",
     "data-toggle": "layout",
     "data-action": "header_search_off"
   }, react_1["default"].createElement("i", {
@@ -3221,7 +8114,7 @@ var Layout = function Layout(props) {
     className: "input-group-append"
   }, react_1["default"].createElement("button", {
     type: "submit",
-    className: "btn btn-secondary"
+    className: "btn btn-secondary px-15"
   }, react_1["default"].createElement("i", {
     className: "fa fa-search"
   }))))))), react_1["default"].createElement("div", {
@@ -3233,14 +8126,1077 @@ var Layout = function Layout(props) {
     className: "content-header-item"
   }, react_1["default"].createElement("i", {
     className: "fa fa-sun-o fa-spin text-white"
-  }))))), react_1["default"].createElement("main", {
-    id: "main-container"
+  }))))), react_1["default"].createElement("div", {
+    className: "modal fade",
+    id: "modal-pick-up",
+    tabIndex: -1,
+    role: "dialog",
+    "aria-labelledby": "modal-fadein",
+    "aria-modal": "true",
+    style: {
+      display: 'none'
+    }
   }, react_1["default"].createElement("div", {
-    className: "content"
-  }, react_1["default"].createElement(routes_1.RenderRouters, null)))));
+    className: "modal-dialog",
+    role: "document"
+  }, react_1["default"].createElement("div", {
+    className: "modal-content"
+  }, react_1["default"].createElement("div", {
+    className: "block block-themed block-transparent mb-0"
+  }, react_1["default"].createElement("div", {
+    className: "block-header bg-primary-dark"
+  }, react_1["default"].createElement("h3", {
+    className: "block-title"
+  }, "Request For A Pick-up"), react_1["default"].createElement("div", {
+    className: "block-options"
+  }, react_1["default"].createElement("button", {
+    type: "button",
+    className: "btn-block-option",
+    "data-dismiss": "modal",
+    "aria-label": "Close"
+  }, react_1["default"].createElement("i", {
+    className: "si si-close"
+  })))), react_1["default"].createElement("div", {
+    className: "block-content"
+  }, react_1["default"].createElement("div", {
+    className: "form-group row"
+  }, react_1["default"].createElement("div", {
+    className: "col-12 col-md-6"
+  }, react_1["default"].createElement("label", {
+    htmlFor: "be-contact-name"
+  }, "First Name"), react_1["default"].createElement("input", {
+    type: "text",
+    className: "form-control form-control-lg",
+    id: "be-contact-name",
+    name: "be-contact-name",
+    placeholder: "Enter your first name.."
+  })), react_1["default"].createElement("div", {
+    className: "col-12 col-md-6"
+  }, react_1["default"].createElement("label", {
+    htmlFor: "be-contact-name"
+  }, "Last Name"), react_1["default"].createElement("input", {
+    type: "text",
+    className: "form-control form-control-lg",
+    id: "be-contact-name",
+    name: "be-contact-name",
+    placeholder: "Enter your last name.."
+  }))), react_1["default"].createElement("div", {
+    className: "form-group row"
+  }, react_1["default"].createElement("div", {
+    className: "col-12"
+  }, react_1["default"].createElement("label", {
+    htmlFor: "be-contact-name"
+  }, "Email"), react_1["default"].createElement("input", {
+    type: "text",
+    className: "form-control form-control-lg",
+    id: "be-contact-name",
+    name: "be-contact-name",
+    placeholder: "Enter your email.."
+  }))), react_1["default"].createElement("div", {
+    className: "form-group row"
+  }, react_1["default"].createElement("div", {
+    className: "col-12"
+  }, react_1["default"].createElement("label", {
+    htmlFor: "be-contact-name"
+  }, "Address"), react_1["default"].createElement("input", {
+    type: "text",
+    className: "form-control form-control-lg",
+    id: "be-contact-name",
+    name: "be-contact-name",
+    placeholder: "Enter your address.."
+  }))), react_1["default"].createElement("div", {
+    className: "form-group row"
+  }, react_1["default"].createElement("div", {
+    className: "col-12"
+  }, react_1["default"].createElement("label", {
+    htmlFor: "be-contact-name"
+  }, "Phone number"), react_1["default"].createElement("input", {
+    type: "text",
+    className: "form-control form-control-lg",
+    id: "be-contact-name",
+    name: "be-contact-name",
+    placeholder: "Enter your phone number.."
+  }))), react_1["default"].createElement("div", {
+    className: "form-group row"
+  }, react_1["default"].createElement("div", {
+    className: "col-12"
+  }, react_1["default"].createElement("label", {
+    htmlFor: "be-contact-name"
+  }, "Note"), react_1["default"].createElement("textarea", {
+    rows: 5,
+    className: "form-control form-control-lg",
+    id: "be-contact-name",
+    name: "be-contact-name"
+  }))), react_1["default"].createElement("div", {
+    className: "form-group"
+  }, react_1["default"].createElement("form", {
+    className: "dropzone dz-clickable",
+    action: "be_forms_plugins.html"
+  }, react_1["default"].createElement("div", {
+    className: "dz-default dz-message"
+  }, react_1["default"].createElement("button", {
+    className: "dz-button",
+    type: "button"
+  }, "Drop files here to upload")))))), react_1["default"].createElement("div", {
+    className: "modal-footer"
+  }, react_1["default"].createElement("button", {
+    type: "button",
+    className: "btn btn-alt-secondary",
+    "data-dismiss": "modal"
+  }, "Close"), react_1["default"].createElement("button", {
+    type: "button",
+    className: "btn btn-alt-success",
+    "data-dismiss": "modal"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-check"
+  }), " Submit"))))));
 };
 
-exports["default"] = Layout;
+exports["default"] = Header;
+
+/***/ }),
+
+/***/ "./resources/app/Pages/Client/Layout/SideBar/index.tsx":
+/*!*************************************************************!*\
+  !*** ./resources/app/Pages/Client/Layout/SideBar/index.tsx ***!
+  \*************************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+
+var react_1 = __importDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
+
+var SideBar = function SideBar(props) {
+  return react_1["default"].createElement(react_1["default"].Fragment, null, react_1["default"].createElement("nav", {
+    id: "sidebar"
+  }, react_1["default"].createElement("div", {
+    className: "sidebar-content"
+  }, react_1["default"].createElement("div", {
+    className: "content-header content-header-fullrow bg-black-op-10"
+  }, react_1["default"].createElement("div", {
+    className: "content-header-section text-center align-parent"
+  }, react_1["default"].createElement("button", {
+    type: "button",
+    className: "btn btn-circle btn-dual-secondary d-lg-none align-v-r",
+    "data-toggle": "layout",
+    "data-action": "sidebar_close"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-times text-danger"
+  })), react_1["default"].createElement("div", {
+    className: "content-header-item"
+  }, react_1["default"].createElement("a", {
+    className: "link-effect font-w700",
+    href: "index.html"
+  }, react_1["default"].createElement("i", {
+    className: "si si-fire text-primary"
+  }), react_1["default"].createElement("span", {
+    className: "font-size-xl text-dual-primary-dark"
+  }, "code"), react_1["default"].createElement("span", {
+    className: "font-size-xl text-primary"
+  }, "base"))))), react_1["default"].createElement("div", {
+    className: "js-sidebar-scroll"
+  }, react_1["default"].createElement("div", {
+    className: "content-side content-side-full"
+  }, react_1["default"].createElement("ul", {
+    className: "nav-main"
+  }, react_1["default"].createElement("li", null, react_1["default"].createElement("a", {
+    href: "/blog"
+  }, react_1["default"].createElement("i", {
+    className: "si si-graduation"
+  }), "Blog")), react_1["default"].createElement("li", null, react_1["default"].createElement("a", {
+    href: "/shops"
+  }, react_1["default"].createElement("i", {
+    className: "si si-bag"
+  }), "Shops")), react_1["default"].createElement("li", null, react_1["default"].createElement("a", {
+    href: "/about"
+  }, react_1["default"].createElement("i", {
+    className: "si si-info"
+  }), "About us")), react_1["default"].createElement("li", null, react_1["default"].createElement("a", {
+    href: "/contact"
+  }, react_1["default"].createElement("i", {
+    className: "si si-earphones"
+  }), "Contact us")), react_1["default"].createElement("li", null, react_1["default"].createElement("a", {
+    className: "active",
+    href: "#",
+    "data-toggle": "modal",
+    "data-target": "#modal-pick-up"
+  }, react_1["default"].createElement("i", {
+    className: "si si-rocket"
+  }), "Request for pick-up")), react_1["default"].createElement("li", null, react_1["default"].createElement("a", {
+    className: "nav-submenu",
+    "data-toggle": "nav-submenu",
+    href: "#"
+  }, react_1["default"].createElement("i", {
+    className: "si si-user"
+  }), "J. Smith"), react_1["default"].createElement("ul", null, react_1["default"].createElement("li", null, react_1["default"].createElement("a", {
+    href: "#"
+  }, "Profile")), react_1["default"].createElement("li", null, react_1["default"].createElement("a", {
+    href: ""
+  }, "Logout"))))))))));
+};
+
+exports["default"] = SideBar;
+
+/***/ }),
+
+/***/ "./resources/app/Pages/Client/Layout/index.tsx":
+/*!*****************************************************!*\
+  !*** ./resources/app/Pages/Client/Layout/index.tsx ***!
+  \*****************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+
+var react_1 = __importDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
+
+var routes_1 = __webpack_require__(/*! ../../../routes */ "./resources/app/routes.tsx");
+
+var Footer_1 = __importDefault(__webpack_require__(/*! ./Footer */ "./resources/app/Pages/Client/Layout/Footer/index.tsx"));
+
+var Header_1 = __importDefault(__webpack_require__(/*! ./Header */ "./resources/app/Pages/Client/Layout/Header/index.tsx"));
+
+var SideBar_1 = __importDefault(__webpack_require__(/*! ./SideBar */ "./resources/app/Pages/Client/Layout/SideBar/index.tsx"));
+
+var AdminLayout = function AdminLayout(props) {
+  return react_1["default"].createElement(react_1["default"].Fragment, null, react_1["default"].createElement("div", {
+    id: "page-container",
+    className: "sidebar-inverse side-scroll page-header-fixed page-header-glass page-header-inverse main-content-boxed"
+  }, react_1["default"].createElement(SideBar_1["default"], null), react_1["default"].createElement(Header_1["default"], null), react_1["default"].createElement("main", {
+    id: "main-container"
+  }, react_1["default"].createElement(routes_1.RenderRouters, null)), react_1["default"].createElement(Footer_1["default"], null)));
+};
+
+exports["default"] = AdminLayout;
+
+/***/ }),
+
+/***/ "./resources/app/Pages/Client/Shops/ProductDetail.tsx":
+/*!************************************************************!*\
+  !*** ./resources/app/Pages/Client/Shops/ProductDetail.tsx ***!
+  \************************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+
+function _slicedToArray(arr, i) {
+  return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();
+}
+
+function _nonIterableRest() {
+  throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+
+function _unsupportedIterableToArray(o, minLen) {
+  if (!o) return;
+  if (typeof o === "string") return _arrayLikeToArray(o, minLen);
+  var n = Object.prototype.toString.call(o).slice(8, -1);
+  if (n === "Object" && o.constructor) n = o.constructor.name;
+  if (n === "Map" || n === "Set") return Array.from(o);
+  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
+}
+
+function _arrayLikeToArray(arr, len) {
+  if (len == null || len > arr.length) len = arr.length;
+
+  for (var i = 0, arr2 = new Array(len); i < len; i++) {
+    arr2[i] = arr[i];
+  }
+
+  return arr2;
+}
+
+function _iterableToArrayLimit(arr, i) {
+  var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"];
+
+  if (_i == null) return;
+  var _arr = [];
+  var _n = true;
+  var _d = false;
+
+  var _s, _e;
+
+  try {
+    for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) {
+      _arr.push(_s.value);
+
+      if (i && _arr.length === i) break;
+    }
+  } catch (err) {
+    _d = true;
+    _e = err;
+  } finally {
+    try {
+      if (!_n && _i["return"] != null) _i["return"]();
+    } finally {
+      if (_d) throw _e;
+    }
+  }
+
+  return _arr;
+}
+
+function _arrayWithHoles(arr) {
+  if (Array.isArray(arr)) return arr;
+}
+
+var __createBinding = this && this.__createBinding || (Object.create ? function (o, m, k, k2) {
+  if (k2 === undefined) k2 = k;
+  var desc = Object.getOwnPropertyDescriptor(m, k);
+
+  if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+    desc = {
+      enumerable: true,
+      get: function get() {
+        return m[k];
+      }
+    };
+  }
+
+  Object.defineProperty(o, k2, desc);
+} : function (o, m, k, k2) {
+  if (k2 === undefined) k2 = k;
+  o[k2] = m[k];
+});
+
+var __setModuleDefault = this && this.__setModuleDefault || (Object.create ? function (o, v) {
+  Object.defineProperty(o, "default", {
+    enumerable: true,
+    value: v
+  });
+} : function (o, v) {
+  o["default"] = v;
+});
+
+var __importStar = this && this.__importStar || function (mod) {
+  if (mod && mod.__esModule) return mod;
+  var result = {};
+  if (mod != null) for (var k in mod) {
+    if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+  }
+
+  __setModuleDefault(result, mod);
+
+  return result;
+};
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+
+var react_1 = __importStar(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
+
+var Components_1 = __webpack_require__(/*! ../../../Components */ "./resources/app/Components/index.tsx");
+
+var react_router_dom_1 = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/index.js");
+
+var ProductModel = __importStar(__webpack_require__(/*! ../../../Models/Products */ "./resources/app/Models/Products.tsx"));
+
+var ProductDetail = function ProductDetail(props) {
+  var _ref = (0, react_router_dom_1.useParams)(),
+      id = _ref.id;
+
+  var _ref2 = (0, react_1.useState)(),
+      _ref3 = _slicedToArray(_ref2, 2),
+      product = _ref3[0],
+      setProduct = _ref3[1];
+
+  var _ref4 = (0, react_1.useState)(),
+      _ref5 = _slicedToArray(_ref4, 2),
+      products = _ref5[0],
+      setProducts = _ref5[1];
+
+  (0, react_1.useEffect)(function () {
+    setProduct(ProductModel.getProduct(id));
+    setProducts(ProductModel.getList());
+  }, [id]);
+  return react_1["default"].createElement(react_1["default"].Fragment, null, react_1["default"].createElement("div", {
+    className: "content my-100"
+  }, react_1["default"].createElement(Components_1.Breadcrumb, {
+    items: [{
+      name: 'Home',
+      link: '/'
+    }, {
+      name: 'Shops',
+      link: '/shops'
+    }, {
+      name: product === null || product === void 0 ? void 0 : product.id,
+      active: true
+    }]
+  }), react_1["default"].createElement("div", {
+    className: "block block-rounded my-30"
+  }, react_1["default"].createElement("div", {
+    className: "block-content mb-4"
+  }, react_1["default"].createElement("div", {
+    className: "content align-items-center"
+  }, react_1["default"].createElement("div", {
+    className: "row"
+  }, react_1["default"].createElement("div", {
+    className: "col-12 col-md-6"
+  }, react_1["default"].createElement("img", {
+    src: product === null || product === void 0 ? void 0 : product.image_url,
+    className: "w-100",
+    alt: ""
+  })), react_1["default"].createElement("div", {
+    className: "col-12 col-md-6"
+  }, react_1["default"].createElement("h5", null, product === null || product === void 0 ? void 0 : product.name), react_1["default"].createElement("div", {
+    className: "d-flex"
+  }, react_1["default"].createElement("span", {
+    className: "text-primary mr-2"
+  }, "$", product === null || product === void 0 ? void 0 : product.price), react_1["default"].createElement("div", {
+    className: "border-l pl-2"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-star text-warning"
+  }), react_1["default"].createElement("i", {
+    className: "fa fa-star text-warning"
+  }), react_1["default"].createElement("i", {
+    className: "fa fa-star text-warning"
+  }), react_1["default"].createElement("i", {
+    className: "fa fa-star text-warning"
+  }), react_1["default"].createElement("i", {
+    className: "fa fa-star text-warning"
+  }), react_1["default"].createElement("span", {
+    className: "ml-2"
+  }, "120 ratings"))), react_1["default"].createElement("hr", null), react_1["default"].createElement("p", null, "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Error, pariatur molestiae aspernatur nostrum eveniet porro eius maiores, tempora reprehenderit voluptas aliquid, tempore delectus ipsum molestias. Mollitia, amet architecto. Et, dolorem?"), react_1["default"].createElement("p", null, "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Error, pariatur molestiae aspernatur nostrum eveniet porro eius maiores, tempora reprehenderit voluptas aliquid, tempore delectus ipsum molestias. Mollitia, amet architecto. Et, dolorem?"), react_1["default"].createElement("hr", null), react_1["default"].createElement("div", {
+    className: "d-flex"
+  }, react_1["default"].createElement("button", {
+    type: "button",
+    className: "btn btn-circle btn-sm btn-alt-secondary mr-5 mb-5",
+    style: {
+      backgroundColor: 'blue'
+    }
+  }), react_1["default"].createElement("button", {
+    type: "button",
+    className: "btn btn-circle btn-sm btn-alt-secondary mr-5 mb-5",
+    style: {
+      backgroundColor: 'black'
+    }
+  }), react_1["default"].createElement("button", {
+    type: "button",
+    className: "btn btn-circle btn-sm btn-alt-secondary mr-5 mb-5",
+    style: {
+      backgroundColor: 'green'
+    }
+  }), react_1["default"].createElement("button", {
+    type: "button",
+    className: "btn btn-circle btn-sm btn-alt-secondary mr-5 mb-5",
+    style: {
+      backgroundColor: 'red'
+    }
+  }), react_1["default"].createElement("button", {
+    type: "button",
+    className: "btn btn-circle btn-sm btn-alt-secondary mr-5 mb-5",
+    style: {
+      backgroundColor: 'yellow'
+    }
+  })), react_1["default"].createElement("hr", null), react_1["default"].createElement("h6", null, "Status: Available"), react_1["default"].createElement("div", {
+    className: "d-flex"
+  }, react_1["default"].createElement("button", {
+    type: "button",
+    className: "btn btn-primary mr-5 mb-5"
+  }, react_1["default"].createElement("i", {
+    className: "si si-basket mr-5"
+  }), "Add to cart"), react_1["default"].createElement("button", {
+    type: "button",
+    className: "btn btn-success mr-5 mb-5"
+  }, react_1["default"].createElement("i", {
+    className: "si si-heart mr-5"
+  }), "Wishlish")))))), react_1["default"].createElement("div", {
+    className: "block-content bg-gray-lighter"
+  }, react_1["default"].createElement("div", {
+    className: "content mb-4"
+  }, react_1["default"].createElement("div", {
+    className: "row gutters-tiny"
+  }, react_1["default"].createElement("div", {
+    className: "col-6 col-md-4"
+  }, react_1["default"].createElement("a", {
+    className: "block block-rounded block-bordered block-link-shadow text-center",
+    href: "javascript:void(0)"
+  }, react_1["default"].createElement("div", {
+    className: "block-content"
+  }, react_1["default"].createElement("p", {
+    className: "mt-5"
+  }, react_1["default"].createElement("i", {
+    className: "si si-badge fa-4x"
+  })), react_1["default"].createElement("p", {
+    className: "font-w600"
+  }, "100% Original"), react_1["default"].createElement("p", {
+    className: "text-muted"
+  }, "Chocolate bar candy canes ice cream toffee. Croissant pie cookie halvah.")))), react_1["default"].createElement("div", {
+    className: "col-6 col-md-4"
+  }, react_1["default"].createElement("a", {
+    className: "block block-rounded block-bordered block-link-shadow text-center",
+    href: "javascript:void(0)"
+  }, react_1["default"].createElement("div", {
+    className: "block-content"
+  }, react_1["default"].createElement("p", {
+    className: "mt-5"
+  }, react_1["default"].createElement("i", {
+    className: "si si-clock fa-4x"
+  })), react_1["default"].createElement("p", {
+    className: "font-w600"
+  }, "30 Day Replacement"), react_1["default"].createElement("p", {
+    className: "text-muted"
+  }, "Marshmallow biscuit donut drag\xE9e fruitcake. Jujubes wafer cupcake.")))), react_1["default"].createElement("div", {
+    className: "col-6 col-md-4"
+  }, react_1["default"].createElement("a", {
+    className: "block block-rounded block-bordered block-link-shadow text-center",
+    href: "javascript:void(0)"
+  }, react_1["default"].createElement("div", {
+    className: "block-content"
+  }, react_1["default"].createElement("p", {
+    className: "mt-5"
+  }, react_1["default"].createElement("i", {
+    className: "si si-shield fa-4x"
+  })), react_1["default"].createElement("p", {
+    className: "font-w600"
+  }, "1 Year Warranty"), react_1["default"].createElement("p", {
+    className: "text-muted"
+  }, "Marshmallow biscuit donut drag\xE9e fruitcake. Jujubes wafer cupcake."))))))), react_1["default"].createElement("div", {
+    className: "block-content text-center bg-gray-light"
+  }, react_1["default"].createElement("div", {
+    className: "content"
+  }, react_1["default"].createElement("h3", null, "Related Product"), react_1["default"].createElement("div", {
+    className: "row"
+  }, products === null || products === void 0 ? void 0 : products.map(function (product, key) {
+    if (key > 3) {
+      return react_1["default"].createElement(react_1["default"].Fragment, null);
+    }
+
+    return react_1["default"].createElement("div", {
+      className: "col-6 col-md-3"
+    }, react_1["default"].createElement("a", {
+      href: "/products/".concat(product.id)
+    }, react_1["default"].createElement("div", {
+      className: "block block-rounded p-3",
+      style: {
+        minHeight: '300px'
+      }
+    }, react_1["default"].createElement("h5", null, product.name), react_1["default"].createElement("img", {
+      src: product.image_url,
+      alt: "",
+      className: "w-100"
+    }), react_1["default"].createElement("div", {
+      className: "d-flex justify-content-center w-100"
+    }, react_1["default"].createElement("span", {
+      className: "text-primary mr-2"
+    }, "$", product === null || product === void 0 ? void 0 : product.price), react_1["default"].createElement("div", {
+      className: "border-l pl-2"
+    }, react_1["default"].createElement("i", {
+      className: "fa fa-star text-warning"
+    }), react_1["default"].createElement("i", {
+      className: "fa fa-star text-warning"
+    }), react_1["default"].createElement("i", {
+      className: "fa fa-star text-warning"
+    }), react_1["default"].createElement("i", {
+      className: "fa fa-star text-warning"
+    }), react_1["default"].createElement("i", {
+      className: "fa fa-star text-warning"
+    }), react_1["default"].createElement("span", {
+      className: "ml-2"
+    }, "120 ratings"))))));
+  })))))));
+};
+
+exports["default"] = ProductDetail;
+
+/***/ }),
+
+/***/ "./resources/app/Pages/Client/Shops/index.tsx":
+/*!****************************************************!*\
+  !*** ./resources/app/Pages/Client/Shops/index.tsx ***!
+  \****************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+
+function _slicedToArray(arr, i) {
+  return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();
+}
+
+function _nonIterableRest() {
+  throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+
+function _unsupportedIterableToArray(o, minLen) {
+  if (!o) return;
+  if (typeof o === "string") return _arrayLikeToArray(o, minLen);
+  var n = Object.prototype.toString.call(o).slice(8, -1);
+  if (n === "Object" && o.constructor) n = o.constructor.name;
+  if (n === "Map" || n === "Set") return Array.from(o);
+  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
+}
+
+function _arrayLikeToArray(arr, len) {
+  if (len == null || len > arr.length) len = arr.length;
+
+  for (var i = 0, arr2 = new Array(len); i < len; i++) {
+    arr2[i] = arr[i];
+  }
+
+  return arr2;
+}
+
+function _iterableToArrayLimit(arr, i) {
+  var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"];
+
+  if (_i == null) return;
+  var _arr = [];
+  var _n = true;
+  var _d = false;
+
+  var _s, _e;
+
+  try {
+    for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) {
+      _arr.push(_s.value);
+
+      if (i && _arr.length === i) break;
+    }
+  } catch (err) {
+    _d = true;
+    _e = err;
+  } finally {
+    try {
+      if (!_n && _i["return"] != null) _i["return"]();
+    } finally {
+      if (_d) throw _e;
+    }
+  }
+
+  return _arr;
+}
+
+function _arrayWithHoles(arr) {
+  if (Array.isArray(arr)) return arr;
+}
+
+var __createBinding = this && this.__createBinding || (Object.create ? function (o, m, k, k2) {
+  if (k2 === undefined) k2 = k;
+  var desc = Object.getOwnPropertyDescriptor(m, k);
+
+  if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+    desc = {
+      enumerable: true,
+      get: function get() {
+        return m[k];
+      }
+    };
+  }
+
+  Object.defineProperty(o, k2, desc);
+} : function (o, m, k, k2) {
+  if (k2 === undefined) k2 = k;
+  o[k2] = m[k];
+});
+
+var __setModuleDefault = this && this.__setModuleDefault || (Object.create ? function (o, v) {
+  Object.defineProperty(o, "default", {
+    enumerable: true,
+    value: v
+  });
+} : function (o, v) {
+  o["default"] = v;
+});
+
+var __importStar = this && this.__importStar || function (mod) {
+  if (mod && mod.__esModule) return mod;
+  var result = {};
+  if (mod != null) for (var k in mod) {
+    if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+  }
+
+  __setModuleDefault(result, mod);
+
+  return result;
+};
+
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+
+var react_1 = __importStar(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
+
+var index_1 = __importDefault(__webpack_require__(/*! ../../../Components/Breadcrumb/index */ "./resources/app/Components/Breadcrumb/index.tsx"));
+
+var CategoryModel = __importStar(__webpack_require__(/*! ../../../Models/Categories */ "./resources/app/Models/Categories.tsx"));
+
+var ProductModel = __importStar(__webpack_require__(/*! ../../../Models/Products */ "./resources/app/Models/Products.tsx"));
+
+var Shops = function Shops(props) {
+  var _ref = (0, react_1.useState)(),
+      _ref2 = _slicedToArray(_ref, 2),
+      products = _ref2[0],
+      setProducts = _ref2[1];
+
+  var _ref3 = (0, react_1.useState)(),
+      _ref4 = _slicedToArray(_ref3, 2),
+      categories = _ref4[0],
+      setCategories = _ref4[1];
+
+  (0, react_1.useEffect)(function () {
+    setCategories(CategoryModel.getList());
+    setProducts(ProductModel.getList());
+  }, []);
+  return react_1["default"].createElement(react_1["default"].Fragment, null, react_1["default"].createElement("div", {
+    className: "content my-100"
+  }, react_1["default"].createElement(index_1["default"], {
+    items: [{
+      name: 'Home',
+      link: '/'
+    }, {
+      name: 'Shops',
+      active: true
+    }]
+  }), react_1["default"].createElement("div", {
+    className: "row items-push py-30"
+  }, react_1["default"].createElement("div", {
+    className: "col-xl-3"
+  }, react_1["default"].createElement("div", {
+    className: "mb-50"
+  }, react_1["default"].createElement("h3", null, "Filter"), react_1["default"].createElement("div", {
+    className: "block block-rounded"
+  }, react_1["default"].createElement("div", {
+    className: "block-content"
+  }, react_1["default"].createElement("form", {
+    className: "js-validation-be-contact"
+  }, react_1["default"].createElement("h6", null, "Multi Range"), react_1["default"].createElement("div", {
+    className: "form-group"
+  }, react_1["default"].createElement("ul", {
+    className: "list-unstyled"
+  }, react_1["default"].createElement("li", null, react_1["default"].createElement("label", {
+    className: "css-control css-control-primary css-radio"
+  }, react_1["default"].createElement("input", {
+    type: "radio",
+    className: "css-control-input",
+    name: "multi-range",
+    checked: true
+  }), react_1["default"].createElement("span", {
+    className: "css-control-indicator"
+  }), " All")), react_1["default"].createElement("li", null, react_1["default"].createElement("label", {
+    className: "css-control css-control-primary css-radio"
+  }, react_1["default"].createElement("input", {
+    type: "radio",
+    className: "css-control-input",
+    name: "multi-range"
+  }), react_1["default"].createElement("span", {
+    className: "css-control-indicator"
+  }), " <= $100")), react_1["default"].createElement("li", null, react_1["default"].createElement("label", {
+    className: "css-control css-control-primary css-radio"
+  }, react_1["default"].createElement("input", {
+    type: "radio",
+    className: "css-control-input",
+    name: "multi-range"
+  }), react_1["default"].createElement("span", {
+    className: "css-control-indicator"
+  }), " $100 - $300")), react_1["default"].createElement("li", null, react_1["default"].createElement("label", {
+    className: "css-control css-control-primary css-radio"
+  }, react_1["default"].createElement("input", {
+    type: "radio",
+    className: "css-control-input",
+    name: "multi-range"
+  }), react_1["default"].createElement("span", {
+    className: "css-control-indicator"
+  }), " $300 - $700")), react_1["default"].createElement("li", null, react_1["default"].createElement("label", {
+    className: "css-control css-control-primary css-radio"
+  }, react_1["default"].createElement("input", {
+    type: "radio",
+    className: "css-control-input",
+    name: "multi-range"
+  }), react_1["default"].createElement("span", {
+    className: "css-control-indicator"
+  }), " $700 - $1000")), react_1["default"].createElement("li", null, react_1["default"].createElement("label", {
+    className: "css-control css-control-primary css-radio"
+  }, react_1["default"].createElement("input", {
+    type: "radio",
+    className: "css-control-input",
+    name: "multi-range"
+  }), react_1["default"].createElement("span", {
+    className: "css-control-indicator"
+  }), " >= $1000")))), react_1["default"].createElement("hr", null), react_1["default"].createElement("h6", null, "Price Range"), react_1["default"].createElement("div", {
+    className: "form-group"
+  }, react_1["default"].createElement("div", {
+    className: "col-12"
+  }, react_1["default"].createElement("span", {
+    className: "irs irs--round js-irs-0"
+  }, react_1["default"].createElement("span", {
+    className: "irs"
+  }, react_1["default"].createElement("span", {
+    className: "irs-line",
+    tabIndex: 0
+  }), react_1["default"].createElement("span", {
+    className: "irs-min",
+    style: {
+      visibility: 'visible'
+    }
+  }, "0"), react_1["default"].createElement("span", {
+    className: "irs-max",
+    style: {
+      visibility: 'visible'
+    }
+  }, "5000"), react_1["default"].createElement("span", {
+    className: "irs-from",
+    style: {
+      visibility: 'hidden'
+    }
+  }, " 0"), react_1["default"].createElement("span", {
+    className: "irs-to",
+    style: {
+      visibility: 'hidden'
+    }
+  }, "0"), react_1["default"].createElement("span", {
+    className: "irs-single",
+    style: {
+      left: '32.3797%'
+    }
+  }, " 2300")), react_1["default"].createElement("span", {
+    className: "irs-grid"
+  }), react_1["default"].createElement("span", {
+    className: "irs-bar irs-bar--single",
+    style: {
+      left: '0px',
+      width: '33.7673 %'
+    }
+  }), react_1["default"].createElement("span", {
+    className: "irs-shadow shadow-single",
+    style: {
+      display: 'none'
+    }
+  }), react_1["default"].createElement("span", {
+    className: "irs-handle single",
+    style: {
+      left: '32.4653%'
+    }
+  }, react_1["default"].createElement("i", null), react_1["default"].createElement("i", null), react_1["default"].createElement("i", null))), react_1["default"].createElement("input", {
+    type: "text",
+    className: "js-rangeslider js-rangeslider-enabled irs-hidden-input",
+    id: "example-rangeslider1",
+    name: "example-rangeslider1",
+    value: "25",
+    tabIndex: -1,
+    readOnly: true
+  }))), react_1["default"].createElement("hr", null), react_1["default"].createElement("h6", null, "Categories"), react_1["default"].createElement("div", {
+    className: "form-group"
+  }, react_1["default"].createElement("ul", {
+    className: "list-unstyled"
+  }, react_1["default"].createElement("li", null, react_1["default"].createElement("label", {
+    className: "css-control css-control-primary css-radio"
+  }, react_1["default"].createElement("input", {
+    type: "radio",
+    className: "css-control-input",
+    name: "category",
+    checked: true
+  }), react_1["default"].createElement("span", {
+    className: "css-control-indicator"
+  }), " All")), categories === null || categories === void 0 ? void 0 : categories.map(function (category) {
+    return react_1["default"].createElement("li", null, react_1["default"].createElement("label", {
+      className: "css-control css-control-primary css-radio"
+    }, react_1["default"].createElement("input", {
+      type: "radio",
+      className: "css-control-input",
+      name: "category"
+    }), react_1["default"].createElement("span", {
+      className: "css-control-indicator"
+    }), " ", category.name));
+  }))), react_1["default"].createElement("div", {
+    className: "form-group row"
+  }, react_1["default"].createElement("div", {
+    className: "col-12 text-center"
+  }, react_1["default"].createElement("button", {
+    type: "button",
+    className: "btn btn-hero btn-alt-primary w-100"
+  }, "Filter")))))))), react_1["default"].createElement("div", {
+    className: "col-xl-9"
+  }, react_1["default"].createElement("div", {
+    className: "container mb-10"
+  }, react_1["default"].createElement("div", {
+    className: "row d-flex justify-content-between"
+  }, react_1["default"].createElement("h6", {
+    className: "pt-5"
+  }, products ? products.length : 0, " results found"), react_1["default"].createElement("div", {
+    className: "btn-group",
+    role: "group"
+  }, react_1["default"].createElement("button", {
+    type: "button",
+    className: "btn btn-sm btn-secondary dropdown-toggle",
+    id: "btnGroupDrop1",
+    "data-toggle": "dropdown",
+    "aria-haspopup": "true",
+    "aria-expanded": "false"
+  }, "Featured"), react_1["default"].createElement("div", {
+    className: "dropdown-menu dropdown-menu-right",
+    "aria-labelledby": "btnGroupDrop1"
+  }, react_1["default"].createElement("a", {
+    className: "dropdown-item",
+    href: "javascript:void(0)"
+  }, "Lowest"), react_1["default"].createElement("a", {
+    className: "dropdown-item",
+    href: "javascript:void(0)"
+  }, "Highest"))))), react_1["default"].createElement("div", {
+    className: "form-group row"
+  }, react_1["default"].createElement("div", {
+    className: "col-12"
+  }, react_1["default"].createElement("div", {
+    className: "input-group"
+  }, react_1["default"].createElement("div", {
+    className: "input-group-prepend"
+  }), react_1["default"].createElement("input", {
+    type: "text",
+    className: "form-control",
+    placeholder: "Search",
+    id: "page-header-search-input",
+    name: "page-header-search-input"
+  }), react_1["default"].createElement("div", {
+    className: "input-group-append"
+  }, react_1["default"].createElement("button", {
+    type: "submit",
+    className: "btn btn-secondary px-15"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-search"
+  })))))), react_1["default"].createElement("div", {
+    className: "row"
+  }, products === null || products === void 0 ? void 0 : products.map(function (product) {
+    return react_1["default"].createElement("div", {
+      className: "col-12 col-md-4"
+    }, react_1["default"].createElement("div", {
+      className: "block d-flex flex-column"
+    }, react_1["default"].createElement("a", {
+      href: "/products/".concat(product.id)
+    }, react_1["default"].createElement("div", {
+      className: "block-content block-content-full bg-image min-height-175 flex-grow-0",
+      style: {
+        backgroundImage: "url(".concat(product.image_url, ")")
+      }
+    }, product.status === 'Out of Stock' && react_1["default"].createElement("a", {
+      className: "badge badge-danger font-w700 p-2 text-uppercase",
+      href: "javascript:void(0)"
+    }, "Out of Stock"))), react_1["default"].createElement("div", {
+      className: "block-content flex-grow-1"
+    }, react_1["default"].createElement("h5", {
+      className: "mb-5"
+    }, react_1["default"].createElement("a", {
+      className: "text-dark",
+      href: "/products/".concat(product.id)
+    }, product.name)), react_1["default"].createElement("p", null, "Lorem ipsum dolor sit amet consectetur adipisicing elit...")), react_1["default"].createElement("div", {
+      className: "block-content py-15 bg-body-light flex-grow-0"
+    }, react_1["default"].createElement("div", {
+      className: "row no-gutters font-size-sm text-center"
+    }, react_1["default"].createElement("div", {
+      className: "col-4"
+    }, react_1["default"].createElement("a", {
+      className: "text-muted font-w600",
+      href: "javascript:void(0)"
+    }, react_1["default"].createElement("i", {
+      className: "fa fa-fw fa-tag mr-5 fa-lg"
+    }), " $", product.price)), react_1["default"].createElement("div", {
+      className: "col-4",
+      style: {
+        cursor: 'pointer'
+      }
+    }, react_1["default"].createElement("a", {
+      className: "text-muted font-w600",
+      href: "javascript:void(0)"
+    }, react_1["default"].createElement("i", {
+      className: "fa fa-fw fa-heart fa-lg"
+    }))), react_1["default"].createElement("div", {
+      className: "col-4",
+      style: {
+        cursor: 'pointer'
+      }
+    }, react_1["default"].createElement("a", {
+      className: "text-muted font-w600",
+      href: "javascript:void(0)"
+    }, react_1["default"].createElement("i", {
+      className: "fa fa-fw fa-shopping-cart fa-lg"
+    })))))));
+  })), react_1["default"].createElement("div", {
+    className: "row d-flex justify-content-center"
+  }, react_1["default"].createElement("nav", {
+    "aria-label": "Products navigation"
+  }, react_1["default"].createElement("ul", {
+    className: "pagination justify-content-end"
+  }, react_1["default"].createElement("li", {
+    className: "page-item"
+  }, react_1["default"].createElement("a", {
+    className: "page-link",
+    href: "javascript:void(0)",
+    "aria-label": "Previous"
+  }, react_1["default"].createElement("span", {
+    "aria-hidden": "true"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-angle-left"
+  })), react_1["default"].createElement("span", {
+    className: "sr-only"
+  }, "Previous"))), react_1["default"].createElement("li", {
+    className: "page-item active"
+  }, react_1["default"].createElement("a", {
+    className: "page-link",
+    href: "javascript:void(0)"
+  }, "1")), react_1["default"].createElement("li", {
+    className: "page-item"
+  }, react_1["default"].createElement("a", {
+    className: "page-link",
+    href: "javascript:void(0)"
+  }, "2")), react_1["default"].createElement("li", {
+    className: "page-item disabled"
+  }, react_1["default"].createElement("a", {
+    className: "page-link",
+    href: "javascript:void(0)"
+  }, "...")), react_1["default"].createElement("li", {
+    className: "page-item"
+  }, react_1["default"].createElement("a", {
+    className: "page-link",
+    href: "javascript:void(0)"
+  }, "39")), react_1["default"].createElement("li", {
+    className: "page-item"
+  }, react_1["default"].createElement("a", {
+    className: "page-link",
+    href: "javascript:void(0)"
+  }, "40")), react_1["default"].createElement("li", {
+    className: "page-item"
+  }, react_1["default"].createElement("a", {
+    className: "page-link",
+    href: "javascript:void(0)",
+    "aria-label": "Next"
+  }, react_1["default"].createElement("span", {
+    "aria-hidden": "true"
+  }, react_1["default"].createElement("i", {
+    className: "fa fa-angle-right"
+  })), react_1["default"].createElement("span", {
+    className: "sr-only"
+  }, "Next"))))))))));
+};
+
+exports["default"] = Shops;
 
 /***/ }),
 
@@ -3262,15 +9218,67 @@ var __importDefault = this && this.__importDefault || function (mod) {
 Object.defineProperty(exports, "__esModule", ({
   value: true
 }));
-exports.Dashboard = exports.Layout = void 0;
+exports.ClientBlog = exports.ClientProductDetail = exports.Shops = exports.ClientHomePage = exports.ClientAbout = exports.ClientContact = exports.ClientLayout = exports.CategoryDetail = exports.Categories = exports.ProductDetail = exports.Products = exports.OrderDetail = exports.Orders = exports.Dashboard = exports.AdminLayout = void 0;
 
-var Layout_1 = __importDefault(__webpack_require__(/*! ./Layout */ "./resources/app/Pages/Layout/index.tsx"));
+var Layout_1 = __importDefault(__webpack_require__(/*! ./Admin/Layout */ "./resources/app/Pages/Admin/Layout/index.tsx"));
 
-exports.Layout = Layout_1["default"];
+exports.AdminLayout = Layout_1["default"];
 
-var Dashboard_1 = __importDefault(__webpack_require__(/*! ./Dashboard */ "./resources/app/Pages/Dashboard/index.tsx"));
+var Dashboard_1 = __importDefault(__webpack_require__(/*! ./Admin/Dashboard */ "./resources/app/Pages/Admin/Dashboard/index.tsx"));
 
 exports.Dashboard = Dashboard_1["default"];
+
+var Orders_1 = __importDefault(__webpack_require__(/*! ./Admin/Orders */ "./resources/app/Pages/Admin/Orders/index.tsx"));
+
+exports.Orders = Orders_1["default"];
+
+var OrderDetail_1 = __importDefault(__webpack_require__(/*! ./Admin/Orders/OrderDetail */ "./resources/app/Pages/Admin/Orders/OrderDetail.tsx"));
+
+exports.OrderDetail = OrderDetail_1["default"];
+
+var Products_1 = __importDefault(__webpack_require__(/*! ./Admin/Products */ "./resources/app/Pages/Admin/Products/index.tsx"));
+
+exports.Products = Products_1["default"];
+
+var Categories_1 = __importDefault(__webpack_require__(/*! ./Admin/Categories */ "./resources/app/Pages/Admin/Categories/index.tsx"));
+
+exports.Categories = Categories_1["default"];
+
+var CategoryDetail_1 = __importDefault(__webpack_require__(/*! ./Admin/Categories/CategoryDetail */ "./resources/app/Pages/Admin/Categories/CategoryDetail.tsx"));
+
+exports.CategoryDetail = CategoryDetail_1["default"];
+
+var ProductDetail_1 = __importDefault(__webpack_require__(/*! ./Admin/Products/ProductDetail */ "./resources/app/Pages/Admin/Products/ProductDetail.tsx"));
+
+exports.ProductDetail = ProductDetail_1["default"];
+
+var Layout_2 = __importDefault(__webpack_require__(/*! ./Client/Layout */ "./resources/app/Pages/Client/Layout/index.tsx"));
+
+exports.ClientLayout = Layout_2["default"];
+
+var Contact_1 = __importDefault(__webpack_require__(/*! ./Client/Contact */ "./resources/app/Pages/Client/Contact/index.tsx"));
+
+exports.ClientContact = Contact_1["default"];
+
+var About_1 = __importDefault(__webpack_require__(/*! ./Client/About */ "./resources/app/Pages/Client/About/index.tsx"));
+
+exports.ClientAbout = About_1["default"];
+
+var Home_1 = __importDefault(__webpack_require__(/*! ./Client/Home */ "./resources/app/Pages/Client/Home/index.tsx"));
+
+exports.ClientHomePage = Home_1["default"];
+
+var Shops_1 = __importDefault(__webpack_require__(/*! ./Client/Shops */ "./resources/app/Pages/Client/Shops/index.tsx"));
+
+exports.Shops = Shops_1["default"];
+
+var ProductDetail_2 = __importDefault(__webpack_require__(/*! ./Client/Shops/ProductDetail */ "./resources/app/Pages/Client/Shops/ProductDetail.tsx"));
+
+exports.ClientProductDetail = ProductDetail_2["default"];
+
+var Blog_1 = __importDefault(__webpack_require__(/*! ./Client/Blog */ "./resources/app/Pages/Client/Blog/index.tsx"));
+
+exports.ClientBlog = Blog_1["default"];
 
 /***/ }),
 
@@ -3376,14 +9384,86 @@ var react_1 = __importDefault(__webpack_require__(/*! react */ "./node_modules/r
 var Pages = __importStar(__webpack_require__(/*! ./Pages */ "./resources/app/Pages/index.tsx"));
 
 exports.views = {
+  orderDetail: {
+    name: 'Orders Detail',
+    action: '/admin/orders/:id',
+    element: react_1["default"].createElement(Pages.OrderDetail, null),
+    isRoute: true
+  },
+  orders: {
+    name: 'Orders',
+    action: '/admin/orders',
+    element: react_1["default"].createElement(Pages.Orders, null),
+    isRoute: true
+  },
+  products: {
+    name: 'Products',
+    action: '/admin/products',
+    element: react_1["default"].createElement(Pages.Products, null),
+    isRoute: true
+  },
+  productDetail: {
+    name: 'Product Detail',
+    action: '/admin/products/:id',
+    element: react_1["default"].createElement(Pages.ProductDetail, null),
+    isRoute: true
+  },
+  categories: {
+    name: 'Categories',
+    action: '/admin/categories',
+    element: react_1["default"].createElement(Pages.Categories, null),
+    isRoute: true
+  },
+  categoryDetail: {
+    name: 'Category Detail',
+    action: '/admin/categories/:id',
+    element: react_1["default"].createElement(Pages.CategoryDetail, null),
+    isRoute: true
+  },
   dashboard: {
     name: 'Dashboard',
-    action: '/',
+    action: '/admin',
     element: react_1["default"].createElement(Pages.Dashboard, null),
+    isRoute: true
+  },
+  contact: {
+    name: 'Contact',
+    action: '/contact',
+    element: react_1["default"].createElement(Pages.ClientContact, null),
+    isRoute: true
+  },
+  about: {
+    name: 'About',
+    action: '/about',
+    element: react_1["default"].createElement(Pages.ClientAbout, null),
+    isRoute: true
+  },
+  shops: {
+    name: 'Shops',
+    action: '/shops',
+    element: react_1["default"].createElement(Pages.Shops, null),
+    isRoute: true
+  },
+  clientProductDetail: {
+    name: 'Product Detail',
+    action: '/products/:id',
+    element: react_1["default"].createElement(Pages.ClientProductDetail, null),
+    isRoute: true
+  },
+  home: {
+    name: 'Home',
+    action: '/',
+    element: react_1["default"].createElement(Pages.ClientHomePage, null),
+    isRoute: true
+  },
+  blog: {
+    name: 'blog',
+    action: '/blog',
+    element: react_1["default"].createElement(Pages.ClientBlog, null),
     isRoute: true
   }
 };
-exports.routers = [exports.views.dashboard];
+exports.routers = [exports.views.dashboard, exports.views.orders, exports.views.orderDetail, exports.views.products, exports.views.productDetail, exports.views.categories, exports.views.categoryDetail, exports.views.contact, exports.views.about, exports.views.home, exports.views.shops, exports.views.clientProductDetail, exports.views.blog];
 
 /***/ }),
 
@@ -3481,7 +9561,12 @@ var RenderRouters = function RenderRouters() {
 };
 
 exports.RenderRouters = RenderRouters;
-exports.routes = react_1["default"].createElement(Pages.Layout, null);
+var routes = react_1["default"].createElement(Pages.ClientLayout, null);
+exports.routes = routes;
+
+if (window.location.href.indexOf("admin") > -1) {
+  exports.routes = routes = react_1["default"].createElement(Pages.AdminLayout, null);
+}
 
 /***/ }),
 

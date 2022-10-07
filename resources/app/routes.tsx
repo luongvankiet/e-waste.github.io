@@ -19,6 +19,7 @@ const getRoutes = (
         return null
     })
 
+
     return rs
 }
 
@@ -26,4 +27,10 @@ export const RenderRouters = () => {
     return <Routes>{getRoutes(routers)}</Routes>
 }
 
-export const routes = <Pages.Layout />
+let routes = <Pages.ClientLayout />
+
+if (window.location.href.indexOf("admin") > -1) {
+    routes = <Pages.AdminLayout />
+}
+
+export {routes};
